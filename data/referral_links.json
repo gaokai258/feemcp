@@ -21,9 +21,9 @@
     "bitget": {
       "url": "https://partner.bitget.cafe/bg/7CYS1K",
       "discount": "20%",
-      "my_rebate_rate": "TBD",
+      "my_rebate_rate": "40%",
       "regions": ["global"],
-      "notes": "Bitget affiliate link (partner.bitget.cafe); confirm the exact rebate rate in the Bitget affiliate dashboard. User discount set to the standard 20%."
+      "notes": "Bitget affiliate link (partner.bitget.cafe); user gets 20% fee discount, operator earns 40% rebate from the Bitget Affiliate program."
     },
     "gate": {
       "url": "https://www.gatesites.cc/zh/signup/AVVHAFs?ref_type=103",
