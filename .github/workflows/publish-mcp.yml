@@ -23,6 +23,22 @@ jobs:
       - name: Validate server.json
         run: ./mcp-publisher validate
 
+      - name: Wait for npm version to propagate
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          EXPECTED_VERSION: ${{ github.ref_name }}
+        run: |
+          # github ref is like v0.47.2; npm metadata needs a few minutes after publish
+          VERSION="${EXPECTED_VERSION#v}"
+          for i in $(seq 1 30); do
+            PUBLISHED=$(npm view fee-optimizer-mcp version 2>/dev/null || true)
+            echo "attempt $i: npm latest=$PUBLISHED, want=$VERSION"
+            if [ "$PUBLISHED" = "$VERSION" ]; then exit 0; fi
+            sleep 15
+          done
+          echo "npm version $VERSION did not become visible in time" >&2
+          exit 1
+
       - name: Authenticate to MCP Registry (GitHub OIDC)
         run: ./mcp-publisher login github-oidc
 
