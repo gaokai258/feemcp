@@ -1,0 +1,220 @@
+{
+  "last_verified": "2026-09",
+  "note": "v0.22 trader persona presets for analyze_persona. Each persona bundles behavior assumptions (monthly volume, maker share, position exposure, order size, fiat/withdrawal habits) into the existing annual-cost stack. Presets are research-anchored archetypes, not individual profiles — every parameter can be overridden per call. Fiat amounts are modeled only through direct exchange-operated rails; venues without a qualifying rail are flagged (P2P/third-party gateways, typically 1.99-5.5% at checkout, are not priced).",
+  "sources": [
+    {
+      "name": "Traders Union — How retail investors really trade crypto: 2026 study (1,200 active retail traders, NA/EU/Asia; 64% buy after price rises, 63% use no stop-loss, reactive/pro-cyclical behavior)",
+      "url": "https://tradersunion.com/interesting-articles/retail-crypto-trading-study/"
+    },
+    {
+      "name": "Sealaunch/Foresight News via ChainCatcher — Polymarket wallet segmentation: frequency × volume matrix P1-P7 (2% high-frequency high-capital users create ~88-90% of volume; 69% low-frequency small retail; archetypes P2 low-active retail, P4 high-depth retail, P5 low-frequency HNW, P6 HFT professional, P7 high-frequency small player)",
+      "url": "https://www.chaincatcher.com/en/article/2255057"
+    },
+    {
+      "name": "CryptoLabs 2026 fee guide — persona-based platform selection: beginner/small budget (<€1,000/mo), active or swing trader (€1,000-10,000/mo), scalper/HFT (>€10,000/mo), long-term HODL investor; fees can erode 20-30% of annual gains; spread can double real cost on low-liquidity venues",
+      "url": "https://www.cryptolabs.fr/frais-trading-crypto-comparaison/"
+    }
+  ],
+  "personas": [
+    {
+      "id": "casual_buyer",
+      "name_en": "Casual buyer",
+      "name_zh": "小额入门买家",
+      "tagline_zh": "每月几百美元随买随用，法币入金渠道决定真实成本",
+      "description_zh": "刚开始接触加密货币的零售用户，每月用银行卡买入几百美元的 BTC/USDT，基本是市价吃单，很少交易，偶尔把币提到自己的钱包。对他们来说，银行卡手续费和点差远比 VIP 费率重要。",
+      "purpose": "spot",
+      "monthly_volume_usd": 500,
+      "maker_share": 0,
+      "use_token": false,
+      "trade_size_usd": 500,
+      "withdrawal_asset": "USDT",
+      "withdrawals_per_year": 2,
+      "fiat": {
+        "deposits_per_year": 12,
+        "deposit_amount_usd": 500,
+        "currency": "USD",
+        "method": "card"
+      },
+      "dominant_costs": ["fiat", "trading_fee", "withdrawal"],
+      "assumptions": [
+        "月交易量 $500，全部市价吃单（maker 占比 0）",
+        "每月 1 次 $500 信用卡/借记卡买入（新手典型行为；刷卡费 1.1%-4.5%，远高于银行转账）",
+        "每年 2 次 USDT 提币到自己的链上钱包",
+        "不持有任何平台币，不关注 VIP 档位",
+        "改用 ACH/SEPA 等免费银行渠道会让法币成本趋近于零——结果中会体现这一差距"
+      ],
+      "research_basis": "对应 P1/P2 低活跃小额零售（Polymarket 画像）与 fee-guide 的 beginner/small budget 段；TU 2026 研究显示新手以反应式市价买入为主"
+    },
+    {
+      "id": "hodler_accumulator",
+      "name_en": "DCA HODLer",
+      "name_zh": "定投囤币党",
+      "tagline_zh": "每月定额买入并冷存储，银行通道与提币费是长期隐形成本",
+      "description_zh": "有纪律的长期投资者，每月银行转账 $3,000 定投，部分用限价单，买到后定期把 BTC 提到冷钱包，偶尔卖出提现回银行。不做杠杆，交易不频繁但资金通道年年都在用。",
+      "purpose": "spot",
+      "monthly_volume_usd": 3000,
+      "maker_share": 0.2,
+      "use_token": false,
+      "trade_size_usd": 1000,
+      "withdrawal_asset": "BTC",
+      "withdrawals_per_year": 6,
+      "fiat": {
+        "deposits_per_year": 12,
+        "deposit_amount_usd": 3000,
+        "currency": "USD",
+        "cashouts_per_year": 1,
+        "cashout_amount_usd": 5000
+      },
+      "dominant_costs": ["fiat", "withdrawal", "trading_fee"],
+      "assumptions": [
+        "月交易量 $3,000，20% 限价挂单",
+        "每月 1 次 $3,000 银行渠道入金（ACH/SEPA 等免费或近免费渠道优先）",
+        "每年 6 次 BTC 提币到冷钱包（按最便宜的开放网络）",
+        "每年 1 次 $5,000 卖出提现回银行账户",
+        "不持有平台币"
+      ],
+      "research_basis": "对应 fee-guide 的 long-term HODL investor（关注提币费与合规安全，费用 10 年复利侵蚀可达数千美元）"
+    },
+    {
+      "id": "active_spot_trader",
+      "name_en": "Active spot trader",
+      "name_zh": "活跃现货交易员",
+      "tagline_zh": "月成交数万美元、限价为主，费率档位+提币周转是核心",
+      "description_zh": "全职/半全职现货交易员，月成交约 8 万美元，大量使用限价单，已经在加密生态内（不再频繁法币出入金），每月把利润/周转资金提出交易所。VIP 档位与 maker 返免敏感。",
+      "purpose": "spot",
+      "monthly_volume_usd": 80000,
+      "maker_share": 0.65,
+      "use_token": false,
+      "trade_size_usd": 5000,
+      "withdrawal_asset": "USDT",
+      "withdrawals_per_year": 12,
+      "fiat": {
+        "deposits_per_year": 0,
+        "currency": "USD"
+      },
+      "dominant_costs": ["trading_fee", "execution", "withdrawal"],
+      "assumptions": [
+        "月交易量 $80,000，65% 限价 maker 成交",
+        "单笔吃单规模约 $5,000，承担半价差穿越成本",
+        "每年 12 次 USDT 提币（利润转出/跨所周转）",
+        "资金已在加密生态内，不算法币入金成本",
+        "默认不使用平台币（结果会提示平台币可省多少）"
+      ],
+      "research_basis": "对应 P4 high-depth retail（201-1000 笔/周期、$1万-10万美元）与 fee-guide active trader 段"
+    },
+    {
+      "id": "swing_futures_trader",
+      "name_en": "Swing futures trader",
+      "name_zh": "合约波段手",
+      "tagline_zh": "持仓数天的永续波段，资金费常常比手续费更贵",
+      "description_zh": "交易 BTC/ETH 永续合约的波段交易者，月成交约 15 万美元，每笔仓位持有 2-5 天，月持仓敞口约 160 小时，多空双向。资金费率结算是其最大隐性成本之一，其次才是手续费和点差。",
+      "purpose": "futures",
+      "monthly_volume_usd": 150000,
+      "maker_share": 0.5,
+      "use_token": false,
+      "holding_hours": 160,
+      "trade_size_usd": 10000,
+      "withdrawal_asset": "USDT",
+      "withdrawals_per_year": 6,
+      "fiat": {
+        "deposits_per_year": 0,
+        "currency": "USD"
+      },
+      "dominant_costs": ["funding", "trading_fee", "execution"],
+      "assumptions": [
+        "月交易量 $150,000，50% 限价单",
+        "每月持仓敞口 160 小时（约 20 个 8 小时资金费结算周期），按内置中性均值 0.01%/8h 计价",
+        "单笔市价单约 $10,000，计入半价差穿越成本",
+        "每年 6 次 USDT 提币",
+        "资金费按多头支付中性均值估算；真实市场可为负（空头收费/多头付费），可用 fundingMode=live 重算"
+      ],
+      "research_basis": "对应 fee-guide active/swing trader（€1k-10k+/月）与 TU 研究中持有隔夜仓位的活跃散户；资金费为合约持仓的结构性成本"
+    },
+    {
+      "id": "day_scalper",
+      "name_en": "Day scalper / HFT retail",
+      "name_zh": "高频刷单散户",
+      "tagline_zh": "月成交数百万、九成限价，1bp 费率差就是年利润",
+      "description_zh": "日内高频/刷单型散户或小团队，月成交达 300 万美元，九成靠限价 maker 成交，几乎不持仓跨资金费周期，利润完全来自费率差与点差。对 maker 费率、VIP 门槛和撮合深度极端敏感。",
+      "purpose": "futures",
+      "monthly_volume_usd": 3000000,
+      "maker_share": 0.9,
+      "use_token": false,
+      "holding_hours": 8,
+      "trade_size_usd": 10000,
+      "withdrawal_asset": "USDT",
+      "withdrawals_per_year": 12,
+      "fiat": {
+        "deposits_per_year": 0,
+        "currency": "USD"
+      },
+      "dominant_costs": ["trading_fee", "execution", "withdrawal"],
+      "assumptions": [
+        "月交易量 $3,000,000，90% 限价 maker 成交",
+        "持仓敞口仅 8 小时/月，几乎不承担资金费",
+        "单笔吃单约 $10,000，执行成本按半价差年化到全部成交名义额",
+        "每年 12 次 USDT 提币",
+        "不假设账户资产升档（结果会给出资产/成交量升 VIP 的年省金额）"
+      ],
+      "research_basis": "对应 P7 high-frequency small player 与 P6 专业高频的零售边缘；fee-guide scalper/HFT 段（>€10,000/月，费率敏感度最高）"
+    },
+    {
+      "id": "vip_institutional",
+      "name_en": "VIP / institutional desk",
+      "name_zh": "高净值/机构 VIP",
+      "tagline_zh": "月成交三千万美元级，VIP 资产通道、负 maker 返佣与大单冲击主导",
+      "description_zh": "高净值个人或小型机构交易台，月成交约 3,000 万美元，账户常备 300 万美元资产，混合挂单/吃单，单笔可达 10 万美元，有跨夜持仓。关心 VIP4+ 档位、负 maker 返佣、API 成交量限制和大单滑点。",
+      "purpose": "futures",
+      "monthly_volume_usd": 30000000,
+      "maker_share": 0.6,
+      "use_token": false,
+      "account_assets_usd": 3000000,
+      "holding_hours": 200,
+      "trade_size_usd": 100000,
+      "withdrawal_asset": "USDT",
+      "withdrawals_per_year": 4,
+      "fiat": {
+        "deposits_per_year": 0,
+        "currency": "USD"
+      },
+      "dominant_costs": ["trading_fee", "funding", "execution"],
+      "assumptions": [
+        "月交易量 $30,000,000，60% maker",
+        "账户总资产约 $3,000,000，可触发 OKX/Bybit/Bitget/BingX 等的资产 VIP 通道",
+        "每月持仓敞口 200 小时",
+        "单笔市价单 $100,000——bundled 模式只计半价差，强烈建议用 spreadMode=live 看真实深度滑点",
+        "每年 4 次 USDT 提币",
+        "不使用平台币；顶级 VIP 实际常与所方私下议价，模型只反映公开费率"
+      ],
+      "research_basis": "对应 P5 low-frequency HNW 与 P6 HFT professional（2% 用户贡献约 90% 成交量）；公开 VIP 阶梯上限，真实机构费率多为协商价"
+    },
+    {
+      "id": "dex_native",
+      "name_en": "DEX-native / no-KYC trader",
+      "name_zh": "链上原生/无 KYC 玩家",
+      "tagline_zh": "自托管出入金、不做 KYC，资金费+链上提币成本+可用性决定选择",
+      "description_zh": "偏好链上交易与自托管的用户，USDC 直接在链上出入，不做法币充值、不愿完成 KYC，交易永续合约为主并频繁把资金提到自有钱包/其他链。Hyperliquid 这类 DEX 与限制较少的 CEX 是主要候选；法币渠道缺失被显式标注而非当作零成本。",
+      "purpose": "futures",
+      "monthly_volume_usd": 120000,
+      "maker_share": 0.5,
+      "use_token": false,
+      "holding_hours": 80,
+      "trade_size_usd": 5000,
+      "withdrawal_asset": "USDC",
+      "withdrawals_per_year": 24,
+      "fiat": {
+        "deposits_per_year": 0,
+        "currency": "USD"
+      },
+      "dominant_costs": ["funding", "withdrawal", "trading_fee"],
+      "assumptions": [
+        "月交易量 $120,000，50% maker",
+        "每月持仓敞口 80 小时（10 个 8 小时结算周期；Hyperliquid 为小时结算，等价中性均值）",
+        "资金完全链上出入：每年 24 次 USDC 提币到自托管钱包",
+        "零法币渠道需求——没有直连法币通道的所不会被算作零成本，而是在结果中标注（实际走 P2P/网关通常 1.99-5.5%）",
+        "合规过滤仍然生效：例如 Hyperliquid 前端对 US 地区封锁，居住国决定候选名单"
+      ],
+      "research_basis": "对应 2026 受众细分中的 DeFi/self-custody native 段；DEX（Hyperliquid）2025-2026 年永续成交量份额上升，无 KYC 与统一账户是核心卖点"
+    }
+  ]
+}

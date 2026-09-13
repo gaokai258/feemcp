@@ -1,0 +1,21 @@
+{
+  "last_verified": "2026-09",
+  "note": "Static USD snapshot prices for exchange native tokens used to estimate the opportunity cost of holding a token for fee discounts. Prices are NOT live — they are a 2026-09-12 market snapshot and should be treated as estimates. The analyze_token_discount tool also accepts an explicit tokenPriceUsd override when the caller wants current pricing.",
+  "sources": [
+    { "name": "Decrypt.co live price ticker (2026-09-12 snapshot): BNB/OKB/HYPE/BGB/GT/KCS", "url": "https://decrypt.co/price/binance-coin" },
+    { "name": "Coinlore live price rankings (2026-09-12 03:49 UTC): BNB $734.79, HYPE $78.70", "url": "https://www.coinlore.com/" },
+    { "name": "tokenpost.com market snapshot (2026-09-07): OKB $113.6, BGB $1.939, GT $9.381, KCS $6.885", "url": "http://tokenpost.com/market" },
+    { "name": "jb51.net OKB & KCS quote pages (2026-09-12): OKB $113.22, KCS $6.9973", "url": "https://www.jb51.net/coin/okb-eth.html" },
+    { "name": "Coinlore PT/USDT market snapshot (2026-09-12 02:05 UTC): PT $0.3190", "url": "https://www.coinlore.com/coin/phemex/exchanges" }
+  ],
+  "prices": {
+    "BNB": 730,
+    "OKB": 113,
+    "GT": 9.1,
+    "MX": 0.07,
+    "BGB": 1.96,
+    "KCS": 7.0,
+    "HYPE": 80,
+    "PT": 0.32
+  }
+}

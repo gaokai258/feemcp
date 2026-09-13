@@ -1,0 +1,80 @@
+{
+  "last_verified": "2026-09",
+  "sources": [
+    { "name": "Binance BNB discount terms", "url": "https://www.binance.com/en/fee/schedule" },
+    { "name": "OKX VIP levels", "url": "https://www.okx.com/fees" },
+    { "name": "Gate.io GT fee deduction", "url": "https://www.gate.io/fee" },
+    { "name": "MEXC MX fee discounts (official guide, Feb 2026)", "url": "https://www.mexc.io/learn/article/how-to-use-mx-for-trading-fee-discounts/1" },
+    { "name": "Bitget BGB fee discount", "url": "https://www.bitget.com/fee" },
+    { "name": "KuCoin KCS fee deduction (VIP fee structure, updated 2026-05-07)", "url": "https://www.kucoin.com/support/48142946141635" },
+    { "name": "Hyperliquid fees — staking-linked discount tiers (official docs, verified 2026-09-12)", "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees" },
+    { "name": "Phemex PT token fee discount (rononcrypto Phemex Fees 2026 guide + exchangereviewlab, verified 2026-09-12)", "url": "https://rononcrypto.com/blog/phemex-fees-2026", "note": "Enable 'Use PT to pay fees' toggle for a flat 20% discount on both spot and futures trading fees. PT holdings do NOT qualify fee tiers (qualification is volume-only). Up to 40% discount is cited in some marketing materials but the standard verified deduction is 20%." }
+  ],
+  "exchanges": {
+    "binance": {
+      "token": "BNB",
+      "spot_discount_pct": 25,
+      "futures_discount_pct": 10,
+      "description": "Pay fees with BNB for 25% off spot, 10% off futures."
+    },
+    "okx": {
+      "token": "OKB",
+      "spot_discount_pct": 0,
+      "futures_discount_pct": 0,
+      "description": "OKB discount is woven into OKX VIP tiers, no additional token discount layer."
+    },
+    "gate": {
+      "token": "GT",
+      "spot_discount_pct": 0,
+      "futures_maker_to_zero": true,
+      "holding_tiers": [
+        { "min_balance": 100, "discount_pct": 10 },
+        { "min_balance": 500, "discount_pct": 20 },
+        { "min_balance": 2000, "discount_pct": 35 },
+        { "min_balance": 20000, "discount_pct": 50 }
+      ],
+      "description": "Pay fees with GT: futures maker drops to 0%. Holding GT tiers give 10-50% off all fees."
+    },
+    "mexc": {
+      "token": "MX",
+      "spot_discount_pct": 20,
+      "futures_discount_pct": 20,
+      "holding_tiers": [
+        { "min_balance": 500, "discount_pct": 50 }
+      ],
+      "description": "MX deduction toggle: 20% off spot+futures. Holding 500+ MX grants 50% off automatically; the greater discount applies (they do not stack)."
+    },
+    "bitget": {
+      "token": "BGB",
+      "spot_discount_pct": 20,
+      "futures_discount_pct": 20,
+      "description": "Pay fees with BGB for 20% off spot and futures (0.02%/0.06% -> 0.016%/0.048% at VIP0)."
+    },
+    "kucoin": {
+      "token": "KCS",
+      "spot_discount_pct": 20,
+      "futures_discount_pct": 20,
+      "description": "Enable 'Use KCS to pay fees' (any KCS balance; ~6 KCS also unlocks the daily KCS bonus) for 20% off spot Class A/B/C and futures fees, e.g. VIP0 spot 0.10%/0.10% -> 0.08%/0.08%. At VIP8+ maker is already 0%, so the KCS discount effectively applies to the taker side only. KCS holdings of 1,000-150,000 KCS also qualify VIP1-12 via the holdings track (see fee tiers)."
+    },
+    "hyperliquid": {
+      "token": "HYPE",
+      "spot_discount_pct": 0,
+      "futures_discount_pct": 0,
+      "holding_tiers": [
+        { "min_balance": 10, "discount_pct": 5 },
+        { "min_balance": 100, "discount_pct": 10 },
+        { "min_balance": 1000, "discount_pct": 15 },
+        { "min_balance": 10000, "discount_pct": 20 },
+        { "min_balance": 100000, "discount_pct": 30 },
+        { "min_balance": 500000, "discount_pct": 40 }
+      ],
+      "description": "Staking-linked discount (NOT a fee-payment toggle): stake 10/100/1k/10k/100k/500k HYPE to get 5/10/15/20/30/40% off all maker+taker fees, spot and perps. Stacks multiplicatively with the volume tier. Merely holding HYPE in the trading account gives no discount — tokenBalance should be the STAKED amount linked to the account. Holding HYPE does not qualify any fee tier (qualification is volume-only)."
+    },
+    "phemex": {
+      "token": "PT",
+      "spot_discount_pct": 20,
+      "futures_discount_pct": 20,
+      "description": "Enable 'Use PT to pay fees' toggle for 20% off spot and futures fees. PT holdings do NOT qualify fee tiers (Phemex tier qualification is 30-day volume only)."
+    }
+  }
+}

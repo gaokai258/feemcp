@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.tgz
+*.log
+.DS_Store
+.env
+.env.*
+coverage/
+.vitest/
+
+# Local agent/IDE working documents
+.trae/

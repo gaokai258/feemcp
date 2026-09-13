@@ -1,0 +1,234 @@
+{
+  "last_verified": "2026-09",
+  "verified_date": "2026-09-13",
+  "sources": [
+    {
+      "name": "ESMA Statement on the End of Transitional Periods under MiCA (ESMA75-113276571-1679), 2026-04-17",
+      "url": "https://www.esma.europa.eu/sites/default/files/2026-04/ESMA75-113276571-1679_Statement_on_the_end_of_transitional_periods_under_MiCA.pdf"
+    },
+    {
+      "name": "Tether abandons Europe as MiCA ban wipes USDT from exchanges (crypto.news, 2026-07-01)",
+      "url": "https://crypto.news/tether-abandons-europe-as-mica-ban-wipes-usdt/"
+    },
+    {
+      "name": "Binance to delist non-MiCA compliant stablecoins in Europe on March 31 (Cointelegraph, 2025-03-03)",
+      "url": "https://cointelegraph.com/news/binance-delist-non-mica-stablecoins-eea-march-31"
+    },
+    {
+      "name": "MiCA Licensed Exchanges: Bybit EU runs USDQ/EURQ, USDT delisted for EU retail (Coinperps Research, 2026-07-01)",
+      "url": "https://www.coinperps.com/learn/mica-licensed-exchanges"
+    },
+    {
+      "name": "Best Stablecoin Exchanges in Europe 2026 — Bitvavo/Coinbase/Kraken/Bitstamp USDT status table (BitcoinMarkets, updated 2026-04-22)",
+      "url": "https://bitcoinmarket.net/guide/best-stablecoin-exchange-europe-2026-en.html"
+    },
+    {
+      "name": "BISON support: stablecoins such as USDC and USDT are not available at BISON and there are no plans to add them",
+      "url": "https://support.bisonapp.com/hc/de/articles/18420893858717-Welche-Kryptow%C3%A4hrungen-und-Wertpapiere-kann-ich-bei-BISON-erwerben"
+    },
+    {
+      "name": "July 1 is Here: What's Really Happening in European Crypto — exchange-by-exchange USDT status (BitcoinMarkets, 2026-07-01)",
+      "url": "https://bitcoinmarket.net/magazine/what-happened-july-1-crypto-europe-2026-en.html"
+    }
+  ],
+  "regulation": {
+    "framework": "MiCA — Regulation (EU) 2023/1114 on Markets in Crypto-Assets",
+    "emt_rules_effective": "2024-06-30",
+    "casp_transition_end": "2026-07-01",
+    "region": "EEA",
+    "self_custody_allowed": true,
+    "self_custody_note": "ESMA confirms the restriction binds licensed CASP venues, not the asset: individuals may keep holding, sending and withdrawing non-authorized stablecoins to self-custody; decentralized trading sits outside the MiCA services perimeter. USDT is not banned in Europe — it is unavailable on regulated European order books."
+  },
+  "assets": {
+    "USDT": {
+      "name": "Tether USDt",
+      "issuer": "Tether Operations Limited",
+      "mica_authorized": false,
+      "issuer_note": "Tether never applied for MiCA e-money-token (EMT) authorization; its CEO called the significant-token requirement (~60% of reserves held as EU bank deposits) incompatible with its US-Treasury reserve model. Tether also discontinued its euro stablecoin EURT in 2024.",
+      "region_rules": {
+        "EEA": {
+          "venue_trading": "unavailable",
+          "effective": "2026-07-01",
+          "wave_note": "EEA spot pairs disappeared in waves before the hard cliff: Coinbase 2024-12, Crypto.com 2025-01, Binance/Kraken/OKX and the remaining CASPs by 2025-03-31 (ESMA's 'no trace, not even sell-only' deadline). Revolut was the last major platform, with buy ending 2026-07-06 and residual balances auto-converted to fiat after 2026-08-31.",
+          "custody_withdrawal": "Most delisting venues retained custody plus on-chain deposit/withdrawal and a convert-to-USDC/EUR/fiat path during wind-down; OKX initially froze USDT sent to EEA accounts by mistake and later enabled on-chain withdrawal. Binance guaranteed continued withdrawals after its own EEA exit. Policies change per venue — verify before sending.",
+          "self_custody_allowed": true,
+          "alternatives": ["USDC", "EURC", "EURI", "EURCV", "USDQ/EURQ"],
+          "note": "After 2026-07-01 no MiCA-licensed venue can offer USDT trading to EEA residents without risking its CASP licence. Globally USDT remains the dominant stablecoin (~$180bn+) and trades normally in the US, UK, APAC and LatAm; the split is regulatory, not a failure of the token."
+        }
+      }
+    },
+    "USDC": {
+      "name": "USD Coin",
+      "issuer": "Circle Internet Financial (EU entity licensed as EMI in France)",
+      "mica_authorized": true,
+      "authorized_note": "First major stablecoin issuer to receive full MiCA authorization (July 2024), passportable across all member states; the default dollar rail on EEA venues."
+    },
+    "EURC": {
+      "name": "Euro Coin",
+      "issuer": "Circle Internet Financial",
+      "mica_authorized": true,
+      "authorized_note": "Circle's euro EMT under the same French MiCA authorization; the regulated euro alternative on most EEA venues."
+    },
+    "EURI": {
+      "name": "Eurite",
+      "issuer": "Banking Circle",
+      "mica_authorized": true,
+      "authorized_note": "MiCA-authorized euro e-money token; listed on venues including Bitvavo and (during the Binance wind-down) retained by Binance as an EEA-compliant alternative."
+    },
+    "EURCV": {
+      "name": "EUR CoinVertible",
+      "issuer": "Societe Generale FORGE",
+      "mica_authorized": true,
+      "authorized_note": "MiCA-compliant institutional euro EMT; among the few digital assets BISON lists (USDC/USDT deliberately excluded), also on Bitstamp."
+    },
+    "USDQ": {
+      "name": "Quantoz USDQ",
+      "issuer": "Quantoz Payments (Netherlands EMI)",
+      "mica_authorized": true,
+      "authorized_note": "MiCA-authorized dollar stablecoin; together with EURQ it became the primary USD quote rail on Bybit EU after USDT became unavailable."
+    },
+    "EURQ": {
+      "name": "Quantoz EURQ",
+      "issuer": "Quantoz Payments (Netherlands EMI)",
+      "mica_authorized": true,
+      "authorized_note": "MiCA-authorized euro stablecoin; together with USDQ it became the primary quote rail on Bybit EU after USDT became unavailable."
+    }
+  },
+  "venues": {
+    "binance": {
+      "USDT": {
+        "scope": "eea",
+        "status": "delisted",
+        "since": "2025-03-31",
+        "note": "Delisted USDT plus eight other non-MiCA stablecoins (incl. DAI, FDUSD, TUSD) from EEA spot pairs on 2025-03-31; custody, on-chain deposit/withdrawal and Binance Convert to USDC/EURI/EUR remained. Binance withdrew its Greek CASP application on 2026-06-24 and ceased all EEA services at the 2026-07-01 cliff; existing balances remain withdrawable."
+      }
+    },
+    "coinbase": {
+      "USDT": {
+        "scope": "eea",
+        "status": "delisted",
+        "since": "2024-12",
+        "note": "First major venue to remove USDT for EEA users (December 2024); EEA order books quote EUR and USDC instead."
+      }
+    },
+    "kraken": {
+      "USDT": {
+        "scope": "eea",
+        "status": "delisted",
+        "since": "2025-03",
+        "note": "Moved EEA users to a sell-only window in March 2025 and ended USDT spot access as the MiCA deadline approached; USDC and EUR pairs remain."
+      }
+    },
+    "okx": {
+      "USDT": {
+        "scope": "eea",
+        "status": "delisted",
+        "since": "2025-03",
+        "note": "OKX Europe (MFSA Malta) cannot list USDT under MiCA; EEA access removed in the March 2025 wave. USDT sent to EEA accounts by mistake was initially frozen, then an on-chain withdrawal path was enabled."
+      }
+    },
+    "bitstamp": {
+      "USDT": {
+        "scope": "eea",
+        "status": "delisted",
+        "since": "2025",
+        "note": "USDT has never been an EU on-exchange order-book pair at Bitstamp; regulated EU clients use USD/USDC and EUR rails (EURCV also listed)."
+      }
+    },
+    "bitpanda": {
+      "USDT": {
+        "scope": "eea",
+        "status": "delisted",
+        "since": "2025",
+        "note": "USDT discontinued for EEA clients during the 2025 MiCA stablecoin wave; USDC and EURC remain, and BTC/USDC (not BTC/USDT) is the dollar-stablecoin band the v0.44 fee model prices."
+      }
+    },
+    "bitvavo": {
+      "USDT": {
+        "scope": "eea",
+        "status": "delisted",
+        "since": "2025-01",
+        "note": "Announced the USDT delisting in January 2025, ahead of ESMA's 2025-03-31 deadline; now lists the broadest compliant stablecoin set (USDC, EURC, EURI)."
+      }
+    },
+    "gate": {
+      "USDT": {
+        "scope": "eea",
+        "status": "delisted",
+        "since": "2025-03",
+        "note": "Gate's EU entity (Gate Technology, MFSA Malta CASP) removed USDT pairs for EEA residents in the March 2025 wave; the global gate.com USDT books remain reachable only outside the EEA."
+      }
+    },
+    "bybit": {
+      "USDT": {
+        "scope": "eea",
+        "status": "never_offered",
+        "since": "2025",
+        "note": "EEA residents are restricted to Bybit EU GmbH (FMA Austria), which never listed USDT; its dollar/euro quote rails run on the MiCA-authorized Quantoz USDQ and EURQ stablecoins."
+      }
+    },
+    "finst": {
+      "USDT": {
+        "scope": "global",
+        "status": "never_offered",
+        "note": "Finst's 400+ markets are EUR and USDC only; USDT was never listed on the platform."
+      }
+    },
+    "bison": {
+      "USDT": {
+        "scope": "global",
+        "status": "never_offered",
+        "note": "Official BISON support: stablecoins such as USDC and USDT (Tether) are not available and there are no plans to add them; the curated 56-asset list includes the compliant EUR CoinVertible (EURCV) instead."
+      }
+    },
+    "hyperliquid": {
+      "USDT": {
+        "scope": "global",
+        "status": "never_offered",
+        "note": "Non-custodial DEX with USDC collateral and USDC-margined perpetuals only; USDT has never been a collateral or quote asset, and the protocol operates outside the CASP venue perimeter."
+      }
+    },
+    "mexc": {
+      "USDT": {
+        "scope": "eea",
+        "status": "venue_blocked",
+        "note": "No MiCA CASP authorization: the venue itself is region-blocked for every EEA resident since the 2026-07-01 cliff, so its global USDT books cannot be accessed legally from the EEA. USDT trading continues on the global platform for non-EEA users."
+      }
+    },
+    "bitget": {
+      "USDT": {
+        "scope": "eea",
+        "status": "venue_blocked",
+        "note": "No MiCA CASP authorization: the venue itself is region-blocked for every EEA resident since the 2026-07-01 cliff, so its global USDT books cannot be accessed legally from the EEA. USDT trading continues on the global platform for non-EEA users."
+      }
+    },
+    "kucoin": {
+      "USDT": {
+        "scope": "eea",
+        "status": "venue_blocked",
+        "note": "KuCoin's authorized EU entity remains under an FMA commencement prohibition; the venue is region-blocked for EEA residents and its global USDT books are not legally reachable from the EEA."
+      }
+    },
+    "bingx": {
+      "USDT": {
+        "scope": "eea",
+        "status": "venue_blocked",
+        "note": "No MiCA CASP authorization: the venue itself is region-blocked for every EEA resident since the 2026-07-01 cliff, so its global USDT books cannot be accessed legally from the EEA. USDT trading continues on the global platform for non-EEA users."
+      }
+    },
+    "phemex": {
+      "USDT": {
+        "scope": "eea",
+        "status": "venue_blocked",
+        "note": "No MiCA CASP authorization: the venue itself is region-blocked for every EEA resident since the 2026-07-01 cliff, so its global USDT books cannot be accessed legally from the EEA. USDT trading continues on the global platform for non-EEA users."
+      }
+    },
+    "blofin": {
+      "USDT": {
+        "scope": "eea",
+        "status": "venue_blocked",
+        "note": "No MiCA CASP authorization: the venue itself is region-blocked for every EEA resident since the 2026-07-01 cliff, so its global USDT books cannot be accessed legally from the EEA. USDT trading continues on the global platform for non-EEA users."
+      }
+    }
+  }
+}

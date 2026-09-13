@@ -1,0 +1,95 @@
+{
+  "last_verified": "2026-09",
+  "sources": [
+    { "name": "MEXC 0-Fee Fest (official)", "url": "https://www.mexc.com/zero-fee", "note": "All spot pairs at 0% maker + 0% taker (default structure, no opt-in); 100+ futures pairs at 0/0 subject to per-account evaluation, volume quotas and expiry." },
+    { "name": "Binance zero-fee promotion update for FDUSD spot & margin pairs (2026-01-29)", "url": "https://www.binance.com/en/support/announcement", "note": "BTC/BNB/DOGE/ETH/LINK/SOL/XRP vs FDUSD: maker stays 0%, taker charged at standard rate; volume counts toward VIP; stacks with BNB discount." },
+    { "name": "Binance USDC pair promotion", "url": "https://www.binance.com/en/fee/tradingPromote", "note": "USDC quote pairs: zero maker, discounted taker (promo, subject to change)." },
+    { "name": "Bitget zero-fee promotion for USDGO/USDT and USDC/USDT (2026-07-14)", "url": "https://www.bitget.com/support/articles/12560603889198", "note": "Zero maker + taker on spot margin orders; end time TBD; volume does NOT count toward VIP; no rebates during promo." },
+    { "name": "Bybit trading fee structure (official, 2026-09-02)", "url": "https://www.bybit.com/en/help-center/article/Trading-Fee-Structure", "note": "No spot promo on crypto-crypto majors; standard tiers apply." },
+    { "name": "OKX / Gate.io fee schedules", "url": "https://www.okx.com/fees", "note": "No standing pair-level promos on majors; standard tiers apply." },
+    { "name": "Bitpanda consumer brokerage premium bands by asset category (official premium schedule; kagels-trading.de 2026-09-01, invezz UK worked example 2026-07-21)", "url": "https://support.bitpanda.com/hc/en-us/articles/360013347939-Which-fees-does-Bitpanda-charge", "note": "Not a promotion: the consumer app's per-side spread premium is asset-banded — Bitcoin and stablecoins 0.99%, most crypto assets 1.49%, small caps up to 2.49%. Modeled as a pair-level 0.99% maker/taker override on BTC and major stablecoin pairs; the 1.49% headline in fee_rates.json applies to everything else." },
+    { "name": "BISON proportional spread by asset category (official bisonapp.com/en/costs retrieved 2026-09-05; BISON press kit 2026-01; verified 2026-09-13)", "url": "https://bisonapp.com/en/costs/", "note": "Not a promotion: BISON's proportional per-side spread averages 1.25% for Bitcoin and Ethereum vs 1.75% for ALL other cryptocurrencies (the 1.75% headline in fee_rates.json). Modeled as pair-level 1.25%/1.25% overrides on the EUR-quoted BTC and ETH pairs; spreads fluctuate with market conditions and trade size. No non-EUR quote pairs modeled (BISON crypto trades settle in EUR)." }
+  ],
+  "exchanges": {
+    "mexc": {
+      "spot": [
+        {
+          "pairs": ["BTC/USDT", "ETH/USDT", "SOL/USDT", "XRP/USDT"],
+          "maker": 0,
+          "taker": 0,
+          "promo": true,
+          "note": "MEXC 0-fee program: all spot pairs trade at 0% maker + 0% taker by default (no opt-in, no volume threshold)."
+        }
+      ],
+      "futures": [
+        {
+          "pairs": ["BTC/USDT", "ETH/USDT", "SOL/USDT", "XRP/USDT"],
+          "maker": 0,
+          "taker": 0,
+          "promo": true,
+          "note": "0-Fee Fest covers 100+ futures pairs. Eligibility is account-evaluated with volume quotas and expiry; falls back to standard 0.01%/0.04% when the quota is exhausted."
+        }
+      ]
+    },
+    "binance": {
+      "spot": [
+        {
+          "pairs": ["BTC/FDUSD", "ETH/FDUSD", "BNB/FDUSD", "DOGE/FDUSD", "LINK/FDUSD", "SOL/FDUSD", "XRP/FDUSD"],
+          "maker": 0,
+          "promo": true,
+          "note": "FDUSD pairs: zero maker fee; taker charged at your standard tier rate (since 2026-01-29). Volume counts toward VIP and stacks with the BNB discount."
+        },
+        {
+          "pairs": ["BTC/USDC", "ETH/USDC"],
+          "maker": 0,
+          "taker": 0.095,
+          "promo": true,
+          "note": "USDC pairs: zero maker with discounted taker (promotion, subject to change)."
+        }
+      ]
+    },
+    "bitget": {
+      "spot": [
+        {
+          "pairs": ["USDC/USDT", "USDGO/USDT"],
+          "maker": 0,
+          "taker": 0,
+          "promo": true,
+          "note": "Zero-fee promotion on spot (margin) orders since 2026-07-14, end time TBD. Volume does not count toward VIP level; no fee rebates during the promo."
+        }
+      ]
+    },
+    "bitpanda": {
+      "spot": [
+        {
+          "pairs": ["BTC/EUR", "BTC/GBP", "BTC/USDC", "BTC/USDT"],
+          "maker": 0.99,
+          "taker": 0.99,
+          "note": "Bitcoin sits in the 0.99% per-side premium band of the consumer brokerage (no separate commission; same premium on buy and sell at every order size)."
+        },
+        {
+          "pairs": ["USDC/EUR", "USDT/EUR", "USDC/GBP", "USDT/GBP", "USDC/USDT", "USDT/USDC"],
+          "maker": 0.99,
+          "taker": 0.99,
+          "note": "Major stablecoins sit in the 0.99% per-side premium band of the consumer brokerage."
+        }
+      ]
+    },
+    "bison": {
+      "spot": [
+        {
+          "pairs": ["BTC/EUR"],
+          "maker": 1.25,
+          "taker": 1.25,
+          "note": "Bitcoin carries BISON's 1.25% per-side proportional spread (vs 1.75% for all other cryptos); no separate commission, same spread on buy and sell at every order size; the quoted all-in price is valid ~10 seconds."
+        },
+        {
+          "pairs": ["ETH/EUR"],
+          "maker": 1.25,
+          "taker": 1.25,
+          "note": "Ethereum carries BISON's 1.25% per-side proportional spread (vs 1.75% for all other cryptos); staking ETH/SOL carries a separate 27% reward commission not modeled here."
+        }
+      ]
+    }
+  }
+}

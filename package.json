@@ -1,0 +1,104 @@
+{
+  "name": "fee-optimizer-mcp",
+  "version": "0.47.0",
+  "description": "An MCP server that compares crypto exchange trading fees across Binance, OKX, Gate.io, Bybit, MEXC, Bitget, KuCoin, Kraken, Coinbase, Hyperliquid, BingX, Phemex, BloFin, Bitstamp, Bitvavo, Finst, Bitpanda and BISON (VIP tiers, token discounts, funding, withdrawals, order-book spread and slippage, spread-broker embedded-markup pricing with measured-vs-advertised execution-quality evidence, fiat on/off-ramp fees, per-network crypto withdrawal fees) and recommends the cheapest venue. Funding rates support bundled long-run averages or real-time live rates via ccxt. Execution cost (bid-ask spread crossing + depth-walk slippage for a given order size) supports bundled typical-spread baselines or live top-100 order-book walks. Read-only API-key support fetches the account's ACTUAL maker/taker fee tier via authenticated ccxt endpoints and compares it with the public schedule (get_account_fee_tier; credentials are never cached or logged). Fiat cost covers direct card and bank rails (card, ACH, SEPA, FPS, PIX, wire, SWIFT) for deposits and cash-outs in USD/EUR/GBP/BRL. Withdrawal fees cover 16 assets across Tron/Ethereum/BSC/L2/Solana/Ton/native chains with suspended-wallet flags and USD conversion. Tools: compare_exchange_fees, get_referral_link, calculate_savings, compare_total_cost, recommend_exchange, get_data_sources, calculate_annual_cost, get_funding_rates, get_execution_cost, get_fiat_cost, get_withdrawal_fees, analyze_persona, compare_personas, list_personas, analyze_token_discount, volume_what_if, compare_countries, get_account_fee_tier, get_stablecoin_access (MiCA regional stablecoin access, e.g. USDT unavailable at all EEA venues after the 2026-07-01 cliff; USDC/EURC/EURI/EURCV/USDQ/EURQ authorized alternatives), compare_interface_costs (consumer app vs PRO dual-interface cost model on the same account: TUM real-money measured hidden spreads — Kraken app 5.81%, Bitpanda 6.23%, Coinbase Simple 7.49% round trip vs Bitvavo 0.58% — with per-venue gap in pp, annualized excess of the consumer app vs PRO at a given monthly volume, and auto-injected consumer_interface hints + CONSUMER_INTERFACE_MORE_EXPENSIVE warnings).",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "fee-optimizer-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "data",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "audit:data": "node scripts/audit-data.mjs",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "start:http": "node dist/index.js --transport http",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepack": "npm run build",
+    "inspector": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "smoke:http": "node scripts/smoke-http.mjs",
+    "docker:build": "docker build -t fee-optimizer-mcp .",
+    "docker:run": "docker run --rm -p 3333:3333 fee-optimizer-mcp"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "crypto",
+    "exchange",
+    "fees",
+    "binance",
+    "okx",
+    "gateio",
+    "bybit",
+    "mexc",
+    "bitget",
+    "kucoin",
+    "kraken",
+    "coinbase",
+    "hyperliquid",
+    "bingx",
+    "phemex",
+    "dex",
+    "referral",
+    "trading",
+    "funding-rate",
+    "perpetual",
+    "spread",
+    "slippage",
+    "order-book",
+    "execution-cost",
+    "market-impact",
+    "fiat",
+    "on-ramp",
+    "sepa",
+    "ach",
+    "deposit-fee",
+    "ccxt",
+    "ai-agent",
+    "stablecoin",
+    "usdt",
+    "mica",
+    "eea",
+    "interface-costs",
+    "hidden-spread",
+    "consumer-app",
+    "instant-buy"
+  ],
+  "author": "Fee Optimizer",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaokai258/fee-optimizer-mcp.git"
+  },
+  "homepage": "https://github.com/gaokai258/fee-optimizer-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/gaokai258/fee-optimizer-mcp/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "ccxt": "^4.5.78",
+    "zod": "^3.25.0 || ^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@vitest/coverage-v8": "^2.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  }
+}

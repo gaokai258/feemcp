@@ -1,0 +1,151 @@
+{
+  "last_verified": "2026-09",
+  "sources": [
+    {
+      "name": "Yieldova — The Crypto Exchange Comparison: 7 Venues Measured for 24 Hours (114,586 order-book snapshots, 2026-04-30)",
+      "url": "https://yieldova.com/crypto-exchange-comparison/",
+      "note": "Median market-order impact at $100-$500k on BTC/ETH/SOL/LINK/AVAX. Finding: on majors at retail sizes the five 0.10%-taker venues are indistinguishable (slippage 0.001-0.007 bps on a $10k order); Kraken and Coinbase materially wider; mid-cap alts widen 1.5-4x and re-rank venues."
+    },
+    {
+      "name": "BestBrokers — Crypto Trading With Low Spreads (live funded-account testing June 2026, updated 2026-07-14)",
+      "url": "https://www.bestbrokers.com/crypto-brokers/crypto-trading-platforms-with-low-spreads/",
+      "note": "Measured Binance average spread: BTC/USDT 0.06%, ETH/USDT 0.08% (24h average including volatile/illiquid hours; median top-of-book is tighter). Same study measured Coinbase Advanced spread ≈0.01% (1 bp) on majors; the consumer app runs ≈0.5%."
+    },
+    {
+      "name": "CryptoCompare Exchange Liquidity Report (order-book spread/depth/slippage methodology)",
+      "url": "https://cdn.prod.website-files.com/63e3774c88285e5c6cbf3b9d/641c766dcc9ed6b1fcbb01b2_exchange_liquidity_report.pdf",
+      "note": "Reference methodology: top-of-book spread, order-book depth and size-conditional slippage vs mid-price."
+    },
+    {
+      "name": "Solidus Labs — The Ex Files: DEX-CEX execution quality (2026-06, data 2026-02-01 to 2026-04-29)",
+      "url": "https://www.soliduslabs.com/reports/the-ex-files",
+      "note": "Measured Hyperliquid BTC perp in-book spread 0.82 bps and ETH perp 1.71 bps (avg across $10k-$100k+ sizes; ETH runs ~1.5x wider than top CEXs); at $100k orders HL slippage ~5 bps vs Binance ~2 bps."
+    },
+    {
+      "name": "Kaiko — The State of the European Crypto Market 2025-2026 (May 2026, in partnership with Bitvavo)",
+      "url": "https://resources.kaiko.com/hubfs/Research/The%20State%20of%20the%20European%20Crypto%20Market%20-%202025%20-%202026%20Trends%20in%20Trading%20Activity.pdf",
+      "note": "Average full top-of-book spreads across EUR-denominated pairs (BTC/ETH/SOL/XRP/ADA): Bitvavo posted the tightest at 0.981 bps (vs 1.493 bps on Binance EUR books); top EUR venues now run sub-2 bps. Bitvavo holds ~33% of European EUR-pair market share. Modeled at 1.0 bps for majors. TUM Pricing Transparency study (real-money round-trips Oct-Nov 2025) measured only 0.08 pp hidden spread on Bitvavo's standard retail flow — by far the lowest of six EU platforms; the Basic-interface embedded spread is not modeled here (PRO order book only, consistent with the Coinbase approach)."
+    },
+    {
+      "name": "Finst fee schedule & execution model (official, schedule valid 2026-07-23; verified 2026-09-13)",
+      "url": "https://finst.com/en/fees",
+      "note": "Finst runs NO central order book of its own: a Smart Order Router sources aggregated external liquidity and the platform explicitly charges 'no added spread' — only the flat 0.15% commission — benchmarking its own BTC quote against mid-price. No third-party order-book spread study exists for Finst, so the 1.0 bps bundled full-spread proxy assumes execution at the top-tier source venues the router draws from (consistent with the 0.98-1.49 bps EUR-book range in the Kaiko 2026 study); realized execution on the long tail of the 400+ EUR/USDC assets can be wider."
+    },
+    {
+      "name": "Bitpanda consumer brokerage execution (spread-model venue; advertised premium schedule + TUM/FSBC real-money studies, verified 2026-09-13)",
+      "url": "https://www.fa.mgt.tum.de/fileadmin/w00chf/law/Abschlussarbeiten/Pricing_Study_Research_Brief.pdf",
+      "note": "Bitpanda's consumer app publishes no bid-ask spread: it quotes an all-in price with the per-side premium embedded (0.99% BTC/stablecoins, 1.49% most assets, up to 2.49% small caps), so typical_spread_bps is modeled at ZERO by design — the premium is already the trading fee in fee_rates.json and must never be added again as a crossing cost. This does NOT mean execution is free: TUM real-money testing (2025-10..11, €100 round-trips) measured a 6.23% mean round-trip vs 2.98% implied by the published premium (4.25 pp hidden), replicated by the Frankfurt School Blockchain Center (2026-03, 432 round-trips). The separate Fusion order-book interface (external liquidity aggregation, commissions from ~0.02%) is not the modeled product."
+    },
+    {
+      "name": "BISON brokerage execution (spread-model venue; official costs page bisonapp.com/en/costs retrieved 2026-09-05 + TUM real-money study 2025-10..11, verified 2026-09-13)",
+      "url": "https://bisonapp.com/en/costs/",
+      "note": "BISON (EUWAX AG as principal counterparty, no order book, quote valid ~10 seconds) publishes no additive bid-ask spread: the proportional spread (1.25% per side BTC/ETH, 1.75% all other coins) IS the execution charge, so typical_spread_bps is modeled at ZERO by design — it must never be added again as a crossing cost on top of fee_rates.json. TUM real-money testing (2025-10..11, €100 round-trips) measured a 2.58% mean round-trip vs the ~2.5% published spread — only ~0.08 pp hidden, the best published-vs-measured alignment of the six platforms tested."
+    }
+  ],
+  "methodology": "typical_spread_bps is a representative steady-state FULL top-of-book bid-ask spread in basis points (1 bp = 0.01%) for BTC/USDT on each venue, derived from the cited 2026 order-book snapshot studies (medians; 24h averages incl. volatile hours run 3-8 bps higher). Bundled mode prices a one-way taker execution at half this spread (the side you cross) and does NOT model size-based market impact — pass spreadMode=live to walk the venue's real order book and get size-conditional slippage for tradeSizeUsd. Multiply by pair_class_multipliers for non-major pairs; altcoin spreads are 1.5-4x wider on most venues.",
+  "pair_class_multipliers": {
+    "majors": 1.0,
+    "large_cap": 1.5,
+    "mid_alt": 3.0
+  },
+  "majors": ["BTC", "ETH"],
+  "large_cap": [
+    "SOL",
+    "XRP",
+    "BNB",
+    "DOGE",
+    "ADA",
+    "TRX",
+    "AVAX",
+    "LINK",
+    "DOT",
+    "LTC",
+    "BCH",
+    "UNI",
+    "ATOM",
+    "NEAR",
+    "APT",
+    "ARB",
+    "OP",
+    "AAVE",
+    "SUI",
+    "TON",
+    "HBAR",
+    "POL",
+    "MATIC",
+    "ETC",
+    "FIL",
+    "ICP",
+    "INJ"
+  ],
+  "exchanges": {
+    "binance": {
+      "typical_spread_bps": 1.0,
+      "note": "Deepest books in the sample; majors effectively frictionless at retail size."
+    },
+    "okx": {
+      "typical_spread_bps": 1.0,
+      "note": "Parity with Binance on majors; best measured execution on some mid-caps."
+    },
+    "bybit": {
+      "typical_spread_bps": 1.2
+    },
+    "bitget": {
+      "typical_spread_bps": 1.5
+    },
+    "gate": {
+      "typical_spread_bps": 2.0
+    },
+    "mexc": {
+      "typical_spread_bps": 2.5,
+      "note": "Zero-fee promotions are partly recovered through wider quotes on long-tail pairs."
+    },
+    "kucoin": {
+      "typical_spread_bps": 2.0
+    },
+    "kraken": {
+      "typical_spread_bps": 5.0,
+      "note": "Measured round-trip execution on majors ~2.6x the 0.10%-taker cohort; choose for regulatory clarity, not spread."
+    },
+    "coinbase": {
+      "typical_spread_bps": 2.0,
+      "note": "Advanced order book measured ≈1 bp mid-2026 (BestBrokers) with near-zero implied spread in Yieldova round-trips; 2.0 models steady-state quotes conservatively across all hours."
+    },
+    "hyperliquid": {
+      "typical_spread_bps": 0.8,
+      "note": "Solidus Labs measured 0.82 bps on the BTC perp book (2026-02..04); majors are near Binance depth, ETH runs wider (~1.7 bps) and long-tail books are thinner than CEXs."
+    },
+    "bingx": {
+      "typical_spread_bps": 4.0,
+      "note": "BingX market-data articles cite a BTC/USDT daily-average spread around 0.04-0.05% (4-5 bps); books are deepest on its perp markets, spot and altcoin quotes run wider."
+    },
+    "phemex": {
+      "typical_spread_bps": 2.0,
+      "note": "Phemex perp books are competitive on majors (0.01% maker attracts tight quoting); rononcrypto 2026 testing reports fills within $0.20-$0.50 of limit on BTC/USDT perp at retail sizes. Spot books are thinner than Binance/OKX; altcoin quotes run wider."
+    },
+    "blofin": {
+      "typical_spread_bps": 3.0,
+      "note": "BloFin perp turnover ~$1.2B/24h (CoinGecko mid-2026, ~BingX scale, an order of magnitude below Binance/OKX) — books are tight on BTC/ETH perps (decentralised.news CFCI 2026 ranked BloFin lowest total friction for high-volume derivatives) but spot and altcoin quotes run materially wider; 3.0 bps models steady-state majors between the 2 bps top-tier cohort and BingX's 4 bps."
+    },
+    "bitstamp": {
+      "typical_spread_bps": 2.0,
+      "note": "Bitstamp spot turnover ~$400-500M/24h (mid-2026) — regulated top-10 venue with Coinbase/Kraken-grade books on the ~115 curated majors; third-party order-book studies and its institutional client base report tight BTC/ETH quotes, though smaller alts and the Basic interface (embedded spread) run wider. 2.0 bps models steady-state PRO/API majors, parity with Coinbase Advanced."
+    },
+    "bitvavo": {
+      "typical_spread_bps": 1.0,
+      "note": "Kaiko (May 2026, EUR-pair universe BTC/ETH/SOL/XRP/ADA) measured Bitvavo's average full spread at 0.981 bps — the tightest of any European venue, ahead of Binance EUR books (1.493 bps); ~33% EU EUR-pair market share and EUR market depth that surpassed USD equivalents in 2026. 1.0 bps models steady-state PRO/API majors (books quote in EUR, not USDT). Long-tail alts and the Basic consumer interface (embedded spread; TUM measured 0.08 pp hidden markup) run wider and are not reflected here; use pair-class multipliers."
+    },
+    "finst": {
+      "typical_spread_bps": 1.0,
+      "note": "No hosted order book — Finst is an SOR brokerage with an explicit no-added-spread policy (official schedule 2026-07-23), routing to aggregated external liquidity at best execution. Modeled at 1.0 bps full / 0.5 crossing, i.e. the top-tier source-venue cohort (Binance/OKX/Bitvavo EUR books, 0.98-1.49 bps per Kaiko 2026) the router draws from; no direct spread measurement exists and long-tail execution among the 400+ EUR/USDC markets can run wider (use pair-class multipliers)."
+    },
+    "bitpanda": {
+      "typical_spread_bps": 0,
+      "note": "SPREAD-MODEL BROKERAGE — the consumer app embeds execution cost in the quoted price (per-side premium 0.99% BTC/stablecoins, 1.49% most assets, up to 2.49% small caps), so no bid-ask spread is added on top; see fee_rates.json (the premium is the trading fee). Real-money measured round-trips far exceeded the advertised premium: 6.23% (TUM 2025-10..11) vs 2.98% implied. The separate Fusion order-book interface is not the modeled product."
+    },
+    "bison": {
+      "typical_spread_bps": 0,
+      "note": "SPREAD-MODEL BROKERAGE — EUWAX AG quotes an all-in price as principal (no order book); the proportional per-side spread (1.25% BTC/ETH, 1.75% all other coins) is already the trading fee in fee_rates.json, so no bid-ask spread is added on top. TUM 2025-10..11 real-money round-trips measured 2.58% vs ~2.5% advertised (only ~0.08 pp hidden — best transparency alignment of the six platforms tested)."
+    }
+  }
+}

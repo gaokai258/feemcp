@@ -1,0 +1,21 @@
+{
+  "last_verified": "2026-09",
+  "sources": [
+    { "name": "Funding rate history (per exchange futures pages)", "note": "0.01%/8h is the long-run neutral average for BTC/USDT perps; actual rates fluctuate with market direction." }
+  ],
+  "exchanges": {
+    "binance": { "interval_hours": 8, "avg_rate_pct": 0.01, "description": "Funding paid every 8h. Rate fluctuates with market; 0.01% is a long-term average for BTC/USDT." },
+    "okx": { "interval_hours": 8, "avg_rate_pct": 0.01, "description": "Funding paid every 8h. Rate fluctuates with market." },
+    "gate": { "interval_hours": 8, "avg_rate_pct": 0.01, "description": "Funding paid every 8h. Rate fluctuates with market." },
+    "bybit": { "interval_hours": 8, "avg_rate_pct": 0.01, "description": "Funding paid every 8h. Rate fluctuates with market." },
+    "mexc": { "interval_hours": 8, "avg_rate_pct": 0.01, "description": "Funding paid every 8h for most pairs (a few volatile pairs settle every 4h). Rate fluctuates with market." },
+    "bitget": { "interval_hours": 8, "avg_rate_pct": 0.01, "description": "Funding settled at 00:00/08:00/16:00 UTC. Rate fluctuates with market." },
+    "kucoin": { "interval_hours": 8, "avg_rate_pct": 0.01, "description": "Funding paid every 8h for most USDT-margined perpetuals (some pairs settle on 4h/12h/24h schedules). Rate fluctuates with market." },
+    "kraken": { "interval_hours": 8, "avg_rate_pct": 0.01, "description": "Kraken perpetuals settle funding every 8h (00:00/08:00/16:00 UTC), typically 0.01%-0.05% per period; newer linear Multi-M perpetuals settle hourly instead. Rate fluctuates with market." },
+    "hyperliquid": { "interval_hours": 1, "avg_rate_pct": 0.00125, "description": "Hyperliquid settles funding EVERY HOUR (rate formula is an 8h-equivalent paid at 1/8 per hour; 0.00125%/1h = the same 0.01%/8h neutral average as CEX venues). Rate = avg premium index + clamped interest component, capped at 4%/h, paid P2P on oracle price with no platform cut. Rate fluctuates with market." },
+    "bingx": { "interval_hours": 8, "avg_rate_pct": 0.01, "description": "Funding settles at 00:00/08:00/16:00 UTC for Standard Contract USDT-margined perpetuals. Rate fluctuates with market; 0.01% is a long-term average for BTC/USDT." },
+    "phemex": { "interval_hours": 8, "avg_rate_pct": 0.01, "description": "Funding settles every 8h at 00:00/08:00/16:00 UTC for USDT-margined perpetuals. Rate fluctuates with market; 0.01% is a long-term average for BTC/USDT." },
+    "blofin": { "interval_hours": 8, "avg_rate_pct": 0.01, "description": "BloFin USDT-margined perpetuals settle funding every 8h (00:00/08:00/16:00 UTC; rate cap around ±0.02% for majors). Rate fluctuates with market; 0.01% is a long-term average for BTC/USDT. Verified 2026-09-13." },
+    "bitstamp": { "interval_hours": 8, "avg_rate_pct": 0.01, "description": "Bitstamp regulated USD-margined perpetuals (EU/EEA eligible clients only via the MiFID-authorized Slovenian entity) settle funding every 8h at 00:00/08:00/16:00 UTC, exchanged peer-to-peer with no platform cut. Rate fluctuates with market; 0.01% is a long-term neutral average for the major crypto perps. Verified 2026-09." }
+  }
+}

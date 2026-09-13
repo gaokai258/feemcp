@@ -1,0 +1,249 @@
+{
+  "last_verified": "2026-09",
+  "methodology": "Direct, exchange-operated fiat rails (exchange cash wallet / native bank transfer integrations). Fee objects combine an optional percentage (pct) and fixed fee in the route currency, with optional min/max fee floors and caps. Third-party checkout gateways (Banxa, Simplex, MoonPay, Mercuryo, Zen, Advcash: typically 1.99%-5.5% for cards) are EXCLUDED because quotes vary by user region and order size and are shown at checkout; the card rows reflect each exchange's headline direct card rate. P2P/C2C (zero platform fee, cost embedded in the merchant quote spread) is excluded. Fees charged by the user's own bank (wire/SWIFT sender fees, FX conversion) are excluded. Fixed fees are denominated in the route's fiat currency. Cash-out to card is unavailable at most venues; route direction is null where the exchange does not operate that leg. Availability of every rail depends on KYC and residency; verify on the withdrawal screen before moving large amounts.",
+  "sources": [
+    {
+      "name": "CEX Finder — exchange fiat deposit/withdrawal tables (continuously updated tracker, accessed 2026-09)",
+      "url": "https://cexfinder.com/binance/",
+      "note": "Per-venue pages: cexfinder.com/{binance,okx,bybit,gate,bitget,mexc,kucoin,kraken}/ — direct rail fee tables (SEPA/ACH/FPS/SWIFT/PIX/card)."
+    },
+    {
+      "name": "Bybit Help Center — FAQ: Bank Card Payments (updated 2026-07-29)",
+      "url": "https://www.bybitglobal.com/help-center/article/FAQ-Bank-Card-Payments",
+      "note": "Official card fee schedule: EU-issued Visa/Mastercard 1.1%; non-EU Visa 3.05%, Mastercard 2.7%; Apple Pay 1.8% + EUR 0.24."
+    },
+    {
+      "name": "OKX Help — Introducing USD deposits and withdrawals (updated 2026-08)",
+      "url": "https://www.okx.com/help/introducing-usd-deposits-and-withdrawals",
+      "note": "ACH deposits and withdrawals free (N/A fee); domestic wire withdrawal USD 30."
+    },
+    {
+      "name": "Kraken Support — Cash deposit/withdrawal options, fees, minimums and processing times",
+      "url": "https://support.kraken.com/hc/en-us/articles/360000381846",
+      "note": "SEPA deposits free in the EU, EUR 1 withdrawal; ACH free both ways in the US; USD wire deposit USD 3, domestic FedWire withdrawal USD 4, international SWIFT withdrawal up to USD 35; BRL PIX 0.50%."
+    },
+    {
+      "name": "Binance — Deposit & withdrawal fee schedule (fiat)",
+      "url": "https://www.binance.com/en/fee/deposit",
+      "note": "SEPA free deposit / EUR 1 withdrawal; GBP Faster Payments GBP 1 in / GBP 2 out; BRL PIX free in / BRL 3.5 out; direct card around 2%; figures cross-checked against CEX Finder (2026-09)."
+    },
+    {
+      "name": "Datawallet — Kraken Fees Explained (audited 2026-08-24)",
+      "url": "https://www.datawallet.com/crypto/kraken-fees-explained",
+      "note": "Cross-check: free ACH and most SEPA deposits; cards add processor fees on top of the consumer-app trading charge."
+    },
+    {
+      "name": "Datawallet — Coinbase Fees Explained (full audit 2026-08-20) + finder.com Coinbase review (2026-04-29)",
+      "url": "https://www.datawallet.com/crypto/coinbase-fees",
+      "note": "ACH free both ways; wire USD 10 in / USD 25 out; SEPA deposit EUR 0.15 (withdrawal free-0.15, sources conflict — 0.15 modeled); UK FPS free in / GBP 1 out; PIX live in Brazil (BRL 1 minimum); US card buy 3.99%; instant card cash-out 1.5-2%."
+    },
+    {
+      "name": "Bitstamp official fee schedule (bitstamp.net/fee-schedule, unified schedule effective 2026-09-01; verified 2026-09)",
+      "url": "https://www.bitstamp.net/fee-schedule/",
+      "note": "US ACH deposits and withdrawals free; EUR SEPA deposits free, SEPA withdrawal EUR 3; international wire deposits 0.05% (min 7.5 USD/EUR/SGD or GBP 5; max 300 USD/EUR/SGD or GBP 250) and international wire withdrawals 0.1% (min 25 USD/EUR/GBP or 35 SGD); direct card purchases about 4%. USD/EUR/GBP/SGD cash wallets supported. Third-party checkout processors are quoted separately."
+    },
+    {
+      "name": "Bitvavo payment-method fees (bitcoin.diy fee table 2026-05-28; cross-checked wikibit payment-method snapshot, coincodecap 2026-07, freenance 2026-09-03)",
+      "url": "https://www.bitcoin.diy/reviews/bitvavo",
+      "note": "SEPA and SEPA Instant deposits AND withdrawals free (deposit cap ~€5M; standard-account withdrawal cap €25k/day pending source-of-funds uplift); iDEAL/Wero (NL) free up to €50k; Bancontact (BE) free to €10k. Card deposits ~1% (sources span ~0.5-1.5%; coincodecap '~1%+', modeled at 1.0%, deposit-only — no card cash-out); PayPal ~2% (deposit only); Sofort/EPS/Giropay 1.75-2.25% regional methods not separately modeled. EUR-native only — no USD/GBP direct rails modeled (UK runs via a separate entity)."
+    },
+    {
+      "name": "Finst fee schedule — EUR deposits & withdrawals (official finst.com/en/fees, schedule valid 2026-07-23; verified 2026-09-13)",
+      "url": "https://finst.com/en/fees",
+      "note": "EUR deposits via iDEAL (NL), Bancontact (BE) and instant SEPA bank transfer are FREE; EUR bank withdrawals are FREE. NO card/PayPal/Sofort funding rail exists — onboarding is bank-transfer only (independent exchangeselector.com profile 2026-07 confirms 'Deposits only by SEPA, no card'). EUR-native and EEA-only (AFM MiCA CASP #41000015) — no USD/GBP rails."
+    },
+    {
+      "name": "Bitpanda funding fees (coinspeaker real-account review updated 2026-02-04; invezz UK review updated 2026-07-21; verified 2026-09-13)",
+      "url": "https://www.coinspeaker.com/reviews/bitpanda-review/",
+      "note": "Bitpanda charges no deposit or fiat-withdrawal fee on its accepted payment rails: SEPA / SEPA Instant (EUR, EEA) and Faster Payments (GBP, UK) are free in BOTH directions, and real-account testing confirmed Visa/Mastercard debit/credit, PayPal and Apple Pay deposits carry no surcharge either (the cost of card funding is borne inside the trading premium, not as a rail fee). Cash-out to card is not offered (withdraw leg null). No USD rail is modeled; the route set matches the EEA+GB service area (region_allowed.bitpanda = [EEA, GB])."
+    },
+    {
+      "name": "BISON funding fees (official bisonapp.com/en/costs retrieved 2026-09-05; BISON support banking-partner notes Solaris SE / Deutsche Bank AG; verified 2026-09-13)",
+      "url": "https://bisonapp.com/en/costs/",
+      "note": "BISON charges no account, SEPA euro deposit/withdrawal or SEPA Instant fee (both directions free; the user's own bank may charge for instant SEPA). Instant deposits by credit card, Apple Pay and Google Pay via banking partners Solaris SE / Deutsche Bank cost 2.49% of the amount (deposit rail only — there is no card cash-out, withdraw leg null); standard SEPA remains free. EUR is the only fiat currency modeled (no GBP/USD/CHF rail even for Swiss users, who fund via EUR SEPA); the route set matches the EEA+CH service area (region_allowed.bison = [EEA, CH])."
+    }
+  ],
+  "regions": {
+    "EU": ["AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE", "IS", "LI", "NO"],
+    "US": ["US"],
+    "GB": ["GB"],
+    "BR": ["BR"]
+  },
+  "exchanges": {
+    "binance": {
+      "notes": [
+        "Direct card rate is around 2%; third-party processor checkouts (Simplex, Banxa and others) quote 0.5%-4.5% plus possible bank FX fees depending on region.",
+        "EUR SEPA: free deposit, about EUR 1 withdrawal via the direct rail. Global Binance does not serve US persons; USD ACH applies to regional Binance.US service only.",
+        "v0.41 (post-MiCA cliff): Binance is venue-blocked for ALL EEA residents (HCMC Greece application withdrawn 2026-06-24; EUR onboarding/trading halted from 2026-07-01, withdrawals-only). The EU SEPA route below is retained for non-EEA/historical comparison and is filtered out whenever an EEA residency is supplied."
+      ],
+      "routes": [
+        { "method": "card", "currencies": ["USD", "EUR", "GBP"], "deposit": { "pct": 2.0 }, "withdraw": { "pct": 2.0 }, "eta": "instant", "note": "Headline direct card rate; checkout processors vary." },
+        { "method": "ach", "currencies": ["USD"], "region": "US", "deposit": { "fixed": 1 }, "withdraw": null, "eta": "1-3 business days", "note": "Binance.US regional service." },
+        { "method": "sepa", "currencies": ["EUR"], "region": "EU", "deposit": { "pct": 0 }, "withdraw": { "fixed": 1 }, "eta": "1-2 business days" },
+        { "method": "fps", "currencies": ["GBP"], "region": "GB", "deposit": { "fixed": 1 }, "withdraw": { "fixed": 2 }, "eta": "1-3 business days" },
+        { "method": "swift", "currencies": ["USD", "EUR", "GBP"], "deposit": { "pct": 1.2, "min": 0.5 }, "withdraw": { "fixed": 5, "max": 25 }, "eta": "3-5 business days", "note": "Fee varies by currency/corridor: deposit about 1.2% with a small minimum; withdrawal typically EUR 1-5 capped near USD 25." },
+        { "method": "pix", "currencies": ["BRL"], "region": "BR", "deposit": { "pct": 0 }, "withdraw": { "fixed": 3.5 }, "eta": "instant" }
+      ]
+    },
+    "okx": {
+      "notes": [
+        "US ACH deposits and withdrawals are free; domestic USD wire withdrawal costs USD 30.",
+        "EUR SEPA deposits and withdrawals carry no OKX fee. Card checkouts (Banxa and others) are quoted separately at roughly 1.5%-4.99%."
+      ],
+      "routes": [
+        { "method": "card", "currencies": ["USD", "EUR", "GBP"], "deposit": { "pct": 2.0 }, "withdraw": null, "eta": "instant", "note": "Direct cards about 1.5%-2.49%; gateway checkout up to 4.99%." },
+        { "method": "ach", "currencies": ["USD"], "region": "US", "deposit": { "pct": 0 }, "withdraw": { "pct": 0 }, "eta": "instant deposit, up to 3 business days withdrawal" },
+        { "method": "sepa", "currencies": ["EUR"], "region": "EU", "deposit": { "pct": 0 }, "withdraw": { "pct": 0 }, "eta": "1-2 business days" },
+        { "method": "wire", "currencies": ["USD"], "region": "US", "deposit": { "pct": 0 }, "withdraw": { "fixed": 30 }, "eta": "up to 3 business days", "note": "Domestic wire; sender bank may charge separately." },
+        { "method": "pix", "currencies": ["BRL"], "region": "BR", "deposit": { "pct": 0 }, "withdraw": { "pct": 0 }, "eta": "instant" }
+      ]
+    },
+    "bybit": {
+      "notes": [
+        "Card fee is issuer-region based (official FAQ, 2026-07): EU-issued Visa/Mastercard 1.1%; non-EU Visa 3.05%, Mastercard 2.7%; Apple Pay 1.8% + EUR 0.24.",
+        "Bybit EU GmbH (MiCA-licensed Austria entity) offers free SEPA for EEA residents on the EU product (v0.41: spot/margin up to 10x only — EEA perpetuals are product-blocked pending MiFID II authorization); the global product routes EUR via payment partners at about 0.19% (EUR 1 minimum)."
+      ],
+      "routes": [
+        { "method": "card", "currencies": ["USD", "EUR", "GBP"], "region": "EU", "deposit": { "pct": 1.1 }, "withdraw": null, "eta": "instant", "note": "EU-issued Visa/Mastercard." },
+        { "method": "card", "currencies": ["USD", "EUR", "GBP"], "deposit": { "pct": 3.05 }, "withdraw": null, "eta": "instant", "note": "Non-EU cards: Visa 3.05%, Mastercard 2.7%." },
+        { "method": "sepa", "currencies": ["EUR"], "region": "EU", "deposit": { "pct": 0.19, "min": 1 }, "withdraw": { "fixed": 2.6 }, "eta": "1-2 business days", "note": "Global product via payment partners; Bybit EU GmbH entity quotes free SEPA (0.08% + EUR 0.28 at some processors on withdrawal)." },
+        { "method": "fps", "currencies": ["GBP"], "region": "GB", "deposit": { "pct": 0.92 }, "withdraw": { "fixed": 1 }, "eta": "1-3 business days", "note": "Deposit via ZEN (about 0.92%); direct FPS withdrawal about GBP 1." },
+        { "method": "swift", "currencies": ["USD", "EUR", "GBP"], "deposit": { "pct": 0.25, "min": 15 }, "withdraw": { "pct": 0.5, "min": 50 }, "eta": "3-5 business days" },
+        { "method": "pix", "currencies": ["BRL"], "region": "BR", "deposit": { "pct": 0 }, "withdraw": { "pct": 0 }, "eta": "instant" }
+      ]
+    },
+    "bitget": {
+      "notes": [
+        "Direct SEPA is free in and about EUR 1 out; USD SWIFT deposits are free with a USD 30 withdrawal fee.",
+        "Direct card funding is near 4%; third-party gateways (Banxa about 1.99%, Simplex up to 5%) are quoted separately.",
+        "v0.41 (post-MiCA cliff): Bitget holds no CASP authorization and is venue-blocked EEA-wide (France fully stopped 2026-03-31); the SEPA route below is unreachable for EEA residency and is filtered out by the region gate."
+      ],
+      "routes": [
+        { "method": "card", "currencies": ["USD", "EUR", "GBP"], "deposit": { "pct": 4.0 }, "withdraw": { "pct": 2.5 }, "eta": "instant", "note": "Card cash-out Visa only." },
+        { "method": "sepa", "currencies": ["EUR"], "region": "EU", "deposit": { "pct": 0 }, "withdraw": { "fixed": 1 }, "eta": "1-2 business days" },
+        { "method": "swift", "currencies": ["USD"], "deposit": { "pct": 0 }, "withdraw": { "fixed": 30 }, "eta": "3-5 business days" },
+        { "method": "pix", "currencies": ["BRL"], "region": "BR", "deposit": { "pct": 0 }, "withdraw": { "fixed": 2.6 }, "eta": "instant" }
+      ]
+    },
+    "gate": {
+      "notes": [
+        "Gate is the only venue in this set charging percentage fees on direct SEPA (0.5% in, about 1% out) and GBP FPS deposits (0.5%).",
+        "Direct cards about 2.5%; gateway checkouts (Banxa 1.99% to Simplex 5%) are quoted at checkout."
+      ],
+      "routes": [
+        { "method": "card", "currencies": ["USD", "EUR", "GBP"], "deposit": { "pct": 2.5 }, "withdraw": { "pct": 2.5 }, "eta": "instant", "note": "Card cash-out 2.5%-3.6% depending on processor." },
+        { "method": "sepa", "currencies": ["EUR"], "region": "EU", "deposit": { "pct": 0.5 }, "withdraw": { "pct": 1.0 }, "eta": "1-2 business days" },
+        { "method": "fps", "currencies": ["GBP"], "region": "GB", "deposit": { "pct": 0.5 }, "withdraw": { "pct": 0 }, "eta": "1-3 business days" },
+        { "method": "pix", "currencies": ["BRL"], "region": "BR", "deposit": { "pct": 3.0 }, "withdraw": null, "eta": "instant" }
+      ]
+    },
+    "mexc": {
+      "notes": [
+        "MEXC has the thinnest direct fiat coverage: EUR SEPA and BRL PIX only; USD/GBP users rely on cards or third-party gateways (1.99%-5.5%) or P2P.",
+        "Direct SEPA deposit about EUR 1.25; the published SEPA withdrawal schedule is around 5% on the tracked 2026 schedule (secondary guides still cite about EUR 1, so confirm the live quote before cashing out).",
+        "v0.41 (post-MiCA cliff): MEXC holds no CASP authorization (AFM Netherlands flagged) and is venue-blocked EEA-wide, with EU users directed to withdraw; the SEPA route below is filtered out for EEA residency."
+      ],
+      "routes": [
+        { "method": "card", "currencies": ["USD", "EUR", "GBP"], "deposit": { "pct": 2.0 }, "withdraw": null, "eta": "instant", "note": "Direct cards about 2%; gateway checkouts 1.99%-5.5%." },
+        { "method": "sepa", "currencies": ["EUR"], "region": "EU", "deposit": { "fixed": 1.25 }, "withdraw": { "pct": 5.0 }, "eta": "1-2 business days", "note": "Withdrawal fee per tracked 2026 schedule; some guides report about EUR 1 — verify in app." },
+        { "method": "pix", "currencies": ["BRL"], "region": "BR", "deposit": null, "withdraw": null, "eta": "varies", "note": "Supported via third-party partners; fee shown at checkout." }
+      ]
+    },
+    "kucoin": {
+      "notes": [
+        "Direct SEPA is about EUR 1 each way; direct card funding is the steepest in this set at around 4.5% (cash-out to card near 5%).",
+        "Only EUR (SEPA) and BRL (PIX) direct bank rails; USD/GBP users use cards, gateways (Banxa about 1.99%) or P2P.",
+        "v0.41 (post-MiCA cliff): KuCoin's FMA Austria CASP is under an active commencement-of-business ban (since 2026-02-18) — EU trading/funding halted and no new EEA accounts; venue-blocked EEA-wide, so the SEPA route below is filtered out for EEA residency."
+      ],
+      "routes": [
+        { "method": "card", "currencies": ["USD", "EUR", "GBP"], "deposit": { "pct": 4.5 }, "withdraw": { "pct": 5.0 }, "eta": "instant" },
+        { "method": "sepa", "currencies": ["EUR"], "region": "EU", "deposit": { "fixed": 1 }, "withdraw": { "fixed": 1 }, "eta": "1-2 business days" },
+        { "method": "pix", "currencies": ["BRL"], "region": "BR", "deposit": { "pct": 0 }, "withdraw": { "fixed": 2.6 }, "eta": "instant" }
+      ]
+    },
+    "kraken": {
+      "notes": [
+        "Most regulated-friendly free bank rails in the set: US ACH free both ways, EU SEPA deposits free and EUR 1 withdrawal; domestic USD FedWire costs USD 3 in / USD 4 out (international SWIFT withdrawal up to USD 35).",
+        "Cards are a consumer-app feature: about 3.75% + EUR 0.25 processing on top of the app trading fee; not available on Kraken Pro."
+      ],
+      "routes": [
+        { "method": "card", "currencies": ["USD", "EUR", "GBP"], "deposit": { "pct": 3.75, "fixed": 0.25 }, "withdraw": null, "eta": "instant", "note": "Card processing on the consumer app; Kraken Pro has no card rail." },
+        { "method": "ach", "currencies": ["USD"], "region": "US", "deposit": { "pct": 0 }, "withdraw": { "pct": 0 }, "eta": "1-3 business days", "note": "Free inside the US; USD 35 for international ACH where offered." },
+        { "method": "sepa", "currencies": ["EUR"], "region": "EU", "deposit": { "pct": 0 }, "withdraw": { "fixed": 1 }, "eta": "instant to 2 business days", "note": "SEPA Instant available; about EUR 5 for SWIFT EUR outside SEPA." },
+        { "method": "wire", "currencies": ["USD"], "region": "US", "deposit": { "fixed": 3 }, "withdraw": { "fixed": 4 }, "eta": "1-2 business days", "note": "Domestic FedWire; international SWIFT withdrawal about USD 14-35." },
+        { "method": "swift", "currencies": ["USD", "EUR", "GBP", "CAD", "CHF"], "deposit": { "fixed": 3 }, "withdraw": { "fixed": 35 }, "eta": "3-5 business days", "note": "Flat deposit about USD/EUR/GBP 3 (CHF 0.75); withdrawal USD 14-35 by corridor." },
+        { "method": "fps", "currencies": ["GBP"], "region": "GB", "deposit": { "pct": 0 }, "withdraw": { "fixed": 1.95 }, "eta": "1-3 business days" },
+        { "method": "pix", "currencies": ["BRL"], "region": "BR", "deposit": { "pct": 0.5 }, "withdraw": null, "eta": "instant", "note": "Includes 0.3% IOF tax plus Kraken's 0.2% fee." }
+      ]
+    },
+    "coinbase": {
+      "notes": [
+        "US rails: ACH free both ways (1-3 business days); wires cost USD 10 in / USD 25 out; instant card cash-out runs 1.5-2%.",
+        "Europe/UK: SEPA deposits EUR 0.15 (withdrawal free-0.15 by source, 0.15 modeled conservatively); UK FPS free in / GBP 1 out. PIX serves Brazil with a BRL 1 transaction minimum; the withdrawal fee is not published.",
+        "Card purchases (3.99% in the US) are a consumer-app rail; bought assets land in the same account and are tradable on Advanced."
+      ],
+      "routes": [
+        { "method": "ach", "currencies": ["USD"], "region": "US", "deposit": { "pct": 0 }, "withdraw": { "pct": 0 }, "eta": "1-3 business days" },
+        { "method": "wire", "currencies": ["USD"], "region": "US", "deposit": { "fixed": 10 }, "withdraw": { "fixed": 25 }, "eta": "1-2 business days" },
+        { "method": "card", "currencies": ["USD"], "region": "US", "deposit": { "pct": 3.99 }, "withdraw": { "pct": 1.75 }, "eta": "instant", "note": "Deposit = consumer-app card buy (3.99% US); withdrawal = instant card cash-out 1.5-2% (midpoint modeled)." },
+        { "method": "sepa", "currencies": ["EUR"], "region": "EU", "deposit": { "fixed": 0.15 }, "withdraw": { "fixed": 0.15 }, "eta": "1-2 business days", "note": "Sources conflict on SEPA withdrawals (free vs EUR 0.15) — 0.15 modeled conservatively." },
+        { "method": "fps", "currencies": ["GBP"], "region": "GB", "deposit": { "pct": 0 }, "withdraw": { "fixed": 1 }, "eta": "same day to 1 business day" },
+        { "method": "pix", "currencies": ["BRL"], "region": "BR", "deposit": { "pct": 0 }, "withdraw": null, "eta": "instant", "note": "BRL 1 minimum per transaction; withdrawal leg exists but no published fee — not modeled." }
+      ]
+    },
+    "bitstamp": {
+      "notes": [
+        "One of the deepest exchange-operated fiat stacks in the set (regulated Luxembourg operator, now Robinhood-owned): USD/EUR/GBP/SGD cash wallets. US ACH free both ways; EUR SEPA deposits free with a flat EUR 3 withdrawal.",
+        "International wires cost 0.05% in (min 7.5 USD/EUR, max 300) and 0.1% out (min 25 USD/EUR/GBP); direct card purchases run about 4%. Third-party checkout processors (Banxa and others) are quoted separately at checkout."
+      ],
+      "routes": [
+        { "method": "card", "currencies": ["USD", "EUR", "GBP"], "deposit": { "pct": 4.0 }, "withdraw": null, "eta": "instant", "note": "Headline direct card purchase fee about 4%; processor checkouts vary." },
+        { "method": "ach", "currencies": ["USD"], "region": "US", "deposit": { "pct": 0 }, "withdraw": { "pct": 0 }, "eta": "1-3 business days", "note": "ACH deposits and withdrawals free for US clients (Bitstamp USA, NYDFS BitLicense)." },
+        { "method": "sepa", "currencies": ["EUR"], "region": "EU", "deposit": { "pct": 0 }, "withdraw": { "fixed": 3 }, "eta": "1-2 business days", "note": "SEPA deposits free; flat EUR 3 withdrawal (SEPA Instant supported)." },
+        { "method": "swift", "currencies": ["USD", "EUR", "GBP"], "deposit": { "pct": 0.05, "min": 7.5, "max": 300 }, "withdraw": { "pct": 0.1, "min": 25 }, "eta": "3-5 business days", "note": "International wire: deposit 0.05% (min 7.5 USD/EUR or GBP 5; cap 300 USD/EUR or GBP 250), withdrawal 0.1% (min 25 USD/EUR/GBP; 35 SGD). Sender/intermediary bank fees excluded." }
+      ]
+    },
+    "bitvavo": {
+      "notes": [
+        "EUR-native EEA-only operator (AFM MiCA CASP #41000010): the cheapest modeled regulated euro on/off-ramp — SEPA and SEPA Instant are free in BOTH directions; iDEAL/Wero (NL, up to €50k) and Bancontact (BE, up to €10k) are also free local methods (folded into the SEPA row).",
+        "Card deposits cost about 1% (sources span ~0.5-1.5%; deposit-only, no card cash-out); PayPal ~2%; Sofort/EPS/Giropay 1.75-2.25%. Standard verification caps EUR withdrawals at €25k/day (combined across cash and crypto) pending source-of-funds uplift.",
+        "No USD or GBP rails are modeled: Bitvavo settles EUR inside the EEA; UK access runs through a separate entity (Gateway 21 Limited) and is not covered."
+      ],
+      "routes": [
+        { "method": "sepa", "currencies": ["EUR"], "region": "EU", "deposit": { "pct": 0 }, "withdraw": { "pct": 0 }, "eta": "instant to 1 business day", "note": "SEPA + SEPA Instant free both legs (deposits up to ~€5M; withdrawals ≤€25k/day at standard verification). iDEAL/Wero (NL) and Bancontact (BE) are also free local deposit methods." },
+        { "method": "card", "currencies": ["EUR"], "region": "EU", "deposit": { "pct": 1.0 }, "withdraw": null, "eta": "instant", "note": "Credit/debit card deposits ~1% (third-party sources span 0.5-1.5%; modeled midpoint); no card cash-out leg. PayPal ~2% is offered at checkout but not separately modeled." }
+      ]
+    },
+    "finst": {
+      "notes": [
+        "EUR-only EEA brokerage (AFM MiCA CASP #41000015): iDEAL (NL), Bancontact (BE) and instant SEPA bank transfers are FREE for deposits and EUR bank withdrawals are free as well (official schedule valid 2026-07-23) — folded into the single SEPA row.",
+        "NO card/PayPal/Sofort funding rail exists — unlike Bitvavo/Bybit EU, Finst onboarding is bank-transfer only. No USD or GBP rails: non-EEA residents are not onboarded at all (region_allowed.finst = [EEA])."
+      ],
+      "routes": [
+        { "method": "sepa", "currencies": ["EUR"], "region": "EU", "deposit": { "pct": 0 }, "withdraw": { "pct": 0 }, "eta": "instant to 1 business day", "note": "iDEAL (NL), Bancontact (BE) and (instant) SEPA deposits free; EUR bank withdrawals free. No card deposits of any kind." }
+      ]
+    },
+    "bitpanda": {
+      "notes": [
+        "Spread-model brokerage (BaFin MiCA CASP 2025-01-27, EEA passport; FCA-registered UK entity): every supported funding rail is FREE in both available directions (real-account verification 2026-02/2026-07) — the funding cost is recovered inside the per-side trading premium (0.99-2.49%), not as rail fees.",
+        "SEPA / SEPA Instant (EUR) across the EEA; Faster Payments (GBP) in the UK; debit/credit card, PayPal and Apple Pay deposits free but cash-out to card is not offered (withdraw leg null). No USD rail modeled."
+      ],
+      "routes": [
+        { "method": "sepa", "currencies": ["EUR"], "region": "EU", "deposit": { "pct": 0 }, "withdraw": { "pct": 0 }, "eta": "instant to 1 business day", "note": "SEPA and SEPA Instant deposits and EUR bank withdrawals free." },
+        { "method": "card", "currencies": ["EUR"], "region": "EU", "deposit": { "pct": 0 }, "withdraw": null, "eta": "instant", "note": "Visa/Mastercard, PayPal and Apple Pay deposits carry no rail surcharge (cost sits in the trading premium); no card cash-out." },
+        { "method": "fps", "currencies": ["GBP"], "region": "GB", "deposit": { "pct": 0 }, "withdraw": { "pct": 0 }, "eta": "hours to 1 business day", "note": "UK Faster Payments deposits and GBP withdrawals free (Bitpanda Broker UK Ltd, FCA-registered)." },
+        { "method": "card", "currencies": ["GBP"], "region": "GB", "deposit": { "pct": 0 }, "withdraw": null, "eta": "instant", "note": "UK debit card / PayPal / Apple Pay deposits free; no card cash-out." }
+      ]
+    },
+    "bison": {
+      "notes": [
+        "Spread-model brokerage 'Made in Germany' (EUWAX AG trading counterparty, BaFin MiCA authorizations; Boerse Stuttgart Digital Custody custody): standard SEPA / SEPA Instant EUR deposits and EUR withdrawals are FREE in both directions (Solaris SE / Deutsche Bank pooled trust accounts, €100k deposit insurance).",
+        "Instant funding by credit card, Apple Pay and Google Pay costs 2.49% of the amount (banking-partner fee, deposit only — no card cash-out, withdraw leg null). EUR is the only modeled fiat currency: no GBP, USD or CHF rail (Swiss users fund via EUR SEPA)."
+      ],
+      "routes": [
+        { "method": "sepa", "currencies": ["EUR"], "deposit": { "pct": 0 }, "withdraw": { "pct": 0 }, "eta": "1-2 business days (SEPA Instant available)", "note": "SEPA and SEPA Instant euro deposits and EUR bank withdrawals free across the EEA service area and Switzerland (the user's own bank may charge for instant SEPA)." },
+        { "method": "card", "currencies": ["EUR"], "deposit": { "pct": 2.49 }, "withdraw": null, "eta": "instant", "note": "Instant credit-card / Apple Pay / Google Pay deposits cost 2.49% (Solaris SE / Deutsche Bank partner fee); standard SEPA is free; no card cash-out offered." }
+      ]
+    }
+  }
+}

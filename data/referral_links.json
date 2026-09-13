@@ -1,0 +1,36 @@
+{
+  "last_verified": "2026-09",
+  "sources": [
+    { "name": "Operator affiliate accounts", "note": "Referral URLs point to each venue's official domain with the operator's referral code; discount is what the user receives at registration." }
+  ],
+  "exchanges": {
+    "binance": {
+      "url": "https://www.bsmkweb.cc/register?ref=13303906",
+      "discount": "20%",
+      "my_rebate_rate": "40%",
+      "regions": ["global"],
+      "notes": "Binance affiliate landing page (bsmk); user gets 20% fee discount, operator earns 40% rebate from the Binance Affiliate program."
+    },
+    "okx": {
+      "url": "https://www.topzhjdgxcb.net/join/1833466",
+      "discount": "20%",
+      "my_rebate_rate": "40%",
+      "regions": ["global"],
+      "notes": "User gets 20% fee discount via referral, operator earns 40% rebate from the OKX Affiliate program."
+    },
+    "bitget": {
+      "url": "https://partner.bitget.cafe/bg/7CYS1K",
+      "discount": "20%",
+      "my_rebate_rate": "TBD",
+      "regions": ["global"],
+      "notes": "Bitget affiliate link (partner.bitget.cafe); confirm the exact rebate rate in the Bitget affiliate dashboard. User discount set to the standard 20%."
+    },
+    "gate": {
+      "url": "https://www.gatesites.cc/zh/signup/AVVHAFs?ref_type=103",
+      "discount": "20%",
+      "my_rebate_rate": "40%",
+      "regions": ["global"],
+      "notes": "User gets 20% fee discount via referral, operator earns 40% rebate from the Gate.io Partner program."
+    }
+  }
+}

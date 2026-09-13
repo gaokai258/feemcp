@@ -1,0 +1,230 @@
+{
+  "last_verified": "2026-09",
+  "verified_date": "2026-09-13",
+  "sources": [
+    {
+      "name": "TUM Chair of Business Law (Prof. Dr. Philipp Maume) — Pricing Transparency in European Crypto Trading: An Empirical Assessment of Execution Costs Across Major Retail Exchanges (50 real-money €100 round-trips across six MiCA-licensed EU platforms, 2025-10..11)",
+      "url": "https://www.fa.mgt.tum.de/fileadmin/w00chf/law/Abschlussarbeiten/Pricing_Study_Research_Brief.pdf",
+      "note": "Round-trip costs via STANDARD RETAIL interfaces: Bitvavo -0.58% (hidden spread 0.08 pp, N=13), BSDEX -0.88% (0.18 pp), Bison -2.58% (0.08 pp), Kraken app -5.81% (hidden 3.81 pp vs 2.00 pp predicted from published fees, N=6), Bitpanda -6.23% (hidden 4.25 pp), Coinbase -7.49% (hidden 4.51 pp vs 2.98 pp predicted). Execution costs vary by a factor of 13 across platforms; published fees capture less than half of actual costs on broker-model platforms; two fully MiCAR-compliant platforms can differ by >6 pp round-trip with no consumer-detectable mechanism (no consolidated tape, no effective-spread disclosure under MiCAR Art. 78). Caveats carried into the model: €100 size maximally penalizes fixed fees (Coinbase $2.99/trade) so rankings shift at higher notionals; Kraken and Coinbase PRO interfaces achieve substantially better execution than the retail interfaces tested; study conducted in cooperation with Bitvavo (funding fully reimbursed, no influence on design/analysis)."
+    },
+    {
+      "name": "Frankfurt School Blockchain Center — independent replication (432 round-trips across nine platforms, 2026-03)",
+      "url": "https://www.fa.mgt.tum.de/fileadmin/w00chf/law/Abschlussarbeiten/Pricing_Study_Research_Brief.pdf",
+      "note": "Near-identical costs for the five overlapping platforms: Bitvavo 0.53% vs TUM 0.58%, Bison 2.50% vs 2.58%, Kraken 5.92% vs 5.81% — independently confirms the cost structures are stable platform characteristics rather than sampling noise."
+    },
+    {
+      "name": "Kraken fee schedule & support (kraken.com/features/fee-schedule + support.kraken.com article 360030303832, retrieved 2026-09-13)",
+      "url": "https://www.kraken.com/features/fee-schedule",
+      "note": "Kraken consumer app: 1% transaction fee on Instant Buy/sell/convert and recurring buys; 1.5% on custom (target-price) orders; small-balance conversions 3%; quoted price embeds a variable spread Kraken may retain (undisclosed, varies with asset/size/volatility); card/Apple Pay/Google Pay add processing fees; app volume earns NO Kraken Pro tier credit. Kraken+ subscription $4.99/mo (or $49.99/yr) waives app trading fees on up to $10,000 monthly volume across major fiat on-ramps — spreads and card fees are NOT waived, and the waiver does not apply to Kraken Pro."
+    },
+    {
+      "name": "Coinbase pricing & help (help.coinbase.com Pricing and fees, retrieved 2026-09-13)",
+      "url": "https://help.coinbase.com/en/coinbase/trading-and-funding/pricing-and-fees/fees",
+      "note": "Coinbase Simple (consumer app/web): quoted price embeds a spread (approximately 0.5%, up to 1% on majors, wider when volatile) PLUS a flat/percentage fee — $0.99 under $10, $1.49 $10-25, $1.99 $25-50, $2.99 $50-200, 1.49% above $200 (whichever is greater); every simple limit buy/sell adds a 1% execution fee (Coinbase One zero-fee benefit does NOT cover it). Coinbase One $29.99/mo waives simple-trade fees up to plan caps — the embedded spread still applies."
+    },
+    {
+      "name": "BestBrokers — Crypto Trading With Low Spreads (live funded-account testing June 2026, updated 2026-07-14)",
+      "url": "https://www.bestbrokers.com/crypto-brokers/crypto-trading-platforms-with-low-spreads/",
+      "note": "Measured Coinbase Advanced spread ≈0.01% (1 bp) on majors while the consumer app runs ≈0.5% — used as the Coinbase Simple embedded-spread estimate in modeled_one_way_pct."
+    },
+    {
+      "name": "Bitstamp fee schedule (bitstamp.net/fee-schedule, verified 2026-09-13)",
+      "url": "https://www.bitstamp.net/fee-schedule/",
+      "note": "Bitstamp PRO unified order-book schedule: 0.30%/0.40% maker/taker under $10k. The Basic consumer interface (mobile simple buy/sell) charges an all-in embedded spread, historically around 0.5% per the venue's own disclosure; no third-party real-money measurement of the Basic interface exists."
+    }
+  ],
+  "methodology": "Dual-product venue model: many exchanges run a cheap order-book interface (PRO/Advanced, maker-taker laddered in fee_rates.json) AND an expensive consumer interface (Instant Buy / Simple / Basic) whose all-in cost is invisible because the spread is embedded in the quoted price. measured_round_trip_pct is the TUM real-money €100 buy-sell round-trip through the STANDARD RETAIL interface (positive = pct lost); predicted_round_trip_pct is what the published fee schedule alone implies (2 x one-way); measured_hidden_spread_pp is the undisclosed retail markup between them. modeled_one_way_pct is the representative per-side consumer cost used for annualized excess math (published fee + typical embedded spread at standard bank-funded sizes — NOT the €100-measured figure, which the TUM brief warns is inflated for fixed-fee platforms). consumer_vs_pro_annual_excess_usd = (modeled_one_way_pct - PRO base taker) x monthly volume x 12. Spread-model brokerages (Bitpanda/BISON) already price the premium AS the trading fee in fee_rates.json, so their rows document the measured evidence but define no PRO ladder.",
+  "venues": {
+    "kraken": {
+      "consumer": {
+        "product_name": "Kraken app (Instant Buy / custom orders)",
+        "fee_model": "fee_plus_embedded_spread",
+        "modeled_one_way_pct": 1.5,
+        "published_one_way_pct": {
+          "instant_recurring": 1.0,
+          "custom_order": 1.5,
+          "small_balance_convert": 3.0
+        },
+        "measured_round_trip_pct": 5.81,
+        "predicted_round_trip_pct": 2.0,
+        "measured_hidden_spread_pp": 3.81,
+        "measurement": {
+          "study": "TUM Pricing Transparency Study (real-money €100 round-trips via standard retail interface)",
+          "period": "2025-10..2025-11",
+          "n": 6,
+          "notional_eur": 100,
+          "corroboration": "Frankfurt School Blockchain Center 2026-03 (432 round-trips): 5.92%"
+        },
+        "subscription": {
+          "name": "Kraken+",
+          "monthly_usd": 4.99,
+          "waiver_monthly_usd": 10000,
+          "note": "Waives app trading fees on up to $10,000 monthly Buy/Sell/Convert volume (major fiat on-ramps; 30-day free trial, $49.99/yr annual billing); embedded spreads and card processing fees are NOT waived and Kraken Pro gets no benefit."
+        },
+        "tier_credit": false
+      },
+      "pro": {
+        "product_name": "Kraken Pro (unified 17-tier order book since 2026-07-09)",
+        "base_maker_pct": 0.4,
+        "base_taker_pct": 0.8,
+        "published_round_trip_pct": 1.6
+      },
+      "notes": [
+        "The hidden retail spread (3.81 pp round-trip) exceeds the published fee (2.00 pp predicted) by nearly a factor of two — on the consumer app the posted fee is only ~34% of what a €100 retail trade actually costs.",
+        "App purchases earn NO Kraken Pro tier credit: the 30-day volume that lowers Pro rates excludes Instant Buy/conversions, so heavy app usage never earns the order-book discount.",
+        "The app's custom (target-price) orders cost 1.5% — MORE than the 1% instant flow, reversing the usual limit-order discount pattern.",
+        "The annualized excess uses the published-basis 1.5% one-way (1.0% fee + ~0.5% typical spread); the €100-measured realized cost is 2.9% per side."
+      ]
+    },
+    "coinbase": {
+      "consumer": {
+        "product_name": "Coinbase Simple (consumer app/web)",
+        "fee_model": "fee_plus_embedded_spread",
+        "modeled_one_way_pct": 2.0,
+        "published_one_way_pct": {
+          "market_over_200usd": 1.49,
+          "simple_limit_execution": 1.0
+        },
+        "flat_fees_usd": {
+          "under_10": 0.99,
+          "10_25": 1.49,
+          "25_50": 1.99,
+          "50_200": 2.99
+        },
+        "embedded_spread_pct": [0.5, 1.0],
+        "measured_round_trip_pct": 7.49,
+        "predicted_round_trip_pct": 2.98,
+        "measured_hidden_spread_pp": 4.51,
+        "measurement": {
+          "study": "TUM Pricing Transparency Study (real-money €100 round-trips via standard retail interface)",
+          "period": "2025-10..2025-11",
+          "n": 6,
+          "notional_eur": 100,
+          "corroboration": "BestBrokers 2026-06 funded-account testing: consumer app spread ≈0.5% vs Advanced ≈1 bp"
+        },
+        "subscription": {
+          "name": "Coinbase One",
+          "monthly_usd": 29.99,
+          "note": "Waives simple-trade fees up to plan caps and rebates part of Advanced fees in USDC — the embedded spread still applies, and the zero-fee benefit does NOT cover the 1% simple limit-order execution fee."
+        }
+      },
+      "pro": {
+        "product_name": "Coinbase Advanced Trade (order book)",
+        "base_maker_pct": 0.4,
+        "base_taker_pct": 0.6,
+        "published_round_trip_pct": 1.2
+      },
+      "notes": [
+        "Worst measured retail round-trip of the six TUM platforms (7.49%): the $2.99 flat fee on $50-200 trades dominates small DCA buys (up to ~3% per side on €100 before the spread).",
+        "Fee trap reversal: a simple LIMIT order still carries a 1% execution fee on top of the embedded spread — the usual 'use limit orders to save' advice does not apply on the consumer interface.",
+        "Advanced Trade is the same account — switching costs nothing and cuts the base fee from 1.49%+spread to 0.60% taker with no spread.",
+        "The annualized excess uses the published-basis 2.0% one-way (1.49% + ~0.5% measured spread); the €100-measured realized cost is 3.75% per side."
+      ]
+    },
+    "bitvavo": {
+      "consumer": {
+        "product_name": "Bitvavo Basic (one-tap trade)",
+        "fee_model": "order_book_pass_through",
+        "modeled_one_way_pct": 0.25,
+        "measured_round_trip_pct": 0.58,
+        "predicted_round_trip_pct": 0.5,
+        "measured_hidden_spread_pp": 0.08,
+        "measurement": {
+          "study": "TUM Pricing Transparency Study (real-money €100 round-trips via standard retail interface)",
+          "period": "2025-10..2025-11",
+          "n": 13,
+          "notional_eur": 100,
+          "corroboration": "Frankfurt School Blockchain Center 2026-03 (432 round-trips): 0.53%"
+        }
+      },
+      "pro": {
+        "product_name": "Bitvavo PRO (order book, EUR-native books)",
+        "base_maker_pct": 0.15,
+        "base_taker_pct": 0.25,
+        "published_round_trip_pct": 0.5
+      },
+      "notes": [
+        "The EU transparency benchmark: standard retail flow routes into the PRO order book at published fees — measured hidden markup is only 0.08 pp, the lowest of the six TUM platforms, and cheapest overall at 0.58% measured round-trip (13x cheaper than Coinbase's consumer interface).",
+        "Kaiko (2026-05) independently measured Bitvavo's EUR top-of-book spreads at 0.981 bps — the tightest of any European venue.",
+        "No subscription needed to get order-book pricing on the consumer flow; the €10k/7-day welcome offer is not modeled."
+      ]
+    },
+    "bitstamp": {
+      "consumer": {
+        "product_name": "Bitstamp Basic (mobile simple buy/sell)",
+        "fee_model": "spread_embedded",
+        "modeled_one_way_pct": 0.5,
+        "embedded_spread_pct": [0.4, 0.6],
+        "measurement": {
+          "study": "No third-party real-money measurement exists; modeled from Bitstamp's own historical disclosure of the Basic interface all-in spread",
+          "period": "2026-09 (disclosure re-check)",
+          "n": 0,
+          "notional_eur": 100
+        }
+      },
+      "pro": {
+        "product_name": "Bitstamp PRO (unified order book since 2026-09-01)",
+        "base_maker_pct": 0.3,
+        "base_taker_pct": 0.4,
+        "published_round_trip_pct": 0.8
+      },
+      "notes": [
+        "The 0.5% Basic all-in spread is the venue's own historical figure — treat it as unverified until a TUM-style study measures it; the PRO book at 0.30%/0.40% under $10k is the verifiable benchmark.",
+        "New/qualifying accounts pay 0% on the first $1,000 of 30-day volume (intro tier, not modeled in the ladder)."
+      ]
+    },
+    "bitpanda": {
+      "consumer": {
+        "product_name": "Bitpanda app (spread-model brokerage, primary product)",
+        "fee_model": "broker_premium",
+        "modeled_one_way_pct": 1.49,
+        "published_one_way_pct": {
+          "btc_stablecoins": 0.99,
+          "most_assets": 1.49,
+          "small_caps": 2.49
+        },
+        "measured_round_trip_pct": 6.23,
+        "predicted_round_trip_pct": 2.98,
+        "measured_hidden_spread_pp": 4.25,
+        "measurement": {
+          "study": "TUM Pricing Transparency Study (real-money €100 round-trips via standard retail interface)",
+          "period": "2025-10..2025-11",
+          "n": 6,
+          "notional_eur": 100,
+          "corroboration": "Frankfurt School Blockchain Center replication (2026-03, 432 round-trips) confirmed the TUM finding"
+        }
+      },
+      "pro": null,
+      "notes": [
+        "The quoted per-side premium IS the trading fee already modeled in fee_rates.json — it is never added again as a spread; there is no separate PRO ladder to switch to.",
+        "Measured round-trips far exceeded the advertised premium: 6.23% actual vs 2.98% implied (TUM 2025-10..11) — the 4.25 pp hidden markup means the published premium captures well under half of the real cost.",
+        "The separate Bitpanda Fusion order-book interface (external liquidity aggregation, commissions from ~0.02%) is a different product not laddered here."
+      ]
+    },
+    "bison": {
+      "consumer": {
+        "product_name": "BISON app (EUWAX AG principal quotes)",
+        "fee_model": "broker_premium",
+        "modeled_one_way_pct": 1.25,
+        "published_one_way_pct": {
+          "btc_eth": 1.25,
+          "other_coins": 1.75
+        },
+        "measured_round_trip_pct": 2.58,
+        "predicted_round_trip_pct": 2.5,
+        "measured_hidden_spread_pp": 0.08,
+        "measurement": {
+          "study": "TUM Pricing Transparency Study (real-money €100 round-trips via standard retail interface)",
+          "period": "2025-10..2025-11",
+          "n": 6,
+          "notional_eur": 100
+        }
+      },
+      "pro": null,
+      "notes": [
+        "Best published-vs-measured alignment of the six TUM platforms (only 0.08 pp hidden): what BISON advertises is what a €100 round-trip actually costs.",
+        "EUWAX AG (Stuttgart Stock Exchange) quotes an all-in price as principal — no order book, quote valid ~10 seconds; the proportional spread IS the fee already modeled in fee_rates.json."
+      ]
+    }
+  }
+}

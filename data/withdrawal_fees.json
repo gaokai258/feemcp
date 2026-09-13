@@ -1,0 +1,540 @@
+{
+  "last_verified": "2026-09",
+  "sources": [
+    { "name": "cexorer per-exchange withdrawal fee routes (pages stamped Last checked 2026-08-05..2026-09-12)", "url": "https://cexorer.com/exchanges/binance/usdt", "note": "Same path pattern for okx/gate-io/bybit/mexc/bitget/kucoin/kraken and assets usdc,eth,sol,xrp,doge,ltc,trx,ada,avax,dot,link,bch,ton,pol; visited 2026-09-12." },
+    { "name": "Binance withdrawal fees", "url": "https://www.binance.com/en/fee/schedule" },
+    { "name": "OKX withdrawal fees", "url": "https://www.okx.com/fees" },
+    { "name": "Gate.io withdrawal fees", "url": "https://www.gate.io/fee" },
+    { "name": "Bybit withdrawal fees", "url": "https://www.bybit.com/en/help-center/article/FAQ-Withdrawal-Fees" },
+    { "name": "MEXC withdrawal fees", "url": "https://www.mexc.com/fee" },
+    { "name": "Bitget withdrawal fees", "url": "https://www.bitget.com/fee" },
+    { "name": "KuCoin withdrawal fees (dynamic per-network schedule)", "url": "https://www.kucoin.com/fee", "note": "USDT also withdrawable on KCC (KuCoin Chain) for ~0.1 USDT; not modeled here. BCH route unconfirmed 2026-09 and omitted." },
+    { "name": "Kraken official withdrawal-fee schedule (dynamic on-chain pass-through, page last updated 2026-07-16)", "url": "https://support.kraken.com/articles/cryptocurrency-withdrawal-fees-and-minimums", "note": "Figures are the 2026-07-16 snapshot; Kraken adjusts with network conditions. USDT/USDC also routable via smaller chains (Aptos/Sui/Stellar/TON/Ink/Unichain...) not modeled here." },
+    { "name": "Coinbase pricing & fees (official help page, accessed 2026-09-12)", "url": "https://help.coinbase.com/en/coinbase/trading-and-funding/pricing-and-fees/fees", "note": "All on-chain withdrawals are dynamic estimated network fees disclosed at withdrawal time — Coinbase publishes no fixed per-asset table. Figures below are typical 2026-09 estimates, flagged per route." },
+    { "name": "Coinbase USDT rail coverage + 0.01% processing fee; USDC Base free (multi-source 2026-02..2026-09)", "url": "https://coinstats.app/news/b09daf076a2a821673bf0e6bc1b875b4134d99852f35eb2a35197050d2514e2d", "note": "USDT withdrawable on ERC-20/Base/Solana only (no TRC-20) with a 0.01% processing fee capped at 20 USDT (cross-checked tronnrg 2026-02-12, official help page 2026-09-12). USDC on Base free/near-zero (Coinbase L2 promotion); ERC-20 gas $3-10 vs some 'free' claims — conflict flagged on the route." },
+    { "name": "cexorer BingX withdrawal fee routes (USDT page stamped 2026-09-12, USDC 2026-08-23, BTC 2026-08-21, ETH 2026-09-12)", "url": "https://cexorer.com/exchanges/bingx/usdt", "note": "Same path pattern for btc/eth/usdc. Several chains listed deposit-only or with withdrawals paused in Aug-Sep 2026 (flagged suspended per route). No direct fiat rails — BingX fiat moves via P2P/third-party gateways only." },
+    { "name": "BloFin withdrawal costs (decentralised.news Crypto Friction Cost Index 2026-05 + datawallet network-switch testing 2026-06 + walletreviewer 2026-06)", "url": "https://backend.decentralised.news/crypto-friction-cost-index-2026-what-active-crypto-traders-actually-pay-in-hidden-costs-every-year/", "note": "BloFin publishes no fixed table — withdrawals are dynamic network cost pass-through with no exchange markup. Measured: BTC ~0.0002 BTC, USDT TRC-20 flat ~1 USDT, ETH on Arbitrum/Optimism ~$0.5-2, ERC-20 'a few dollars'. ERC-20 stablecoin/ETH figures below are 2026-09 estimates flagged per route. BloFin supports USDT/USDC across Tron/Ethereum/Solana/BNB Chain/Arbitrum; only the modeled routes are listed. No direct fiat cash-out rail — fiat returns via third-party providers only." },
+    { "name": "Bitstamp withdrawal fees (official fee schedule bitstamp.net/fee-schedule is dynamic-disclosure; third-party snapshots: spark.money mid-2026, Webopedia 2026-04, cryptototem)", "url": "https://www.bitstamp.net/fee-schedule/", "note": "BTC semi-fixed 0.0005 (min 0.001, no Lightning); ETH official dynamic, third-party range 0.005-0.03; USDT ERC-20 only at ~20 USDT (no TRC-20/Solana); USDC dynamic with multi-chain support (Solana/Arbitrum/Polygon/Optimism/Avalanche/Stellar)." },
+    { "name": "Bitvavo withdrawal fees (official schedule is dynamic per blockchain congestion; third-party 2026 snapshots: bitcoin.diy 2026-05-28 ~0.00005 BTC, freenance 2026-09-03 ~0.00006 BTC)", "url": "https://www.bitcoin.diy/reviews/bitvavo", "note": "BTC on-chain only — no Lightning payouts; typical reference ~0.00005 BTC (≈$3.86 at the 2026-09-12 snapshot), can rise during congestion. One third-party snapshot (bitbo) listed a much lower 0.0000063 BTC, treated as an unconfirmed low outlier. EUR SEPA cash-outs are FREE (≤€25k/day for standard verification). Only the BTC route is modeled v0.42 — Bitvavo lists 390-450+ assets but per-asset dynamic fees were not individually verified; re-check at withdrawal time." },
+    { "name": "Finst fee schedule (official finst.com/en/fees, schedule valid 2026-07-23; verified 2026-09-13)", "url": "https://finst.com/en/fees", "note": "Crypto withdrawal = variable network fee (pass-through, quoted at confirmation) PLUS a flat €2.50 third-party cost on every withdrawal; crypto deposits free; EUR bank withdrawals free. Only the BTC/Bitcoin route is modeled v0.43 (network component proxied at the same ~0.00005 BTC typical 2026 reference as Bitvavo, with the €2.50 surcharge folded into the native-unit figure and disclosed in the note); the other 400+ assets use the same dynamic+€2.50 formula but were not individually verified." },
+    { "name": "Bitpanda crypto withdrawal fees (dynamic network pass-through; published-fee tracker skontro.com/exchanges/bitpanda checked 2026-06-10..2026-08-09; coinspeaker real-account review 2026-02-04 confirms no exchange markup)", "url": "https://skontro.com/exchanges/bitpanda/withdrawal-fees", "note": "Bitpanda charges the on-chain network fee at cost with no added markup and publishes no fixed table. Snapshot: BTC 0.00000598 (≈$0.47 at tracker prices; ≈$0.46 at the 2026-09-12 $77,298 snapshot used here) checked 2026-06-10; ETH 0.0006 (≈$1.49; ≈$1.51 at $2,512) checked 2026-08-09. Both routes modeled v0.44; other assets float with congestion and were not individually verified. EUR SEPA and GBP FPS fiat withdrawals are free." },
+    { "name": "BISON withdrawal policy (official bisonapp.com/en/costs retrieved 2026-09-05; BISON support article 'Crypto Withdrawal to Your Own Wallet' + per-coin address/minimum overview, verified 2026-09-13)", "url": "https://support.bisonapp.com/hc/en-gb/articles/35824885203741-Crypto-Withdrawal-to-Your-Own-Wallet", "note": "BISON officially advertises cryptocurrency withdrawals to the user's own wallet as FREE OF CHARGE with no separate network-fee line ('Withdrawing cryptocurrencies is free of charge for you' — on-chain network costs are absorbed by EUWAX/Boerse Stuttgart Group, unlike Bitpanda's pass-through model); crypto deposits and SEPA euro deposits/withdrawals are also free. Per-coin technical minimum withdrawal amounts apply (BTC 0.001, ETH 0.01; SOL 0.1, XRP 10, ADA 30, DOGE 100) and withdrawals can be cancelled within 24h while pending. BTC/Bitcoin and ETH/Ethereum routes modeled at 0 native fee v0.45; the other ~54 assets follow the same free policy but were not individually enumerated." },
+    { "name": "CoinGecko simple price API snapshot 2026-09-12 (USD prices for fee conversion)", "url": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,ripple,dogecoin,litecoin,tron,cardano,avalanche-2,polkadot,chainlink,bitcoin-cash,the-open-network,polygon-ecosystem-token&vs_currencies=usd" },
+    { "name": "Note", "note": "Withdrawal fees change with on-chain network conditions; native-asset USD values are computed from the 2026-09-12 price snapshot. 'suspended: true' means the chain was listed but withdrawals were paused in Aug-Sep 2026. Stablecoins on TRC-20/ERC-20/etc are priced 1:1 USD." }
+  ],
+  "asset_prices_usd": {
+    "BTC": 77298,
+    "ETH": 2512.03,
+    "USDT": 1,
+    "USDC": 1,
+    "SOL": 101.97,
+    "XRP": 1.36,
+    "DOGE": 0.0842,
+    "LTC": 53.2,
+    "TRX": 0.3389,
+    "ADA": 0.2064,
+    "AVAX": 7.46,
+    "DOT": 1.048,
+    "LINK": 11.51,
+    "BCH": 229.42,
+    "TON": 1.37,
+    "POL": 0.0966
+  },
+  "exchanges": {
+    "binance": {
+      "BTC": { "network": "Bitcoin", "fee": 0.0001 },
+      "ETH": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.00007 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.00002 },
+        "Optimism": { "network": "Optimism", "fee": 0.000015 },
+        "Base": { "network": "Base", "fee": 0.00005 }
+      },
+      "USDT": {
+        "TRC-20": { "network": "TRC-20", "fee": 1.5 },
+        "ERC-20": { "network": "ERC-20", "fee": 0.3 },
+        "BEP20": { "network": "BEP20", "fee": 0.01 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.1 },
+        "Optimism": { "network": "Optimism", "fee": 0.04 },
+        "Polygon": { "network": "Polygon", "fee": 0.07 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 0.04 },
+        "Solana": { "network": "Solana", "fee": 0.3 },
+        "TON": { "network": "TON", "fee": 0.3 }
+      },
+      "USDC": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.6 },
+        "BEP20": { "network": "BEP20", "fee": 0 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.2 },
+        "Optimism": { "network": "Optimism", "fee": 0.05 },
+        "Base": { "network": "Base", "fee": 0.2 },
+        "Polygon": { "network": "Polygon", "fee": 0.12 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 0.056 },
+        "Solana": { "network": "Solana", "fee": 0.3 }
+      },
+      "SOL": { "Solana": { "network": "Solana", "fee": 0.001 } },
+      "XRP": { "XRP": { "network": "XRP", "fee": 0.2 } },
+      "DOGE": { "Dogecoin": { "network": "Dogecoin", "fee": 4 } },
+      "LTC": { "Litecoin": { "network": "Litecoin", "fee": 0.0001 } },
+      "TRX": { "Tron": { "network": "Tron", "fee": 1.5 } },
+      "ADA": { "Cardano": { "network": "Cardano", "fee": 1.5 } },
+      "AVAX": { "Avalanche C": { "network": "Avalanche C", "fee": 0.004 } },
+      "DOT": {
+        "Polkadot": { "network": "Polkadot", "fee": 0.08, "suspended": true, "note": "Relay-chain withdrawals paused 2026-09." },
+        "AssetHub": { "network": "AssetHub", "fee": 0.05 }
+      },
+      "LINK": { "ERC-20": { "network": "ERC-20", "fee": 0.067 } },
+      "BCH": { "Bitcoin Cash": { "network": "Bitcoin Cash", "fee": 0.0002 } },
+      "TON": { "TON": { "network": "TON", "fee": 0.03, "suspended": true, "note": "Native TON withdrawals paused since 2026-06-30." } },
+      "POL": { "ERC-20": { "network": "ERC-20", "fee": 7.96, "note": "No native Polygon-POL route tracked; verify in app." } }
+    },
+    "okx": {
+      "BTC": { "network": "Bitcoin", "fee": 0.0001 },
+      "ETH": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.00009 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.0000024 },
+        "Optimism": { "network": "Optimism", "fee": 0.000011 },
+        "Base": { "network": "Base", "fee": 0.000003 }
+      },
+      "USDT": {
+        "TRC-20": { "network": "TRC-20", "fee": 1.5 },
+        "ERC-20": { "network": "ERC-20", "fee": 0.41 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.0032 },
+        "Optimism": { "network": "Optimism", "fee": 0.013 },
+        "Polygon": { "network": "Polygon", "fee": 0.011 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 0.0038 },
+        "Solana": { "network": "Solana", "fee": 0.28 },
+        "TON": { "network": "TON", "fee": 0.015 }
+      },
+      "USDC": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.69 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.0054 },
+        "Optimism": { "network": "Optimism", "fee": 0.027 },
+        "Base": { "network": "Base", "fee": 0.047 },
+        "Polygon": { "network": "Polygon", "fee": 0.024 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 0.019 },
+        "Solana": { "network": "Solana", "fee": 0.28 }
+      },
+      "SOL": { "Solana": { "network": "Solana", "fee": 0.00024 } },
+      "XRP": { "XRP": { "network": "XRP", "fee": 0.2, "note": "Separate XRP-ledger 'XRP' channel at 0.01 appears on some OKX pages; 0.2 RIPPLE route modeled." } },
+      "DOGE": { "Dogecoin": { "network": "Dogecoin", "fee": 4 } },
+      "LTC": { "Litecoin": { "network": "Litecoin", "fee": 0.001 } },
+      "TRX": { "Tron": { "network": "Tron", "fee": 1.2 } },
+      "ADA": { "Cardano": { "network": "Cardano", "fee": 1.2 } },
+      "AVAX": { "Avalanche C": { "network": "Avalanche C", "fee": 0.00083 } },
+      "DOT": { "Polkadot": { "network": "Polkadot", "fee": 0.08 } },
+      "LINK": { "ERC-20": { "network": "ERC-20", "fee": 0.013 } },
+      "BCH": { "Bitcoin Cash": { "network": "Bitcoin Cash", "fee": 0.0008 } },
+      "TON": { "TON": { "network": "TON", "fee": 0.0012 } },
+      "POL": {
+        "Polygon": { "network": "Polygon", "fee": 0.11 },
+        "ERC-20": { "network": "ERC-20", "fee": 1.64 }
+      }
+    },
+    "bybit": {
+      "BTC": { "network": "Bitcoin", "fee": 0.0002 },
+      "ETH": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.0003 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.00004 },
+        "Optimism": { "network": "Optimism", "fee": 0.00015 },
+        "Base": { "network": "Base", "fee": 0.0003 }
+      },
+      "USDT": {
+        "TRC-20": { "network": "TRC-20", "fee": 1 },
+        "ERC-20": { "network": "ERC-20", "fee": 0.8 },
+        "BEP20": { "network": "BEP20", "fee": 0.2 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.1 },
+        "Optimism": { "network": "Optimism", "fee": 1 },
+        "Polygon": { "network": "Polygon", "fee": 0.1 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 0.1 },
+        "Solana": { "network": "Solana", "fee": 0.5 },
+        "TON": { "network": "TON", "fee": 0.15 }
+      },
+      "USDC": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.8 },
+        "BEP20": { "network": "BEP20", "fee": 0.2 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.2 },
+        "Optimism": { "network": "Optimism", "fee": 1 },
+        "Base": { "network": "Base", "fee": 0.5 },
+        "Polygon": { "network": "Polygon", "fee": 1 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 1 },
+        "Solana": { "network": "Solana", "fee": 1 }
+      },
+      "SOL": { "Solana": { "network": "Solana", "fee": 0.001 } },
+      "XRP": { "XRP": { "network": "XRP", "fee": 0.2 } },
+      "DOGE": { "Dogecoin": { "network": "Dogecoin", "fee": 4 } },
+      "LTC": { "Litecoin": { "network": "Litecoin", "fee": 0.0001 } },
+      "TRX": { "Tron": { "network": "Tron", "fee": 1 } },
+      "ADA": { "Cardano": { "network": "Cardano", "fee": 0.8 } },
+      "AVAX": { "Avalanche C": { "network": "Avalanche C", "fee": 0.004 } },
+      "DOT": { "Polkadot": { "network": "Polkadot", "fee": 0.08 } },
+      "LINK": { "ERC-20": { "network": "ERC-20", "fee": 0.25 } },
+      "BCH": { "Bitcoin Cash": { "network": "Bitcoin Cash", "fee": 0.001 } },
+      "TON": { "TON": { "network": "TON", "fee": 0.02, "suspended": true, "note": "Native TON withdrawals paused since 2026-08-13." } },
+      "POL": {
+        "Polygon": { "network": "Polygon", "fee": 0.2 },
+        "ERC-20": { "network": "ERC-20", "fee": 5 }
+      }
+    },
+    "gate": {
+      "BTC": { "network": "Bitcoin", "fee": 0.0005 },
+      "ETH": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.00043 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.000102 },
+        "Optimism": { "network": "Optimism", "fee": 0.00002149 },
+        "Base": { "network": "Base", "fee": 0.00002018 }
+      },
+      "USDT": {
+        "TRC-20": { "network": "TRC-20", "fee": 1.5 },
+        "ERC-20": { "network": "ERC-20", "fee": 1.04 },
+        "BEP20": { "network": "BEP20", "fee": 0.5 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.05 },
+        "Optimism": { "network": "Optimism", "fee": 0.05 },
+        "Polygon": { "network": "Polygon", "fee": 0.05 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 0.05 },
+        "Solana": { "network": "Solana", "fee": 0.5 },
+        "TON": { "network": "TON", "fee": 0.3 }
+      },
+      "USDC": {
+        "TRC-20": { "network": "TRC-20", "fee": 1, "suspended": true, "note": "TRC-20 USDC withdrawals paused 2026-09." },
+        "ERC-20": { "network": "ERC-20", "fee": 1.03 },
+        "BEP20": { "network": "BEP20", "fee": 0.499 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.05 },
+        "Optimism": { "network": "Optimism", "fee": 0.05 },
+        "Base": { "network": "Base", "fee": 0.05 },
+        "Polygon": { "network": "Polygon", "fee": 0.05 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 0.05 },
+        "Solana": { "network": "Solana", "fee": 0.499 }
+      },
+      "SOL": { "Solana": { "network": "Solana", "fee": 0.00239 } },
+      "XRP": { "XRP": { "network": "XRP", "fee": 0.0372 } },
+      "DOGE": { "Dogecoin": { "network": "Dogecoin", "fee": 0.557 } },
+      "LTC": { "Litecoin": { "network": "Litecoin", "fee": 0.000888 } },
+      "TRX": { "Tron": { "network": "Tron", "fee": 1.5 } },
+      "ADA": { "Cardano": { "network": "Cardano", "fee": 0.561 } },
+      "AVAX": { "Avalanche C": { "network": "Avalanche C", "fee": 0.00781 } },
+      "LINK": { "ERC-20": { "network": "ERC-20", "fee": 0.0819 } },
+      "BCH": { "Bitcoin Cash": { "network": "Bitcoin Cash", "fee": 0.000234 } },
+      "TON": { "TON": { "network": "TON", "fee": 0.08, "suspended": true, "note": "Native TON withdrawals paused since 2026-08-04." } },
+      "POL": {
+        "Polygon": { "network": "Polygon", "fee": 0.524 },
+        "ERC-20": { "network": "ERC-20", "fee": 10.62 }
+      }
+    },
+    "mexc": {
+      "BTC": { "network": "Bitcoin", "fee": 0.0003 },
+      "ETH": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.000024 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.0000018 },
+        "Optimism": { "network": "Optimism", "fee": 0.0000024 },
+        "Base": { "network": "Base", "fee": 0.0000013 }
+      },
+      "USDT": {
+        "TRC-20": { "network": "TRC-20", "fee": 0.5 },
+        "ERC-20": { "network": "ERC-20", "fee": 0.094 },
+        "BEP20": { "network": "BEP20", "fee": 0.01 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.05 },
+        "Optimism": { "network": "Optimism", "fee": 0.0078 },
+        "Polygon": { "network": "Polygon", "fee": 0.0065 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 0.000074 },
+        "Solana": { "network": "Solana", "fee": 0.18 },
+        "TON": { "network": "TON", "fee": 0.017 }
+      },
+      "USDC": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.17 },
+        "BEP20": { "network": "BEP20", "fee": 0 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.0033 },
+        "Optimism": { "network": "Optimism", "fee": 0.016 },
+        "Base": { "network": "Base", "fee": 0.1 },
+        "Polygon": { "network": "Polygon", "fee": 0.011 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 0.00021 },
+        "Solana": { "network": "Solana", "fee": 0.18 }
+      },
+      "SOL": { "Solana": { "network": "Solana", "fee": 0.000374, "note": "Source page 2026-05; verify before large transfers." } },
+      "XRP": { "XRP": { "network": "XRP", "fee": 0.02 } },
+      "DOGE": { "Dogecoin": { "network": "Dogecoin", "fee": 0.424 } },
+      "LTC": { "Litecoin": { "network": "Litecoin", "fee": 0.0001 } },
+      "TRX": { "Tron": { "network": "Tron", "fee": 1 } },
+      "ADA": { "Cardano": { "network": "Cardano", "fee": 2 } },
+      "AVAX": { "Avalanche C": { "network": "Avalanche C", "fee": 0.004 } },
+      "DOT": { "Polkadot": { "network": "Polkadot", "fee": 0.1 } },
+      "LINK": { "ERC-20": { "network": "ERC-20", "fee": 0.11 } },
+      "BCH": { "Bitcoin Cash": { "network": "Bitcoin Cash", "fee": 0.001 } },
+      "TON": { "TON": { "network": "TON", "fee": 0.0013, "suspended": true, "note": "Native TON paused; BEP-20 TON withdrawals open and free." } },
+      "POL": {
+        "Polygon": { "network": "Polygon", "fee": 0.3 },
+        "ERC-20": { "network": "ERC-20", "fee": 20 }
+      }
+    },
+    "bitget": {
+      "BTC": { "network": "Bitcoin", "fee": 0.0002 },
+      "ETH": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.0002 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.00004 },
+        "Optimism": { "network": "Optimism", "fee": 0.00003 },
+        "Base": { "network": "Base", "fee": 0.00004 }
+      },
+      "USDT": {
+        "TRC-20": { "network": "TRC-20", "fee": 1.5 },
+        "ERC-20": { "network": "ERC-20", "fee": 0.8 },
+        "BEP20": { "network": "BEP20", "fee": 0.15 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.15 },
+        "Optimism": { "network": "Optimism", "fee": 0.15 },
+        "Polygon": { "network": "Polygon", "fee": 0.2 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 0.11, "suspended": true, "note": "Avalanche C USDT withdrawals paused 2026-09." },
+        "Solana": { "network": "Solana", "fee": 1 },
+        "TON": { "network": "TON", "fee": 0.15 }
+      },
+      "USDC": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.8 },
+        "BEP20": { "network": "BEP20", "fee": 0 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.15 },
+        "Optimism": { "network": "Optimism", "fee": 0.1 },
+        "Base": { "network": "Base", "fee": 0.1 },
+        "Polygon": { "network": "Polygon", "fee": 0.64 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 1, "suspended": true, "note": "Avalanche C USDC withdrawals paused 2026-09." },
+        "Solana": { "network": "Solana", "fee": 1 }
+      },
+      "SOL": { "Solana": { "network": "Solana", "fee": 0.006 } },
+      "XRP": { "XRP": { "network": "XRP", "fee": 0.2 } },
+      "DOGE": { "Dogecoin": { "network": "Dogecoin", "fee": 4 } },
+      "LTC": { "Litecoin": { "network": "Litecoin", "fee": 0.001 } },
+      "TRX": { "Tron": { "network": "Tron", "fee": 1.1 } },
+      "ADA": { "Cardano": { "network": "Cardano", "fee": 0.8 } },
+      "AVAX": { "Avalanche C": { "network": "Avalanche C", "fee": 0.0064, "suspended": true, "note": "Native AVAX C-Chain withdrawals paused since 2026-08-13." } },
+      "DOT": {
+        "Polkadot": { "network": "Polkadot", "fee": 0.08, "suspended": true, "note": "Relay-chain withdrawals paused 2026-09." },
+        "AssetHub": { "network": "AssetHub", "fee": 0.05 }
+      },
+      "LINK": { "ERC-20": { "network": "ERC-20", "fee": 0.0693 } },
+      "BCH": { "Bitcoin Cash": { "network": "Bitcoin Cash", "fee": 0.0003 } },
+      "TON": { "TON": { "network": "TON", "fee": 0.02 } },
+      "POL": {
+        "Polygon": { "network": "Polygon", "fee": 0.2 },
+        "ERC-20": { "network": "ERC-20", "fee": 8.33 }
+      }
+    },
+    "kucoin": {
+      "BTC": { "network": "Bitcoin", "fee": 0.0004 },
+      "ETH": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.0015 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.0002 },
+        "Optimism": { "network": "Optimism", "fee": 0.0002 },
+        "Base": { "network": "Base", "fee": 0.00005 }
+      },
+      "USDT": {
+        "TRC-20": { "network": "TRC-20", "fee": 1.5 },
+        "ERC-20": { "network": "ERC-20", "fee": 5.5 },
+        "BEP20": { "network": "BEP20", "fee": 1 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 1 },
+        "Optimism": { "network": "Optimism", "fee": 1 },
+        "Polygon": { "network": "Polygon", "fee": 0.8 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 1 },
+        "Solana": { "network": "Solana", "fee": 1.5 },
+        "TON": { "network": "TON", "fee": 0.5 }
+      },
+      "USDC": {
+        "TRC-20": { "network": "TRC-20", "fee": 1, "suspended": true, "note": "TRC-20 USDC withdrawals paused 2026-09." },
+        "ERC-20": { "network": "ERC-20", "fee": 5.5 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 1 },
+        "Optimism": { "network": "Optimism", "fee": 1 },
+        "Base": { "network": "Base", "fee": 0.5 },
+        "Polygon": { "network": "Polygon", "fee": 0.21 },
+        "Avalanche C": { "network": "Avalanche C", "fee": 1 },
+        "Solana": { "network": "Solana", "fee": 1 }
+      },
+      "SOL": { "Solana": { "network": "Solana", "fee": 0.008 } },
+      "XRP": { "XRP": { "network": "XRP", "fee": 0.3 } },
+      "DOGE": { "Dogecoin": { "network": "Dogecoin", "fee": 4 } },
+      "LTC": { "Litecoin": { "network": "Litecoin", "fee": 0.006 } },
+      "TRX": { "Tron": { "network": "Tron", "fee": 1 } },
+      "ADA": { "Cardano": { "network": "Cardano", "fee": 2.5 } },
+      "AVAX": { "Avalanche C": { "network": "Avalanche C", "fee": 0.06 } },
+      "DOT": { "Polkadot": { "network": "Polkadot", "fee": 0.14 } },
+      "LINK": { "ERC-20": { "network": "ERC-20", "fee": 0.32 } },
+      "TON": { "TON": { "network": "TON", "fee": 0.19, "suspended": true, "note": "Native TON withdrawals paused 2026-09." } },
+      "POL": {
+        "Polygon": { "network": "Polygon", "fee": 3 },
+        "ERC-20": { "network": "ERC-20", "fee": 25 }
+      }
+    },
+    "kraken": {
+      "BTC": { "network": "Bitcoin", "fee": 0.00015, "note": "Dynamic on-chain pass-through; 2026-07-16 snapshot." },
+      "ETH": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.00013, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.00015, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Optimism": { "network": "Optimism", "fee": 0.00015, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Base": { "network": "Base", "fee": 0.00015, "note": "Dynamic; 2026-07-16 snapshot." }
+      },
+      "USDT": {
+        "TRC-20": { "network": "TRC-20", "fee": 1, "note": "Dynamic; 2026-07-16 snapshot." },
+        "ERC-20": { "network": "ERC-20", "fee": 0.6442, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Arbitrum": { "network": "Arbitrum", "fee": 1, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Optimism": { "network": "Optimism", "fee": 1, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Polygon": { "network": "Polygon", "fee": 1, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Avalanche C": { "network": "Avalanche C", "fee": 1, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Solana": { "network": "Solana", "fee": 1.0453, "note": "Dynamic; 2026-07-16 snapshot." },
+        "TON": { "network": "TON", "fee": 0.1, "note": "Dynamic; 2026-07-16 snapshot." }
+      },
+      "USDC": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.6526, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Arbitrum": { "network": "Arbitrum", "fee": 1, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Optimism": { "network": "Optimism", "fee": 1, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Base": { "network": "Base", "fee": 1, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Polygon": { "network": "Polygon", "fee": 1, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Avalanche C": { "network": "Avalanche C", "fee": 1, "note": "Dynamic; 2026-07-16 snapshot." },
+        "Solana": { "network": "Solana", "fee": 1.0452, "note": "Dynamic; 2026-07-16 snapshot." }
+      },
+      "SOL": { "Solana": { "network": "Solana", "fee": 0.005, "note": "Dynamic; 2026-07-16 snapshot." } },
+      "XRP": { "XRP": { "network": "XRP", "fee": 0.05, "note": "Dynamic; 2026-07-16 snapshot." } },
+      "DOGE": { "Dogecoin": { "network": "Dogecoin", "fee": 4, "note": "Dynamic; 2026-07-16 snapshot." } },
+      "LTC": { "Litecoin": { "network": "Litecoin", "fee": 0.002, "note": "Dynamic; 2026-07-16 snapshot." } },
+      "TRX": { "Tron": { "network": "Tron", "fee": 3, "note": "Dynamic; 2026-07-16 snapshot." } },
+      "ADA": { "Cardano": { "network": "Cardano", "fee": 1, "note": "Dynamic; 2026-07-16 snapshot." } },
+      "AVAX": { "Avalanche C": { "network": "Avalanche C", "fee": 0.05, "note": "Dynamic; 2026-07-16 snapshot." } },
+      "DOT": { "AssetHub": { "network": "AssetHub", "fee": 0.05, "note": "Kraken only supports Polkadot AssetHub withdrawals; dynamic 2026-07-16 snapshot." } },
+      "LINK": { "ERC-20": { "network": "ERC-20", "fee": 0.03521, "note": "Dynamic; 2026-07-16 snapshot." } },
+      "BCH": { "Bitcoin Cash": { "network": "Bitcoin Cash", "fee": 0.0003, "note": "Dynamic; 2026-07-16 snapshot." } },
+      "TON": { "TON": { "network": "TON", "fee": 0.1, "note": "Dynamic; 2026-07-16 snapshot." } },
+      "POL": {
+        "Polygon": { "network": "Polygon", "fee": 4, "note": "Dynamic; 2026-07-16 snapshot." },
+        "ERC-20": { "network": "ERC-20", "fee": 8.30519, "note": "Dynamic; 2026-07-16 snapshot." }
+      }
+    },
+    "coinbase": {
+      "BTC": { "network": "Bitcoin", "fee": 0.000026, "note": "Dynamic estimated network fee, typical 2026-09 range $1.5-3 (snapshot ≈$2). Lightning withdrawals cost 0.2% instead (not modeled)." },
+      "ETH": { "network": "ERC-20", "fee": 0.0012, "note": "Dynamic L1 gas estimate, wide range ($0.5-15 by network conditions); L2 withdrawals (e.g. Base) run far cheaper. No fixed table — estimate flagged." },
+      "USDT": {
+        "ERC-20": { "network": "ERC-20", "fee": 8, "note": "Dynamic gas estimate (typically $5-20) plus a 0.01% processing fee capped at 20 USDT. USDT is NOT supported on TRC-20." },
+        "Base": { "network": "Base", "fee": 0.01, "note": "Native USDT on Base; near-zero gas plus 0.01% processing fee (cap 20 USDT)." },
+        "Solana": { "network": "Solana", "fee": 0.2, "note": "Near-zero gas plus 0.01% processing fee (cap 20 USDT)." }
+      },
+      "USDC": {
+        "Base": { "network": "Base", "fee": 0, "note": "Free USDC withdrawals on Coinbase's Base L2 (promoted route)." },
+        "ERC-20": { "network": "ERC-20", "fee": 5, "note": "Dynamic L1 gas estimate; sources conflict ($3-10 typical vs some 'free' reports) — indicative only." }
+      }
+    },
+    "hyperliquid": {
+      "USDC": {
+        "Arbitrum": { "network": "Arbitrum", "fee": 1, "note": "Flat ~1 USDC gas pass-through to Arbitrum One via the native bridge; Circle CCTP V2 routes to 22+ chains at the same ~1 USDC. Deposits are free (sender pays source-chain gas only, min 5 USDC)." }
+      }
+    },
+    "bingx": {
+      "BTC": {
+        "Bitcoin": { "network": "Bitcoin", "fee": 0.00004, "note": "cexorer snapshot 2026-08-21 (≈$3.09 at BTC $77,298)." },
+        "BEP20": { "network": "BEP20", "fee": 0.000001, "note": "BTC on BNB Chain; cexorer snapshot 2026-08-21." }
+      },
+      "ETH": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.0004 },
+        "BEP20": { "network": "BEP20", "fee": 0.000009 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.0001 },
+        "Optimism": { "network": "Optimism", "fee": 0.0001 },
+        "Base": { "network": "Base", "fee": 0.000004 },
+        "Blast": { "network": "Blast", "fee": 0.000077, "note": "Deposits closed 2026-09; withdrawals open." },
+        "Linea": { "network": "Linea", "fee": 0.00017, "note": "Deposits closed 2026-09; withdrawals open." },
+        "Robinhood": { "network": "Robinhood", "fee": 0.0006 },
+        "ZKSYNC": { "network": "ZKSYNC", "fee": 0.00004, "suspended": true, "note": "Withdrawals paused 2026-09." },
+        "STARKNET": { "network": "STARKNET", "fee": 0.00009, "suspended": true, "note": "Withdrawals paused 2026-09." },
+        "MTL": { "network": "MTL", "fee": 0.001406, "suspended": true, "note": "Withdrawals paused 2026-09." }
+      },
+      "USDT": {
+        "TRC-20": { "network": "TRC-20", "fee": 1.5 },
+        "ERC-20": { "network": "ERC-20", "fee": 1 },
+        "BEP20": { "network": "BEP20", "fee": 0.15 },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.5 },
+        "Optimism": { "network": "Optimism", "fee": 1 },
+        "Polygon": { "network": "Polygon", "fee": 0.8 },
+        "Solana": { "network": "Solana", "fee": 1 },
+        "TON": { "network": "TON", "fee": 0.017 },
+        "APT": { "network": "APT", "fee": 0.01, "note": "USDT on Aptos." },
+        "Avalanche C": { "network": "Avalanche C", "fee": 0.01, "suspended": true, "note": "Withdrawals paused 2026-09." },
+        "OPBNB": { "network": "OPBNB", "fee": 1.5, "suspended": true, "note": "opBNB withdrawals paused 2026-09." }
+      },
+      "USDC": {
+        "ERC-20": { "network": "ERC-20", "fee": 1 },
+        "BEP20": { "network": "BEP20", "fee": 0, "note": "Free USDC BEP20 withdrawals in the 2026-08-23 snapshot." },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.5 },
+        "Optimism": { "network": "Optimism", "fee": 0.3 },
+        "Polygon": { "network": "Polygon", "fee": 0.5 },
+        "Solana": { "network": "Solana", "fee": 1 },
+        "Base": { "network": "Base", "fee": 0.017 },
+        "APT": { "network": "APT", "fee": 0.01, "note": "USDC on Aptos." },
+        "XDC": { "network": "XDC", "fee": 0, "note": "Free in the 2026-08-23 snapshot." },
+        "SUI": { "network": "SUI", "fee": 0.01, "suspended": true, "note": "Withdrawals paused 2026-09." },
+        "Avalanche C": { "network": "Avalanche C", "fee": 0.11, "suspended": true, "note": "Withdrawals paused 2026-09." },
+        "TRC-20": { "network": "TRC-20", "fee": 1, "suspended": true, "note": "USDC TRC-20 withdrawals suspended since 2026-07-24." }
+      }
+    },
+    "phemex": {
+      "BTC": {
+        "Bitcoin": { "network": "Bitcoin", "fee": 0.0005, "note": "rononcrypto 2026: ~0.0005 BTC network pass-through fee (≈$38.65 at BTC $77,298)." }
+      },
+      "ETH": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.008, "note": "rononcrypto 2026: 0.005-0.01 ETH depending on network congestion; midpoint used." }
+      },
+      "USDT": {
+        "TRC-20": { "network": "TRC-20", "fee": 1.5, "note": "Estimated 2026-09; Phemex does not publish a fixed withdrawal-fee table (dynamic network pass-through)." },
+        "ERC-20": { "network": "ERC-20", "fee": 3, "note": "Estimated 2026-09; dynamic gas pass-through." }
+      },
+      "USDC": {
+        "ERC-20": { "network": "ERC-20", "fee": 3, "note": "Estimated 2026-09; dynamic gas pass-through." }
+      }
+    },
+    "blofin": {
+      "BTC": {
+        "Bitcoin": { "network": "Bitcoin", "fee": 0.0002, "note": "decentralised.news CFCI 2026-05: ~0.0002 BTC network pass-through (≈$15.5 at the 2026-09-12 $77,298 snapshot; ≈$19 at the study's $95k BTC)." }
+      },
+      "ETH": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.004, "note": "Estimated 2026-09 (≈$10 at the snapshot price); BloFin charges dynamic gas pass-through with no markup." },
+        "Arbitrum": { "network": "Arbitrum", "fee": 0.0004, "note": "decentralised.news 2026-05: ETH L2 withdrawal $0.5-2; midpoint ~$1 ≈ 0.0004 ETH at the snapshot price." },
+        "Optimism": { "network": "Optimism", "fee": 0.0004, "note": "decentralised.news 2026-05: ETH L2 withdrawal $0.5-2; midpoint ~$1 ≈ 0.0004 ETH at the snapshot price." }
+      },
+      "USDT": {
+        "TRC-20": { "network": "TRC-20", "fee": 1, "note": "Flat ~1 USDT on Tron payouts, confirmed by datawallet hands-on network-switch test 2026-06 and CFCI 2026-05." },
+        "ERC-20": { "network": "ERC-20", "fee": 4, "note": "Estimated 2026-09 ('a few dollars'); dynamic gas pass-through." }
+      },
+      "USDC": {
+        "TRC-20": { "network": "TRC-20", "fee": 1, "note": "Estimated 2026-09; same dynamic pass-through policy as USDT TRC-20." },
+        "ERC-20": { "network": "ERC-20", "fee": 4, "note": "Estimated 2026-09; dynamic gas pass-through." }
+      }
+    },
+    "bitstamp": {
+      "BTC": {
+        "Bitcoin": { "network": "Bitcoin", "fee": 0.0005, "note": "Semi-fixed 0.0005 BTC (min withdrawal 0.001 BTC) per spark.money and Webopedia 2026 snapshots (≈$38.65 at the 2026-09-12 $77,298 snapshot); Bitstamp does not offer Lightning withdrawals." }
+      },
+      "ETH": {
+        "ERC-20": { "network": "ERC-20", "fee": 0.005, "note": "Officially a dynamic gas pass-through; third-party 2026 snapshots span 0.005-0.03 ETH — low end modeled conservatively (≈$12.6 at the snapshot). No Arbitrum/Base/other L2 ETH payouts." }
+      },
+      "USDT": {
+        "ERC-20": { "network": "ERC-20", "fee": 20, "note": "Semi-fixed ~20 USDT on Ethereum (spark.money mid-2026, the most expensive modeled USDT rail); Bitstamp offers NO TRC-20 or Solana USDT payouts. Under MiCA, EU/EEA clients cannot trade USDT on-venue." }
+      },
+      "USDC": {
+        "ERC-20": { "network": "ERC-20", "fee": 4, "note": "Estimated 2026-09 dynamic gas pass-through. Bitstamp also supports USDC on Solana/Arbitrum/Polygon/Optimism/Avalanche/Stellar; only ERC-20 is modeled here." }
+      }
+    },
+    "bitvavo": {
+      "BTC": {
+        "Bitcoin": { "network": "Bitcoin", "fee": 0.00005, "note": "Dynamic network pass-through (on-chain only, no Lightning); typical 2026 reference ~0.00005 BTC per bitcoin.diy/freenance (≈$3.86 at the 2026-09-12 $77,298 snapshot), rising in congestion. EUR SEPA withdrawals are free; other on-chain assets are charged dynamically and not modeled v0.42." }
+      }
+    },
+    "finst": {
+      "BTC": {
+        "Bitcoin": { "network": "Bitcoin", "fee": 0.000085, "note": "Two-part charge (official schedule 2026-07-23): the DYNAMIC network fee at cost PLUS a flat €2.50 third-party charge per crypto withdrawal. Modeled as ~0.00005 BTC typical 2026 network component (≈$3.86 at the $77,298 snapshot) + €2.50 (≈$2.72 at 0.92 EUR/USD) = ≈0.000085 BTC / ≈$6.57; the network component floats with congestion and the exact all-in quote is shown only at withdrawal confirmation. EUR SEPA withdrawals are free; other on-chain assets (USDC/ETH/SOL..., 400+ markets) follow the same dynamic+€2.50 formula and are not modeled v0.43." }
+      }
+    },
+    "bitpanda": {
+      "BTC": {
+        "Bitcoin": { "network": "Bitcoin", "fee": 0.00000598, "note": "Dynamic network pass-through with no exchange markup (on-chain only). Snapshot 0.00000598 BTC (skontro published-fee tracker, checked 2026-06-10; ≈$0.46 at the 2026-09-12 $77,298 snapshot, computed $0.4622); floats with congestion. EUR SEPA / GBP FPS fiat withdrawals are free; other assets are quoted dynamically and are not individually modeled v0.44." }
+      },
+      "ETH": {
+        "Ethereum": { "network": "Ethereum", "fee": 0.0006, "note": "Dynamic network pass-through with no exchange markup. Snapshot 0.0006 ETH (skontro, checked 2026-08-09; ≈$1.49 at the 2026-09-12 $2,512 snapshot, computed $1.5072); ERC-20 network only, L2 withdrawals follow their own gas cost and are not modeled." }
+      }
+    },
+    "bison": {
+      "BTC": {
+        "Bitcoin": { "network": "Bitcoin", "fee": 0, "note": "FREE on-chain withdrawal to own wallet — BISON officially charges no withdrawal fee and shows no network-fee line (on-chain costs absorbed by EUWAX/Boerse Stuttgart Group; support page retrieved 2026-09). Technical minimum withdrawal 0.001 BTC; no Lightning/Taproot(bc1p) payouts. Modeled at 0 v0.45; policy could change if the group starts passing network costs through." }
+      },
+      "ETH": {
+        "Ethereum": { "network": "Ethereum", "fee": 0, "note": "FREE on-chain withdrawal to own wallet (network costs absorbed, same policy as BTC). Ethereum mainnet transfer of ETH only — L2 networks (Arbitrum/Base/Optimism/Polygon/BNB Chain) are not supported for ETH withdrawals; technical minimum 0.01 ETH. Modeled at 0 v0.45." }
+      }
+    }
+  }
+}

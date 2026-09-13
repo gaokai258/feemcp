@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  test:
+    name: audit + build + test + smoke (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+      - run: npm ci
+      - name: Data provenance audit (14 bundle files)
+        run: npm run audit:data
+      - name: TypeScript build
+        run: npm run build
+      - name: Unit + HTTP integration tests (vitest)
+        run: npm test
+      - name: Streamable-HTTP end-to-end smoke
+        run: npm run smoke:http
+        env:
+          SMOKE_HTTP_PORT: 3399
+
+  pack:
+    name: npm pack artifact contains dist/data/server.json
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+      - run: npm ci
+      - name: Build + create tarball
+        run: npm pack
+      - name: Verify required files are shipped
+        run: |
+          TARBALL=$(ls fee-optimizer-mcp-*.tgz | head -n 1)
+          echo "Inspecting $TARBALL"
+          tar -tzf "$TARBALL" > packed-files.txt
+          for required in \
+            package/dist/index.js \
+            package/package.json \
+            package/server.json \
+            package/README.md \
+            package/LICENSE \
+            package/data/interface_costs.json \
+            package/data/stablecoin_access.json \
+            package/data/fee_rates.json ; do
+            if ! grep -q "^$required$" packed-files.txt; then
+              echo "::error::required file missing from tarball: $required"
+              cat packed-files.txt
+              exit 1
+            fi
+          done
+          echo "All required files present."
+      - name: Install tarball in an empty project and run the CLI --version
+        run: |
+          mkdir install-check && cd install-check
+          npm init -y >/dev/null
+          npm install ../fee-optimizer-mcp-*.tgz
+          npx fee-optimizer-mcp --version | grep -E "^fee-optimizer-mcp v[0-9]+\.[0-9]+\.[0-9]+$"

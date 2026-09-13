@@ -1,0 +1,480 @@
+{
+  "last_verified": "2026-09",
+  "sources": [
+    { "name": "Binance fee schedule (spot)", "url": "https://www.binance.com/en/fee/trading" },
+    { "name": "Binance USDⓈ-M futures fee schedule", "url": "https://www.binance.com/en/fee/futureFee" },
+    { "name": "OKX trading fees (unified schedule effective 2026-08-14)", "url": "https://www.okx.com/fees" },
+    { "name": "Gate.io fee structure (VIP dual-track: volume OR GT holdings)", "url": "https://www.gate.io/fee" },
+    { "name": "Bybit trading fee structure + VIP program (official help center, updated 2026-09-02)", "url": "https://www.bybit.com/en/help-center/article/Trading-Fee-Structure" },
+    { "name": "MEXC fee schedule + MX discount guide (official, Feb 2026)", "url": "https://www.mexc.com/fee" },
+    { "name": "Bitget VIP system upgrade announcement (effective 2025-07-01) + fee overview", "url": "https://www.bitget.com/fee" },
+    { "name": "KuCoin VIP Fee Structure (official support article, updated 2026-05-07)", "url": "https://www.kucoin.com/support/48142946141635", "note": "Spot ladder quotes Class A pairs; Class B = 2x and Class C = 3x Class A rates. Qualification thresholds (30d spot/futures volume OR KCS holdings) cross-checked against official table reproduction 2026-06." },
+    { "name": "Kraken Pro fee schedule (unified 17-tier schedule effective 2026-07-09)", "url": "https://www.kraken.com/features/fee-schedule", "note": "Rates and triple-track thresholds (30d spot volume / 30d futures volume / assets on platform) cross-checked against full schedule reproductions and Kraken's official CN mirror 2026-09; negative futures maker rates from Tier 11 are rebates." },
+    { "name": "Coinbase Advanced fee schedule (official table is login-gated at coinbase.com/advanced-fees)", "url": "https://help.coinbase.com/en/coinbase/trading-and-funding/advanced-trade/advanced-trade-fees", "note": "Endpoints corroborated by 2026 audits: entry tier 0.40% maker / 0.60% taker (Datawallet full audit 2026-08-20, spotedcrypto 2026-05-30, banktobtc 2026-01-15) and top tier 0.00% maker / 0.04% taker above $400M 30-day volume (Datawallet 2026-08-20; some sources still cite the older 0.05% top taker). Tiers refresh hourly on 30-day all-pairs USD volume. Mid-tier rows reproduce the long-published Advanced schedule (stable since 2023) and could NOT be re-verified against the login-gated official page — re-verify before financial decisions. Eligible stablecoin-stablecoin pairs trade 0.00% maker (USDT-USDC and USDT-USD excluded from that program)." },
+    { "name": "Coinbase Financial Markets — US retail perpetual-style futures (official blog, Jul 2025)", "url": "https://www.coinbase.com/blog/perpetual-futures-have-arrived-in-the-us", "note": "Nano BTC/ETH perps, max 10x, CFTC-registered FCM; the futures array for Coinbase is intentionally empty here — that schedule is not modeled." },
+    { "name": "Hyperliquid trading fees (official docs, Gitbook mirror of docs.hyperliquid.xyz/trading/fees)", "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees", "note": "Verified 2026-09-12. 14-day rolling weighted volume window (daily UTC refresh), spot volume counts 2x toward tiers; spot base rates sit above perp rates at every tier; staking-linked HYPE discount ladder (5-40%) stacks multiplicatively; market-maker share-of-volume rebate program (-0.001% to -0.003%) not modeled." },
+    { "name": "BingX VIP Club fee tiers (official support, bingx.pro)", "url": "https://bingx.pro/en/support/articles/11263418841487", "note": "Verified 2026-09-12. Three-track qualification: 30-day spot volume OR 30-day futures volume OR previous-day account assets, refreshed daily at 03:00 UTC+8; Elite and Supreme rungs are volume-only (no asset threshold)." },
+    { "name": "BingX Elite tier announcement (official, effective 2026-06-26)", "url": "https://bingx.io/en/support/articles/16455102764943", "note": "Elite rung inserted between Regular and VIP1: futures 0.018%/0.045% from $5M 30d volume, spot 0.05%/0.08% from $0.5M. An outdated bingx.io Brazil-region article quoting older rates was ignored." },
+    { "name": "Phemex fee schedule (official phemex.com/fees-conditions + coinexchangefees.com reproduction, data last updated 2026-06-25)", "url": "https://www.coinexchangefees.com/exchange/phemex/", "note": "Verified 2026-09-12. Standard VIP track (API volume ≤ 20%). Spot base 0.10%/0.10%, Star VIP 0%/0.04% at $15M. Futures base 0.01%/0.06% (among lowest maker in industry), Star VIP 0%/0.03% at $380M. 7 tiers each. Qualification: 30-day volume only (no holdings track; PT token is a separate fee-payment discount, not a tier gate)." },
+    { "name": "BloFin fee schedule (official blofin.com/en/fees, fetched 2026-09-13; spot ladder cross-checked vs bitdegree full-table reproduction Apr 2026 and 99bitcoins/walletreviewer endpoints Aug-Sep 2026)", "url": "https://blofin.com/en/fees", "note": "6 tiers per product. Futures: Regular 0.02%/0.06% → VIP5 0%/0.035%; Spot: Regular 0.10%/0.10% → VIP5 0.01%/0.0325% (VIP1 0.035/0.06, VIP2 0.02/0.05, VIP3 0.015/0.045, VIP4 0.0125/0.0375). Three-track OR qualification: 30d futures volume OR 30d spot volume OR daily-snapshot account assets (the single monthlyVolumeUsd is matched to the queried product's own threshold; cross-product qualification is not modeled). VIP4/VIP5 require ≥80% non-API volume (engine assumes satisfied). No native exchange token and no operator referral link configured — BloFin competes at full undiscounted rates. Tiers refresh daily 00:00-12:00 UTC." },
+    { "name": "Bitstamp PRO fee schedule (official bitstamp.net/fee-schedule, unified schedule effective 2026-09-01; verified 2026-09)", "url": "https://www.bitstamp.net/fee-schedule/", "note": "11 spot rungs 0.30%/0.40% (<$10k) to 0.00%/0.03% (≥$1B) on 30-day cumulative USD volume, single volume-only track, no native token; first $1,000/30d free; separate lower FX/stablecoin and USDT sub-schedules not modeled. Perpetuals fee schedule: bitstamp.net/legal/fee-schedule/perpetuals-related-services (flat maker -0.005% rebate / taker 0.015%, 8h P2P funding, EU/EEA-eligible only via MiFID entity; geo-gated in country_restrictions.json). Basic interface (~0.5% all-in spread) not modeled." },
+    { "name": "Bitvavo PRO trading-fee schedule (nine-tier ladder; official bitvavo.com/en/fees unreachable from this build environment — cross-verified 2026-09-13 against four independent full-table reproductions: bitcoin.diy review 2026-05-28, crypto-insiders.nl Bitvavo review, beleggenstartgids.nl Bitvavo vs Coinbase updated 2026-06-26, wikibit exchange profile 2026-04, with the 0.00%/0.02% top rung for major pairs corroborated by roams.es 2026-06-18)", "url": "https://www.bitcoin.diy/reviews/bitvavo", "note": "Amsterdam-based EU-native spot exchange (AFM MiCA CASP #41000010, 2025-06-27; EEA30 passport). Single 30-day trailing EUR-volume track, volume-only: <€100k 0.15%/0.25%, €100k 0.10%/0.20%, €250k 0.08%/0.16%, €500k 0.06%/0.12%, €1M 0.05%/0.10%, €2.5M 0.04%/0.08%, €5M 0.04%/0.06%, €10M 0.00%/0.05%, ≥€25M 0.00%/0.02% (top rung applies to major pairs such as BTC/EUR and ETH/EUR per bitcoin.diy/roams). SOURCE CONFLICT: bitcoin-2go.de (updated 2026-09-07, newest single source) quotes slightly different MID tiers (€250k 0.09%/0.18%, €1M 0.05%/0.14%, €2.5M 0.03%/0.12%, €5M 0.01%/0.10%, €10M 0.00%/0.08%) — the four-source consensus ladder above is modeled; base and €100k tiers are identical in every source. No exchange token, no holdings/asset track; quotes are predominantly EUR pairs (390-450+ assets). Futures array is intentionally empty: no exchange-hosted perpetuals/futures; margin (up to ~5-10x, shorting added 2026) is not modeled; an outdated 2020-era schedule (base maker 0.20%, negative maker rungs from €2.5M) was discarded." },
+    { "name": "Finst fee schedule (official finst.com/en/fees, schedule valid as of 23/07/2026; verified 2026-09-13)", "url": "https://finst.com/en/fees", "note": "Amsterdam-based EU BROKERAGE (Finst B.V., founded 2022 by ex-DEGIRO core team; AFM MiCA CASP authorization #41000015 granted July 2025, passported across the EEA — the operator states it serves 30 European countries; 110K+ users). FLAT 0.15% on every buy/sell/swap/auto-invest across 400+ EUR and USDC markets — no maker/taker split, no volume ladder, no minimum order; smart-order-routing best execution with an explicit no-added-spread policy. EUR deposits (iDEAL/Bancontact/instant SEPA) and withdrawals free; crypto withdrawals = dynamic network fee + €2.50 flat third-party cost per withdrawal; custody/inactivity free. Crypto Bundle management fee 0.10%/month and staking reward commission 25-45% are NOT modeled; the €10k/2-week commission-free new-client promo is NOT modeled. NO margin, leverage, futures or derivatives of any kind — futures array intentionally empty. Independent profile exchangeselector.com (updated 2026-07-08) confirms 0.15%/0.15% maker/taker, SEPA-only funding (no card) and EEA-only availability." },
+    { "name": "Bitpanda consumer brokerage pricing (official premium schedule per asset category; cross-verified 2026-09-13 against coinspeaker real-account review updated 2026-02-04, kagels-trading.de fee audit 2026-09-01, bitbo fee table 2026 and invezz UK worked example 2026-07-21)", "url": "https://support.bitpanda.com/hc/en-us/articles/360013347939-Which-fees-does-Bitpanda-charge", "note": "Vienna-based Bitpanda GmbH (founded 2014; ~7.4M registered users end-2025; €371M adjusted 2025 revenue). The default consumer app is a SPREAD-MODEL BROKERAGE: no explicit commission, a per-side price premium banded by asset — Bitcoin and stablecoins 0.99%, most crypto assets 1.49%, small-cap tokens (market cap below €100M) up to 2.49%; crypto indices 1.99%; NO volume ladder and no maker/taker distinction (the modeled headline tier is 1.49%, with 0.99% BTC/stablecoin pairs in pair_fees.json). Separately, Fusion (the advanced spot exchange aggregating external liquidity) charges order-book commissions from roughly 0.02% maker / 0.15% taker (PROup/high-volume; consumer figures up to 0.25%) — NOT modeled as the default product but disclosed in notes. MiCA CASP authorization from BaFin 2025-01-27 (EEA30 passport) plus Austrian FMA authorization 2025-04; FMA imposed a €70,000 whitepaper-timing fine 2026-08-14 (first published Austrian MiCA penalty; license unaffected). Independent real-money measurement (TUM School of Management, Oct-Nov 2025, 50 standardized €100 round-trips): mean round-trip cost 6.23% with 4.25 pp undisclosed hidden markup vs the published schedule; replicated by the Frankfurt School Blockchain Center study (Mar 2026, 432 round-trips across 9 platforms). No futures/derivatives — futures array intentionally empty. ccxt 4.5.78 ships no bitpanda connector, so account-fee lookup is unsupported like Finst." },
+    { "name": "BISON consumer brokerage pricing (official bisonapp.com/en/costs fee page retrieved 2026-09-05; BISON press kit 2026-01; TUM real-money study 2025-10..11; cryptoticker.io fee/custody assessment 2026-09-07; verified 2026-09-13)", "url": "https://bisonapp.com/en/costs/", "note": "BISON is the retail crypto app of Boerse Stuttgart Group (launched 2019, Stuttgart; 1M+ active users, 56 curated cryptocurrencies as of the 2026-01 press kit). The trading counterparty is EUWAX AG, which acts as a PRINCIPAL (customers buy from / sell to EUWAX); there is no order book and the quoted all-in price is valid for ~10 seconds. No order/deposit/withdrawal/custody fees: the only charge is a proportional per-side SPREAD averaging 1.25% for Bitcoin and Ethereum and 1.75% for ALL other cryptocurrencies (fluctuates with market conditions and trade size; a full round trip is ~2.5% BTC/ETH and ~3.5% other coins). Modeled headline tier is 1.75% with BTC/ETH 1.25% pair overrides in pair_fees.json; no volume ladder, no maker/taker distinction. Independent TUM real-money measurement (Oct-Nov 2025, standardized €100 round-trips across six platforms) realized a 2.58% mean round-trip vs the ~2.5% implied by the published spread — only ~0.08 pp hidden, the best published-vs-measured alignment in the sample. Stocks/ETFs (€1.99 per order, Germany only) and staking (27% commission on ETH/SOL rewards) are NOT crypto-trading fees and are not modeled; no futures, margin or derivatives — futures array intentionally empty. MiCAR: Boerse Stuttgart Digital Custody GmbH (formerly blocknox) was the FIRST BaFin MiCAR licensee (custody/transfer, 2025-01-17, 29-state passport); EUWAX AG holds BaFin MiCAR authorizations for exchange of crypto assets (2025-04-01, 8-state passport) and execution of orders (2025-11-21, Germany only). ccxt 4.5.78 ships no bison/euwax connector, so account-fee lookup is unsupported like Finst/Bitpanda." },
+    { "name": "Note", "note": "Tier thresholds and rates verified 2026-09 against official exchange fee pages/mirrors (OKX unified schedule effective 2026-08-14; KuCoin VIP structure updated 2026-05-07; Bitstamp unified schedule effective 2026-09-01). OKX/Bybit/Bitget spot+futures VIP7-9/Supreme makers can be zero or negative (maker rebates). Qualification: OKX/Bybit/Bitget = account assets OR 30-day volume per product line (higher of the two); Gate = volume OR GT holdings (higher of the two); KuCoin = per-product 30-day volume OR KCS holdings (higher of the two); Kraken = unified tier across spot+futures via 30d spot volume OR 30d futures volume OR assets on platform (higher of the tracks; Tier 1-2 have no asset path); Coinbase = 30-day volume only (no holdings track), hourly refresh; Binance spot VIP1+ requires volume AND BNB; Binance futures has no holding gate. MEXC = flat Standard tier (spot 0%/0.05%, futures 0.01%/0.04%); many pairs run 0-fee promos and futures 0-fee eligibility is account-specific. Hyperliquid = 14-day rolling volume (spot counts 2x) with a multiplicative staked-HYPE discount ladder (staking required, holding alone gives nothing); no KYC and the US front-end is geo-blocked. BingX = per-product 30-day volume OR previous-day account assets (higher of the two), with volume-only Elite and Supreme rungs that holdings cannot reach; VIP4+ and Supreme additionally require API-traded volume to stay at or below 20% of total volume. BloFin = per-product 30-day volume OR account assets (higher of the two) with a ≥80% non-API-volume condition at VIP4+; no native token. Bitstamp = 30-day volume only (no holdings track, no token); spot globally, futures EU/EEA-eligible only and country-gated. Re-verify before financial decisions." }
+  ],
+  "exchanges": {
+    "binance": {
+      "spot": [
+        { "tier": "Regular", "min_volume_usd": 0, "min_bnb": 0, "maker": 0.1, "taker": 0.1 },
+        { "tier": "VIP1", "min_volume_usd": 1000000, "min_bnb": 5, "maker": 0.09, "taker": 0.1 },
+        { "tier": "VIP2", "min_volume_usd": 5000000, "min_bnb": 25, "maker": 0.08, "taker": 0.1 },
+        { "tier": "VIP3", "min_volume_usd": 20000000, "min_bnb": 100, "maker": 0.04, "taker": 0.06 },
+        { "tier": "VIP4", "min_volume_usd": 75000000, "min_bnb": 500, "maker": 0.04, "taker": 0.052 },
+        { "tier": "VIP5", "min_volume_usd": 150000000, "min_bnb": 1000, "maker": 0.025, "taker": 0.031 },
+        { "tier": "VIP6", "min_volume_usd": 400000000, "min_bnb": 1750, "maker": 0.02, "taker": 0.029 },
+        { "tier": "VIP7", "min_volume_usd": 800000000, "min_bnb": 3000, "maker": 0.019, "taker": 0.028 },
+        { "tier": "VIP8", "min_volume_usd": 2000000000, "min_bnb": 4500, "maker": 0.016, "taker": 0.025 },
+        { "tier": "VIP9", "min_volume_usd": 4000000000, "min_bnb": 5500, "maker": 0.011, "taker": 0.023 }
+      ],
+      "futures": [
+        { "tier": "Regular", "min_volume_usd": 0, "maker": 0.02, "taker": 0.05 },
+        { "tier": "VIP1", "min_volume_usd": 15000000, "maker": 0.016, "taker": 0.04 },
+        { "tier": "VIP2", "min_volume_usd": 50000000, "maker": 0.014, "taker": 0.0375 },
+        { "tier": "VIP3", "min_volume_usd": 250000000, "maker": 0.012, "taker": 0.0325 },
+        { "tier": "VIP4", "min_volume_usd": 1000000000, "maker": 0.01, "taker": 0.03 },
+        { "tier": "VIP5", "min_volume_usd": 2500000000, "maker": 0.008, "taker": 0.0275 },
+        { "tier": "VIP6", "min_volume_usd": 5000000000, "maker": 0.006, "taker": 0.025 },
+        { "tier": "VIP7", "min_volume_usd": 12500000000, "maker": 0.004, "taker": 0.0225 },
+        { "tier": "VIP8", "min_volume_usd": 25000000000, "maker": 0.002, "taker": 0.02 },
+        { "tier": "VIP9", "min_volume_usd": 50000000000, "maker": 0.0, "taker": 0.017 }
+      ]
+    },
+    "okx": {
+      "spot": [
+        { "tier": "Regular", "min_volume_usd": 0, "min_assets_usd": 0, "maker": 0.08, "taker": 0.1 },
+        { "tier": "VIP1", "min_volume_usd": 1000000, "min_assets_usd": 100000, "maker": 0.0675, "taker": 0.08 },
+        { "tier": "VIP2", "min_volume_usd": 5000000, "min_assets_usd": 200000, "maker": 0.06, "taker": 0.07 },
+        { "tier": "VIP3", "min_volume_usd": 10000000, "min_assets_usd": 2000000, "maker": 0.055, "taker": 0.065 },
+        { "tier": "VIP4", "min_volume_usd": 20000000, "min_assets_usd": 5000000, "maker": 0.03, "taker": 0.045 },
+        { "tier": "VIP5", "min_volume_usd": 100000000, "min_assets_usd": 20000000, "maker": 0.025, "taker": 0.035 },
+        { "tier": "VIP6", "min_volume_usd": 200000000, "min_assets_usd": 50000000, "maker": 0.0, "taker": 0.03 },
+        { "tier": "VIP7", "min_volume_usd": 500000000, "min_assets_usd": 100000000, "maker": -0.002, "taker": 0.025 },
+        { "tier": "VIP8", "min_volume_usd": 1000000000, "min_assets_usd": 250000000, "maker": -0.005, "taker": 0.02 },
+        { "tier": "VIP9", "min_volume_usd": 5000000000, "min_assets_usd": 500000000, "maker": -0.0075, "taker": 0.0175 }
+      ],
+      "futures": [
+        { "tier": "Regular", "min_volume_usd": 0, "min_assets_usd": 0, "maker": 0.02, "taker": 0.05 },
+        { "tier": "VIP1", "min_volume_usd": 5000000, "min_assets_usd": 100000, "maker": 0.016, "taker": 0.045 },
+        { "tier": "VIP2", "min_volume_usd": 10000000, "min_assets_usd": 200000, "maker": 0.015, "taker": 0.036 },
+        { "tier": "VIP3", "min_volume_usd": 50000000, "min_assets_usd": 2000000, "maker": 0.01, "taker": 0.028 },
+        { "tier": "VIP4", "min_volume_usd": 200000000, "min_assets_usd": 5000000, "maker": 0.008, "taker": 0.027 },
+        { "tier": "VIP5", "min_volume_usd": 600000000, "min_assets_usd": 20000000, "maker": 0.005, "taker": 0.026 },
+        { "tier": "VIP6", "min_volume_usd": 1000000000, "min_assets_usd": 50000000, "maker": 0.0, "taker": 0.025 },
+        { "tier": "VIP7", "min_volume_usd": 1500000000, "min_assets_usd": 100000000, "maker": -0.002, "taker": 0.02 },
+        { "tier": "VIP8", "min_volume_usd": 2000000000, "min_assets_usd": 250000000, "maker": -0.005, "taker": 0.02 },
+        { "tier": "VIP9", "min_volume_usd": 20000000000, "min_assets_usd": 500000000, "maker": -0.005, "taker": 0.015 }
+      ]
+    },
+    "gate": {
+      "spot": [
+        { "tier": "VIP0", "min_volume_usd": 0, "min_gt": 0, "fee": 0.2 },
+        { "tier": "VIP1", "min_volume_usd": 1000000, "min_gt": 1000, "fee": 0.18 },
+        { "tier": "VIP2", "min_volume_usd": 5000000, "min_gt": 3000, "fee": 0.16 },
+        { "tier": "VIP3", "min_volume_usd": 10000000, "min_gt": 6000, "fee": 0.14 },
+        { "tier": "VIP4", "min_volume_usd": 25000000, "min_gt": 12000, "fee": 0.12 },
+        { "tier": "VIP5", "min_volume_usd": 50000000, "min_gt": 20000, "fee": 0.1 },
+        { "tier": "VIP6", "min_volume_usd": 100000000, "min_gt": 30000, "fee": 0.08 },
+        { "tier": "VIP7", "min_volume_usd": 200000000, "min_gt": 40000, "fee": 0.06 },
+        { "tier": "VIP8", "min_volume_usd": 500000000, "min_gt": 60000, "fee": 0.04 },
+        { "tier": "VIP9", "min_volume_usd": 1000000000, "min_gt": 200000, "fee": 0.02 }
+      ],
+      "futures": [
+        { "tier": "VIP0", "min_volume_usd": 0, "min_gt": 0, "maker": 0.02, "taker": 0.05 },
+        { "tier": "VIP1", "min_volume_usd": 1000000, "min_gt": 1000, "maker": 0.018, "taker": 0.045 },
+        { "tier": "VIP2", "min_volume_usd": 5000000, "min_gt": 3000, "maker": 0.016, "taker": 0.04 },
+        { "tier": "VIP3", "min_volume_usd": 10000000, "min_gt": 6000, "maker": 0.014, "taker": 0.035 },
+        { "tier": "VIP4", "min_volume_usd": 25000000, "min_gt": 12000, "maker": 0.012, "taker": 0.03 },
+        { "tier": "VIP5", "min_volume_usd": 50000000, "min_gt": 20000, "maker": 0.01, "taker": 0.025 },
+        { "tier": "VIP6", "min_volume_usd": 100000000, "min_gt": 30000, "maker": 0.008, "taker": 0.022 },
+        { "tier": "VIP7", "min_volume_usd": 200000000, "min_gt": 40000, "maker": 0.006, "taker": 0.02 },
+        { "tier": "VIP8", "min_volume_usd": 500000000, "min_gt": 60000, "maker": 0.004, "taker": 0.018 },
+        { "tier": "VIP9", "min_volume_usd": 1000000000, "min_gt": 200000, "maker": 0.002, "taker": 0.015 }
+      ]
+    },
+    "bybit": {
+      "spot": [
+        { "tier": "VIP0", "min_volume_usd": 0, "min_assets_usd": 0, "maker": 0.1, "taker": 0.1 },
+        { "tier": "VIP1", "min_volume_usd": 1000000, "min_assets_usd": 100000, "maker": 0.0675, "taker": 0.08 },
+        { "tier": "VIP2", "min_volume_usd": 5000000, "min_assets_usd": 250000, "maker": 0.065, "taker": 0.0775 },
+        { "tier": "VIP3", "min_volume_usd": 10000000, "min_assets_usd": 500000, "maker": 0.0625, "taker": 0.075 },
+        { "tier": "VIP4", "min_volume_usd": 25000000, "min_assets_usd": 1000000, "maker": 0.05, "taker": 0.06 },
+        { "tier": "VIP5", "min_volume_usd": 50000000, "min_assets_usd": 2000000, "maker": 0.04, "taker": 0.05 },
+        { "tier": "Supreme", "min_volume_usd": 100000000, "maker": 0.03, "taker": 0.045 }
+      ],
+      "futures": [
+        { "tier": "VIP0", "min_volume_usd": 0, "min_assets_usd": 0, "maker": 0.02, "taker": 0.055 },
+        { "tier": "VIP1", "min_volume_usd": 10000000, "min_assets_usd": 100000, "maker": 0.018, "taker": 0.04 },
+        { "tier": "VIP2", "min_volume_usd": 25000000, "min_assets_usd": 250000, "maker": 0.016, "taker": 0.0375 },
+        { "tier": "VIP3", "min_volume_usd": 50000000, "min_assets_usd": 500000, "maker": 0.014, "taker": 0.035 },
+        { "tier": "VIP4", "min_volume_usd": 100000000, "min_assets_usd": 1000000, "maker": 0.012, "taker": 0.032 },
+        { "tier": "VIP5", "min_volume_usd": 250000000, "min_assets_usd": 2000000, "maker": 0.01, "taker": 0.032 },
+        { "tier": "Supreme", "min_volume_usd": 500000000, "maker": 0.0, "taker": 0.03 }
+      ]
+    },
+    "mexc": {
+      "spot": [
+        { "tier": "Standard", "min_volume_usd": 0, "maker": 0.0, "taker": 0.05 }
+      ],
+      "futures": [
+        { "tier": "Standard", "min_volume_usd": 0, "maker": 0.01, "taker": 0.04 }
+      ]
+    },
+    "bitget": {
+      "spot": [
+        { "tier": "VIP0", "min_volume_usd": 0, "min_assets_usd": 0, "maker": 0.1, "taker": 0.1 },
+        { "tier": "VIP1", "min_volume_usd": 500000, "min_assets_usd": 30000, "maker": 0.08, "taker": 0.08 },
+        { "tier": "VIP2", "min_volume_usd": 2000000, "min_assets_usd": 50000, "maker": 0.065, "taker": 0.07 },
+        { "tier": "VIP3", "min_volume_usd": 8000000, "min_assets_usd": 250000, "maker": 0.05, "taker": 0.06 },
+        { "tier": "VIP4", "min_volume_usd": 30000000, "min_assets_usd": 750000, "maker": 0.04, "taker": 0.05 },
+        { "tier": "VIP5", "min_volume_usd": 50000000, "min_assets_usd": 2000000, "maker": 0.03, "taker": 0.04 },
+        { "tier": "VIP6", "min_volume_usd": 75000000, "min_assets_usd": 5000000, "maker": 0.02, "taker": 0.035 },
+        { "tier": "VIP7", "min_volume_usd": 100000000, "min_assets_usd": 10000000, "maker": 0.0, "taker": 0.03 }
+      ],
+      "futures": [
+        { "tier": "VIP0", "min_volume_usd": 0, "min_assets_usd": 0, "maker": 0.02, "taker": 0.06 },
+        { "tier": "VIP1", "min_volume_usd": 5000000, "min_assets_usd": 30000, "maker": 0.019, "taker": 0.06 },
+        { "tier": "VIP2", "min_volume_usd": 10000000, "min_assets_usd": 50000, "maker": 0.016, "taker": 0.04 },
+        { "tier": "VIP3", "min_volume_usd": 20000000, "min_assets_usd": 250000, "maker": 0.014, "taker": 0.0375 },
+        { "tier": "VIP4", "min_volume_usd": 50000000, "min_assets_usd": 750000, "maker": 0.012, "taker": 0.035 },
+        { "tier": "VIP5", "min_volume_usd": 100000000, "min_assets_usd": 2000000, "maker": 0.01, "taker": 0.032 },
+        { "tier": "VIP6", "min_volume_usd": 300000000, "min_assets_usd": 5000000, "maker": 0.008, "taker": 0.03 },
+        { "tier": "VIP7", "min_volume_usd": 1000000000, "min_assets_usd": 10000000, "maker": 0.0, "taker": 0.02 }
+      ]
+    },
+    "kucoin": {
+      "spot_fee_classes": {
+        "primary": "A",
+        "multipliers": { "B": 2, "C": 3 },
+        "note": "KuCoin spot fees are split into Class A (high-liquidity majors, e.g. BTC/ETH/KCS — the ladder below), Class B (mid-caps, exactly 2x Class A) and Class C (new/low-liquidity coins, exactly 3x Class A). Check the pair's class on KuCoin's fee page; the ladder below quotes Class A."
+      },
+      "spot": [
+        { "tier": "VIP0", "min_volume_usd": 0, "min_kcs": 0, "maker": 0.1, "taker": 0.1 },
+        { "tier": "VIP1", "min_volume_usd": 1000000, "min_kcs": 1000, "maker": 0.095, "taker": 0.1 },
+        { "tier": "VIP2", "min_volume_usd": 3000000, "min_kcs": 10000, "maker": 0.09, "taker": 0.1 },
+        { "tier": "VIP3", "min_volume_usd": 6000000, "min_kcs": 20000, "maker": 0.075, "taker": 0.09 },
+        { "tier": "VIP4", "min_volume_usd": 18000000, "min_kcs": 30000, "maker": 0.055, "taker": 0.075 },
+        { "tier": "VIP5", "min_volume_usd": 55000000, "min_kcs": 40000, "maker": 0.035, "taker": 0.055 },
+        { "tier": "VIP6", "min_volume_usd": 100000000, "min_kcs": 50000, "maker": 0.025, "taker": 0.045 },
+        { "tier": "VIP7", "min_volume_usd": 180000000, "min_kcs": 60000, "maker": 0.015, "taker": 0.042 },
+        { "tier": "VIP8", "min_volume_usd": 250000000, "min_kcs": 70000, "maker": 0.0, "taker": 0.042 },
+        { "tier": "VIP9", "min_volume_usd": 350000000, "min_kcs": 80000, "maker": 0.0, "taker": 0.04 },
+        { "tier": "VIP10", "min_volume_usd": 550000000, "min_kcs": 90000, "maker": 0.0, "taker": 0.03 },
+        { "tier": "VIP11", "min_volume_usd": 750000000, "min_kcs": 100000, "maker": 0.0, "taker": 0.028 },
+        { "tier": "VIP12", "min_volume_usd": 950000000, "min_kcs": 150000, "maker": 0.0, "taker": 0.025 }
+      ],
+      "futures": [
+        { "tier": "VIP0", "min_volume_usd": 0, "min_kcs": 0, "maker": 0.02, "taker": 0.06 },
+        { "tier": "VIP1", "min_volume_usd": 500000, "min_kcs": 1000, "maker": 0.018, "taker": 0.06 },
+        { "tier": "VIP2", "min_volume_usd": 800000, "min_kcs": 10000, "maker": 0.015, "taker": 0.06 },
+        { "tier": "VIP3", "min_volume_usd": 1500000, "min_kcs": 20000, "maker": 0.01, "taker": 0.06 },
+        { "tier": "VIP4", "min_volume_usd": 4000000, "min_kcs": 30000, "maker": 0.008, "taker": 0.053 },
+        { "tier": "VIP5", "min_volume_usd": 60000000, "min_kcs": 40000, "maker": 0.006, "taker": 0.048 },
+        { "tier": "VIP6", "min_volume_usd": 120000000, "min_kcs": 50000, "maker": 0.004, "taker": 0.043 },
+        { "tier": "VIP7", "min_volume_usd": 220000000, "min_kcs": 60000, "maker": 0.002, "taker": 0.039 },
+        { "tier": "VIP8", "min_volume_usd": 300000000, "min_kcs": 70000, "maker": 0.0, "taker": 0.036 },
+        { "tier": "VIP9", "min_volume_usd": 400000000, "min_kcs": 80000, "maker": 0.0, "taker": 0.033 },
+        { "tier": "VIP10", "min_volume_usd": 600000000, "min_kcs": 90000, "maker": 0.0, "taker": 0.03 },
+        { "tier": "VIP11", "min_volume_usd": 800000000, "min_kcs": 100000, "maker": 0.0, "taker": 0.028 },
+        { "tier": "VIP12", "min_volume_usd": 1000000000, "min_kcs": 150000, "maker": 0.0, "taker": 0.025 }
+      ]
+    },
+    "kraken": {
+      "notes": [
+        "Kraken Pro unified 17-tier schedule since 2026-07-09: one tier applies to BOTH spot and futures, set by the highest of 30-day spot volume, 30-day futures volume (per-product thresholds below) or real-time assets on platform (AOP) — qualifying through one track suffices.",
+        "Tier 1 and Tier 2 have no AOP threshold (holdings cannot reach them). Stablecoin/forex pairs, Instant Buy and conversions do not count toward volume. For US/CA/NZ customers futures are unavailable or do not cross-qualify the unified tier (US customers trade CFTC-regulated perpetuals on the Kraken/Bitnomial platform, launched Jun 2026, 47 states, up to 5x).",
+        "Negative futures maker rates from Tier 11 are maker rebates paid by Kraken. Rates are Kraken Pro order-book rates; the Kraken consumer app instead charges 1% Instant Buy / 1.5% custom orders plus spread.",
+        "The single monthlyVolumeUsd input is matched against the ladder of the queried product; cross-product qualification (e.g. futures volume lifting the spot tier) is not modeled."
+      ],
+      "spot": [
+        { "tier": "Tier 1", "min_volume_usd": 0, "maker": 0.40, "taker": 0.80 },
+        { "tier": "Tier 2", "min_volume_usd": 2500, "maker": 0.30, "taker": 0.60 },
+        { "tier": "Tier 3", "min_volume_usd": 10000, "min_assets_usd": 20000, "maker": 0.22, "taker": 0.38 },
+        { "tier": "Tier 4", "min_volume_usd": 25000, "min_assets_usd": 50000, "maker": 0.20, "taker": 0.35 },
+        { "tier": "Tier 5", "min_volume_usd": 50000, "min_assets_usd": 100000, "maker": 0.15, "taker": 0.30 },
+        { "tier": "Tier 6", "min_volume_usd": 100000, "min_assets_usd": 200000, "maker": 0.12, "taker": 0.25 },
+        { "tier": "Tier 7", "min_volume_usd": 250000, "min_assets_usd": 400000, "maker": 0.10, "taker": 0.22 },
+        { "tier": "Tier 8", "min_volume_usd": 500000, "min_assets_usd": 600000, "maker": 0.08, "taker": 0.20 },
+        { "tier": "Tier 9", "min_volume_usd": 1000000, "min_assets_usd": 1000000, "maker": 0.06, "taker": 0.18 },
+        { "tier": "Tier 10", "min_volume_usd": 2500000, "min_assets_usd": 2500000, "maker": 0.04, "taker": 0.15 },
+        { "tier": "Tier 11", "min_volume_usd": 5000000, "min_assets_usd": 5000000, "maker": 0.02, "taker": 0.12 },
+        { "tier": "Tier 12", "min_volume_usd": 10000000, "min_assets_usd": 10000000, "maker": 0.0, "taker": 0.10 },
+        { "tier": "Pro 1", "min_volume_usd": 50000000, "min_assets_usd": 20000000, "maker": 0.0, "taker": 0.09 },
+        { "tier": "Pro 2", "min_volume_usd": 100000000, "min_assets_usd": 25000000, "maker": 0.0, "taker": 0.08 },
+        { "tier": "Pro 3", "min_volume_usd": 250000000, "min_assets_usd": 50000000, "maker": 0.0, "taker": 0.07 },
+        { "tier": "Pro 4", "min_volume_usd": 400000000, "min_assets_usd": 80000000, "maker": 0.0, "taker": 0.06 },
+        { "tier": "Pro 5", "min_volume_usd": 500000000, "min_assets_usd": 100000000, "maker": 0.0, "taker": 0.05 }
+      ],
+      "futures": [
+        { "tier": "Tier 1", "min_volume_usd": 0, "maker": 0.02, "taker": 0.05 },
+        { "tier": "Tier 2", "min_volume_usd": 5000000, "maker": 0.0175, "taker": 0.045 },
+        { "tier": "Tier 3", "min_volume_usd": 10000000, "min_assets_usd": 20000, "maker": 0.015, "taker": 0.04 },
+        { "tier": "Tier 4", "min_volume_usd": 15000000, "min_assets_usd": 50000, "maker": 0.0125, "taker": 0.035 },
+        { "tier": "Tier 5", "min_volume_usd": 25000000, "min_assets_usd": 100000, "maker": 0.01, "taker": 0.03 },
+        { "tier": "Tier 6", "min_volume_usd": 40000000, "min_assets_usd": 200000, "maker": 0.0075, "taker": 0.0275 },
+        { "tier": "Tier 7", "min_volume_usd": 50000000, "min_assets_usd": 400000, "maker": 0.005, "taker": 0.025 },
+        { "tier": "Tier 8", "min_volume_usd": 75000000, "min_assets_usd": 600000, "maker": 0.005, "taker": 0.0225 },
+        { "tier": "Tier 9", "min_volume_usd": 100000000, "min_assets_usd": 1000000, "maker": 0.0, "taker": 0.02 },
+        { "tier": "Tier 10", "min_volume_usd": 150000000, "min_assets_usd": 2500000, "maker": 0.0, "taker": 0.018 },
+        { "tier": "Tier 11", "min_volume_usd": 250000000, "min_assets_usd": 5000000, "maker": -0.003, "taker": 0.0175 },
+        { "tier": "Tier 12", "min_volume_usd": 300000000, "min_assets_usd": 10000000, "maker": -0.003, "taker": 0.017 },
+        { "tier": "Pro 1", "min_volume_usd": 400000000, "min_assets_usd": 20000000, "maker": -0.003, "taker": 0.016 },
+        { "tier": "Pro 2", "min_volume_usd": 500000000, "min_assets_usd": 25000000, "maker": -0.005, "taker": 0.015 },
+        { "tier": "Pro 3", "min_volume_usd": 1000000000, "min_assets_usd": 50000000, "maker": -0.006, "taker": 0.0135 },
+        { "tier": "Pro 4", "min_volume_usd": 2000000000, "min_assets_usd": 80000000, "maker": -0.006, "taker": 0.013 },
+        { "tier": "Pro 5", "min_volume_usd": 5000000000, "min_assets_usd": 100000000, "maker": -0.006, "taker": 0.0125 }
+      ]
+    },
+    "coinbase": {
+      "notes": [
+        "Advanced Trade quotes pure order-book maker/taker rates with no embedded spread; the consumer app instead charges ~1.5-4.99% all-in (variable fee + spread) plus a 1% limit-order execution fee on simple trades — not modeled here.",
+        "Tiers refresh hourly on 30-day rolling USD volume across ALL pairs; qualification is volume-only (no holdings track). Eligible stablecoin-stablecoin pairs trade at 0.00% maker, but USDT-USDC and USDT-USD are excluded from that program.",
+        "Coinbase One subscriptions waive simple-trade fees (capped by plan) and rebate part of Advanced fees in USDC for Preferred/Premium members; the schedule below is un-rebated list pricing.",
+        "US retail perpetual-style nano BTC/ETH futures (max 10x) are available via Coinbase Financial Markets since Jul 2025 (CFTC-registered); that fee schedule is not modeled, so futures comparisons exclude Coinbase."
+      ],
+      "spot": [
+        { "tier": "Tier 1", "min_volume_usd": 0, "maker": 0.4, "taker": 0.6 },
+        { "tier": "Tier 2", "min_volume_usd": 10000, "maker": 0.25, "taker": 0.4 },
+        { "tier": "Tier 3", "min_volume_usd": 50000, "maker": 0.2, "taker": 0.35 },
+        { "tier": "Tier 4", "min_volume_usd": 100000, "maker": 0.2, "taker": 0.3 },
+        { "tier": "Tier 5", "min_volume_usd": 1000000, "maker": 0.15, "taker": 0.25 },
+        { "tier": "Tier 6", "min_volume_usd": 15000000, "maker": 0.1, "taker": 0.2 },
+        { "tier": "Tier 7", "min_volume_usd": 75000000, "maker": 0.08, "taker": 0.15 },
+        { "tier": "Tier 8", "min_volume_usd": 250000000, "maker": 0.05, "taker": 0.1 },
+        { "tier": "Tier 9", "min_volume_usd": 400000000, "maker": 0.0, "taker": 0.04 }
+      ],
+      "futures": []
+    },
+    "hyperliquid": {
+      "notes": [
+        "Fully on-chain L1 order book (HyperCore) with zero gas on trading; perps are USDC-margined and the spot book quotes in USDC — deposits arrive via Circle CCTP V2 (min 5 USDC), withdrawals to Arbitrum and 22+ chains cost a flat ~1 USDC.",
+        "Tier qualification uses a 14-DAY rolling weighted volume window with daily UTC refresh (spot volume counts 2x), NOT the 30-day window other venues use — passing monthlyVolumeUsd prices it as if it were the 14-day window, so steady-pace traders' real tier may be one rung lower. Spot base rates sit above perp rates at every tier.",
+        "Staking-linked HYPE discount: staking 10/100/1k/10k/100k/500k HYPE gives 5/10/15/20/30/40% off ALL maker+taker fees, stacking MULTIPLICATIVELY with the volume tier. Staking is required — merely holding HYPE gives nothing. Price it via useToken=true + tokenBalance=<staked HYPE>.",
+        "Referral program: referred traders get 4% off fees on their first $25M of volume; referrers earn ~10% of fees on the referred user's first $1B. No operator link is configured here, so results carry no referral_url.",
+        "No KYC (wallet = identity). The US front-end is geo-blocked (ToS restricted-person list; policy momentum toward US re-entry reported Aug 2026); Canada is restricted only in Ontario; the UK is accessible but carries a 2026-05 FCA unauthorized-firm consumer warning.",
+        "Stable-to-stable spot pairs (e.g. USDC/USDH aligned quotes) carry deep taker discounts (up to -80%) and the market-maker share-of-volume rebate program runs -0.001% to -0.003% — both are per-market metadata and not modeled in the ladder below."
+      ],
+      "spot": [
+        { "tier": "Tier 0", "min_volume_usd": 0, "maker": 0.04, "taker": 0.07 },
+        { "tier": "Tier 1", "min_volume_usd": 5000000, "maker": 0.03, "taker": 0.06 },
+        { "tier": "Tier 2", "min_volume_usd": 25000000, "maker": 0.02, "taker": 0.05 },
+        { "tier": "Tier 3", "min_volume_usd": 100000000, "maker": 0.01, "taker": 0.04 },
+        { "tier": "Tier 4", "min_volume_usd": 500000000, "maker": 0.0, "taker": 0.035 },
+        { "tier": "Tier 5", "min_volume_usd": 2000000000, "maker": 0.0, "taker": 0.03 },
+        { "tier": "Tier 6", "min_volume_usd": 7000000000, "maker": 0.0, "taker": 0.025 }
+      ],
+      "futures": [
+        { "tier": "Tier 0", "min_volume_usd": 0, "maker": 0.015, "taker": 0.045 },
+        { "tier": "Tier 1", "min_volume_usd": 5000000, "maker": 0.012, "taker": 0.04 },
+        { "tier": "Tier 2", "min_volume_usd": 25000000, "maker": 0.008, "taker": 0.035 },
+        { "tier": "Tier 3", "min_volume_usd": 100000000, "maker": 0.004, "taker": 0.03 },
+        { "tier": "Tier 4", "min_volume_usd": 500000000, "maker": 0.0, "taker": 0.028 },
+        { "tier": "Tier 5", "min_volume_usd": 2000000000, "maker": 0.0, "taker": 0.026 },
+        { "tier": "Tier 6", "min_volume_usd": 7000000000, "maker": 0.0, "taker": 0.024 }
+      ]
+    },
+    "bingx": {
+      "notes": [
+        "BingX VIP Club tiers qualify via the HIGHEST of three tracks: 30-day spot volume, 30-day Standard Contract (USDT-margined perpetual) futures volume, or previous-day account assets — one track suffices; levels refresh daily at 03:00 UTC+8.",
+        "The Elite and Supreme rungs are VOLUME-ONLY (they carry no asset threshold) — account assets can lift you to VIP1-VIP5 but can never reach Elite or Supreme. The single monthlyVolumeUsd input is matched against the queried product's own thresholds; cross-product qualification (e.g. futures volume lifting the spot tier) is not modeled.",
+        "VIP4, VIP5 and Supreme additionally require API-traded volume to stay at or below 20% of total 30-day volume; accounts above that ratio are reverted to lower rates. The engine assumes the ratio is satisfied.",
+        "The ladder below models the Standard Contract order-book book (perpetual futures). BingX 'Standard Futures' is a separate close-only copy-trading product charging a flat 0.045% and is not modeled.",
+        "No native exchange token fee discount exists. There is no operator referral link configured, so BingX results always compete at full undiscounted rates.",
+        "Rates verified 2026-09-12 against the bingx.pro VIP Club page and the official Elite announcement effective 2026-06-26; an outdated bingx.io Brazil-region article quoting an older schedule was ignored."
+      ],
+      "spot": [
+        { "tier": "Regular", "min_volume_usd": 0, "maker": 0.1, "taker": 0.1 },
+        { "tier": "Elite", "min_volume_usd": 500000, "maker": 0.05, "taker": 0.08 },
+        { "tier": "VIP1", "min_volume_usd": 1000000, "min_assets_usd": 50000, "maker": 0.035, "taker": 0.06 },
+        { "tier": "VIP2", "min_volume_usd": 2000000, "min_assets_usd": 200000, "maker": 0.02, "taker": 0.05 },
+        { "tier": "VIP3", "min_volume_usd": 4000000, "min_assets_usd": 1000000, "maker": 0.015, "taker": 0.045 },
+        { "tier": "VIP4", "min_volume_usd": 6000000, "min_assets_usd": 2000000, "maker": 0.0125, "taker": 0.0375 },
+        { "tier": "VIP5", "min_volume_usd": 8000000, "min_assets_usd": 3000000, "maker": 0.01, "taker": 0.0325 },
+        { "tier": "Supreme", "min_volume_usd": 15000000, "maker": 0.005, "taker": 0.02 }
+      ],
+      "futures": [
+        { "tier": "Regular", "min_volume_usd": 0, "maker": 0.02, "taker": 0.05 },
+        { "tier": "Elite", "min_volume_usd": 5000000, "maker": 0.018, "taker": 0.045 },
+        { "tier": "VIP1", "min_volume_usd": 10000000, "min_assets_usd": 50000, "maker": 0.014, "taker": 0.04 },
+        { "tier": "VIP2", "min_volume_usd": 20000000, "min_assets_usd": 200000, "maker": 0.012, "taker": 0.0375 },
+        { "tier": "VIP3", "min_volume_usd": 50000000, "min_assets_usd": 1000000, "maker": 0.01, "taker": 0.035 },
+        { "tier": "VIP4", "min_volume_usd": 100000000, "min_assets_usd": 2000000, "maker": 0.008, "taker": 0.0315 },
+        { "tier": "VIP5", "min_volume_usd": 200000000, "min_assets_usd": 3000000, "maker": 0.006, "taker": 0.03 },
+        { "tier": "Supreme", "min_volume_usd": 500000000, "maker": 0.0, "taker": 0.025 }
+      ]
+    },
+    "phemex": {
+      "notes": [
+        "Phemex (Singapore, founded 2019 by ex-Morgan Stanley engineers). Standard VIP track qualification is 30-day trading volume only — there is no native-token holdings track for tier progression; the PT token is a separate fee-payment discount toggle (see token_discounts.json), not a tier gate.",
+        "Spot base 0.10%/0.10%; Star VIP reaches 0% maker / 0.04% taker at $15M 30-day volume. Futures base 0.01% maker / 0.06% taker — the 0.01% maker is among the lowest of any major exchange; Star VIP reaches 0% maker / 0.03% taker at $380M 30-day volume.",
+        "The single monthlyVolumeUsd input is matched against the queried product's own thresholds; cross-product qualification (e.g. futures volume lifting the spot tier) is not modeled."
+      ],
+      "spot": [
+        { "tier": "Standard", "min_volume_usd": 0, "maker": 0.10, "taker": 0.10 },
+        { "tier": "VIP1", "min_volume_usd": 800000, "maker": 0.09, "taker": 0.10 },
+        { "tier": "VIP2", "min_volume_usd": 1800000, "maker": 0.05, "taker": 0.07 },
+        { "tier": "VIP3", "min_volume_usd": 2500000, "maker": 0.045, "taker": 0.065 },
+        { "tier": "VIP4", "min_volume_usd": 4500000, "maker": 0.04, "taker": 0.06 },
+        { "tier": "VIP5", "min_volume_usd": 8000000, "maker": 0.035, "taker": 0.055 },
+        { "tier": "Star VIP", "min_volume_usd": 15000000, "maker": 0.0, "taker": 0.04 }
+      ],
+      "futures": [
+        { "tier": "Standard", "min_volume_usd": 0, "maker": 0.01, "taker": 0.06 },
+        { "tier": "VIP1", "min_volume_usd": 8000000, "maker": 0.008, "taker": 0.055 },
+        { "tier": "VIP2", "min_volume_usd": 18000000, "maker": 0.006, "taker": 0.05 },
+        { "tier": "VIP3", "min_volume_usd": 45000000, "maker": 0.004, "taker": 0.045 },
+        { "tier": "VIP4", "min_volume_usd": 85000000, "maker": 0.002, "taker": 0.0375 },
+        { "tier": "VIP5", "min_volume_usd": 180000000, "maker": 0.001, "taker": 0.035 },
+        { "tier": "Star VIP", "min_volume_usd": 380000000, "maker": 0.0, "taker": 0.03 }
+      ]
+    },
+    "blofin": {
+      "notes": [
+        "BloFin (Cayman Islands / Marshall Islands entity BuildLight Future Limited; derivatives live since Jan 2023). VIP levels qualify via the HIGHEST of three tracks: 30-day futures volume, 30-day spot volume, or daily-snapshot total account assets — one track suffices; levels refresh daily 00:00-12:00 UTC.",
+        "The single monthlyVolumeUsd input is matched against the queried product's own thresholds; cross-product qualification (e.g. futures volume lifting the spot tier) is not modeled. VIP4 and VIP5 additionally require at least 80% of qualifying volume to be non-API (UI/app) volume; the engine assumes the ratio is satisfied.",
+        "Spot base 0.10%/0.10% -> VIP5 0.01%/0.0325% at $8M spot 30d volume (or $3M assets). Futures base 0.02%/0.06% -> VIP5 0%/0.035% at $500M futures volume (or $3M assets); VIP1 is unusually reachable via $50k assets alone (0.006%/0.05%).",
+        "No native exchange token fee discount exists. There is no operator referral link configured, so BloFin results always compete at full undiscounted rates.",
+        "Rates verified 2026-09-13 against blofin.com/en/fees (futures table) with spot tiers cross-checked against independent full-table reproductions."
+      ],
+      "spot": [
+        { "tier": "Regular", "min_volume_usd": 0, "maker": 0.10, "taker": 0.10 },
+        { "tier": "VIP1", "min_volume_usd": 1000000, "min_assets_usd": 50000, "maker": 0.035, "taker": 0.06 },
+        { "tier": "VIP2", "min_volume_usd": 2000000, "min_assets_usd": 500000, "maker": 0.02, "taker": 0.05 },
+        { "tier": "VIP3", "min_volume_usd": 4000000, "min_assets_usd": 1000000, "maker": 0.015, "taker": 0.045 },
+        { "tier": "VIP4", "min_volume_usd": 6000000, "min_assets_usd": 2000000, "maker": 0.0125, "taker": 0.0375 },
+        { "tier": "VIP5", "min_volume_usd": 8000000, "min_assets_usd": 3000000, "maker": 0.01, "taker": 0.0325 }
+      ],
+      "futures": [
+        { "tier": "Regular", "min_volume_usd": 0, "maker": 0.02, "taker": 0.06 },
+        { "tier": "VIP1", "min_volume_usd": 10000000, "min_assets_usd": 50000, "maker": 0.006, "taker": 0.05 },
+        { "tier": "VIP2", "min_volume_usd": 25000000, "min_assets_usd": 500000, "maker": 0.004, "taker": 0.045 },
+        { "tier": "VIP3", "min_volume_usd": 50000000, "min_assets_usd": 1000000, "maker": 0.002, "taker": 0.0425 },
+        { "tier": "VIP4", "min_volume_usd": 200000000, "min_assets_usd": 2000000, "maker": 0.001, "taker": 0.04 },
+        { "tier": "VIP5", "min_volume_usd": 500000000, "min_assets_usd": 3000000, "maker": 0.0, "taker": 0.035 }
+      ]
+    },
+    "bitstamp": {
+      "notes": [
+        "Bitstamp (Luxembourg; founded 2011, oldest operating exchange; acquired by Robinhood 2025-06-02 for ~$200M and branded 'Bitstamp by Robinhood'; 5M+ users, ~$400-500M daily spot turnover). PRO order-book schedule below is the unified fee schedule effective 2026-09-01 (verified against bitstamp.net/fee-schedule): 11 rungs on a SINGLE 30-day cumulative USD-volume track — no holdings/assets track and no native exchange token.",
+        "The Basic consumer interface charges an all-in embedded spread instead (historically around 0.5%) and is NOT modeled; Pro/API quotes are pure maker/taker. New and qualifying accounts pay 0% on the first $1,000 of 30-day volume (intro tier) — not modeled in the ladder, which starts at the paid under-$10k rung.",
+        "Standard crypto pairs: 0.30%/0.40% maker/taker under $10k -> 0.00%/0.03% at or above $1B 30-day volume. FX/stablecoin pairs (excluding USDT) and USDT pairs run on SEPARATE lower schedules (entry 0.060%/0.080% and 0.030%/0.040%; top 0.000%/0.006% and 0.000%/0.003%); those pair-specific discounts are not modeled in the ladder below. Under MiCA, USDT pairs are not tradable by EU/EEA residents.",
+        "Regulated perpetual futures (live Apr 2026; ~20 listings incl. BTC/ETH/SOL/XRP/DOGE crypto perps plus tokenized forex/commodity/equity perps) are provided by the MiFID-authorized Slovenian entity and are ELIGIBLE TO EU/EEA RESIDENTS ONLY (passported via Bitstamp Europe S.A., CSSF MiCA CASP authorized 2025-05-16); UK access is professional-classification only and the US/CA/JP/SG retail routes are closed — modeled as a POSITIVE region allowlist (v0.40: country_restrictions.json product_region_gates bitstamp futures => regions.EEA, the 30 EEA states; every non-EEA residency, including unmodeled default-key countries, is product-blocked while spot stays open). Flat fee: maker -0.005% (rebate paid to liquidity providers) / taker 0.015%, no volume rungs published yet; funding exchanged P2P every 8h (00:00/08:00/16:00 UTC, no exchange cut); leverage 5x/10x by contract.",
+        "Spot onboarding: US via Bitstamp USA (NYDFS BitLicense + FinCEN MSB), UK FCA registration, Canada FINTRAC, Singapore MAS Major Payment Institution, EU/EEA under the CSSF CASP authorization with full passporting; mainland China and standard sanctions/FATF jurisdictions are not served."
+      ],
+      "spot": [
+        { "tier": "Under $10k", "min_volume_usd": 0, "maker": 0.30, "taker": 0.40 },
+        { "tier": "$10k+", "min_volume_usd": 10000, "maker": 0.20, "taker": 0.30 },
+        { "tier": "$100k+", "min_volume_usd": 100000, "maker": 0.10, "taker": 0.20 },
+        { "tier": "$500k+", "min_volume_usd": 500000, "maker": 0.08, "taker": 0.18 },
+        { "tier": "$1.5M+", "min_volume_usd": 1500000, "maker": 0.06, "taker": 0.16 },
+        { "tier": "$5M+", "min_volume_usd": 5000000, "maker": 0.03, "taker": 0.12 },
+        { "tier": "$20M+", "min_volume_usd": 20000000, "maker": 0.02, "taker": 0.10 },
+        { "tier": "$50M+", "min_volume_usd": 50000000, "maker": 0.01, "taker": 0.08 },
+        { "tier": "$100M+", "min_volume_usd": 100000000, "maker": 0.00, "taker": 0.06 },
+        { "tier": "$250M+", "min_volume_usd": 250000000, "maker": 0.00, "taker": 0.05 },
+        { "tier": "$1B+", "min_volume_usd": 1000000000, "maker": 0.00, "taker": 0.03 }
+      ],
+      "futures": [
+        { "tier": "Flat (EU eligible)", "min_volume_usd": 0, "maker": -0.005, "taker": 0.015 }
+      ]
+    },
+    "bitvavo": {
+      "notes": [
+        "Bitvavo (Amsterdam, founded 2018; ~4M+ users, ~50% of global EUR-denominated spot volume). PRO order-book schedule: nine rungs on a SINGLE 30-day trailing EUR-volume track — volume-only, no holdings/assets track and no native exchange token; thresholds below are EUR figures treated as USD-equivalent by the engine.",
+        "Base tier (<€100k/30d) 0.15% maker / 0.25% taker; rungs step to 0.00% maker / 0.02% taker at ≥€25M (top rung applies to major pairs such as BTC/EUR and ETH/EUR). The Basic consumer interface embeds a spread instead and is NOT modeled; a €10k/7-day fee-free welcome offer and €20 cash bonus for eligible new EEA accounts are not modeled.",
+        "Source reconciliation (verified 2026-09-13): four independent full-table reproductions (bitcoin.diy 2026-05, crypto-insiders.nl, beleggenstartgids.nl 2026-06, wikibit 2026-04) agree on the ladder modeled here; bitcoin-2go.de (updated 2026-09-07) quotes marginally different mid tiers (€250k 0.09/0.18; €1M 0.05/0.14; €2.5M 0.03/0.12; €5M 0.01/0.10; €10M 0.00/0.08) — the consensus ladder is used; the base and €100k rungs are identical everywhere. Re-verify against bitvavo.com/en/fees before financial decisions.",
+        "SPOT ONLY: no exchange-hosted perpetuals or futures, so the futures array is intentionally empty and the venue is excluded from every futures/funding comparison. Margin trading (up to ~5-10x; shorting added Feb 2026) exists but is not modeled. Stablecoin pairs and certain markets may carry promotional discounts not captured here.",
+        "Service area is EEA-only by model (region_allowed.bitvavo = [EEA] in country_restrictions.json): AFM MiCA CASP authorization #41000010 (2025-06-27) passported across all 30 EEA states; US/CA/JP/SG/BR/AU/CN and other non-EEA residents are not onboarded. GB/CH access via separate arrangements exists but is conservatively not modeled. Free SEPA/SEPA Instant/iDEAL (NL)/Bancontact (BE) fiat legs; EUR pairs dominate the ~390-450 listed assets."
+      ],
+      "spot": [
+        { "tier": "< €100k", "min_volume_usd": 0, "maker": 0.15, "taker": 0.25 },
+        { "tier": "€100k+", "min_volume_usd": 100000, "maker": 0.10, "taker": 0.20 },
+        { "tier": "€250k+", "min_volume_usd": 250000, "maker": 0.08, "taker": 0.16 },
+        { "tier": "€500k+", "min_volume_usd": 500000, "maker": 0.06, "taker": 0.12 },
+        { "tier": "€1M+", "min_volume_usd": 1000000, "maker": 0.05, "taker": 0.10 },
+        { "tier": "€2.5M+", "min_volume_usd": 2500000, "maker": 0.04, "taker": 0.08 },
+        { "tier": "€5M+", "min_volume_usd": 5000000, "maker": 0.04, "taker": 0.06 },
+        { "tier": "€10M+", "min_volume_usd": 10000000, "maker": 0.00, "taker": 0.05 },
+        { "tier": "€25M+ (majors)", "min_volume_usd": 25000000, "maker": 0.00, "taker": 0.02 }
+      ],
+      "futures": []
+    },
+    "finst": {
+      "notes": [
+        "Finst B.V. (Amsterdam, founded 2022 by the ex-DEGIRO core team; 110K+ users, ~€5B lifetime volume). BROKERAGE model rather than a hosted order book: smart order routing aggregates external liquidity for best execution, with an explicit NO-ADDED-SPREAD policy. Every buy/sell/swap/auto-invest — on all 400+ EUR and USDC markets — carries one FLAT 0.15% transaction fee; there is no maker/taker split and no volume ladder, so the schedule is a single rung at 0.15%/0.15% for every order size.",
+        "Official fee schedule valid 2026-07-23 (finst.com/en/fees, verified 2026-09-13): trading 0.15%; Crypto Bundle management 0.10% of bundle value per month (not modeled); flexible staking keeps 75-55% of protocol rewards after Finst's 25-45% commission (not modeled); the €10,000 / 2-week commission-free welcome offer for new clients is not modeled.",
+        "SPOT ONLY: no margin, leverage, shorting, futures or derivatives of any kind are offered, so the futures array is intentionally empty and the venue is excluded from every futures/funding comparison.",
+        "Service area is EEA-only by model (region_allowed.finst = [EEA] in country_restrictions.json): AFM MiCA CASP authorization #41000015 (granted July 2025) passported across the EEA — Finst states it serves 30 European countries; US/GB/CH/CA/JP/SG/BR/AU/CN and other non-EEA residents are not onboarded. EUR fiat legs via iDEAL (NL)/Bancontact (BE)/instant SEPA are free in both directions and there is NO card rail; crypto withdrawals pass the dynamic network fee through PLUS a flat €2.50 third-party charge per withdrawal."
+      ],
+      "pricing_model": "flat",
+      "spot": [
+        { "tier": "Flat 0.15%", "min_volume_usd": 0, "maker": 0.15, "taker": 0.15 }
+      ],
+      "futures": []
+    },
+    "bitpanda": {
+      "pricing_model": "spread",
+      "execution_quality": {
+        "advertised_roundtrip_pct": 2.98,
+        "measured_roundtrip_pct": 6.23,
+        "measured_hidden_markup_pct": 4.25,
+        "trades": "50 standardized €100 buy/sell round-trips over 12 trading days (n=6 for Bitpanda)",
+        "study": "TUM School of Management — Pricing Transparency in European Crypto Trading (real-money retail execution test across six MiCAR-licensed platforms)",
+        "period": "2025-10..2025-11",
+        "url": "https://www.fa.mgt.tum.de/fileadmin/w00chf/law/Abschlussarbeiten/Pricing_Study_Research_Brief.pdf",
+        "replication": {
+          "study": "Frankfurt School Blockchain Center — retail crypto execution-cost study",
+          "period": "2026-03",
+          "trades": "432 real-money round-trips across nine platforms",
+          "url": "https://www.frankfurt-school.de/en/home/research"
+        },
+        "note": "Published premiums predict a 2.98% round-trip; the realized mean was 6.23% (SD 1.37%), i.e. ~60% of the true cost was an undisclosed execution-price markup. Findings describe the consumer brokerage interface (spread-quoted), not Fusion order-book pricing."
+      },
+      "notes": [
+        "SPREAD-MODEL BROKER (default consumer app/web): no separate commission line — a per-side premium is embedded in the quoted price. Bands: 0.99% for BTC and stablecoins, 1.49% for most crypto assets (the modeled headline), up to 2.49% for small-cap tokens below €100m market cap; crypto-index baskets 1.99%. Same premium on buy and sell, at every order size — there is no volume ladder and no maker/taker distinction. Pair-specific 0.99% BTC/stablecoin pricing is applied automatically via pair_fees when a pair is supplied.",
+        "ADVANCED INTERFACE: Fusion is a separate order-book spot venue that aggregates external liquidity (Binance/Coinbase and others) with commissions from roughly 0.02% maker / 0.15% taker (up to 0.25% consumer tier) — NOT modeled as the default; users who place orders on Fusion pay order-book economics instead of the consumer premium.",
+        "The 2026-01-29 unified-platform stock/ETF trades (flat €1 per trade), metals, crypto-index management costs and staking reward spreads are not crypto-trading fees and are not modeled.",
+        "SPOT ONLY for crypto: no exchange-hosted futures or perpetuals (margin up to 10x exists on selected assets but is not modeled); the futures array is intentionally empty and Bitpanda classifies as unsupported_product for futures queries inside its service area.",
+        "MiCA CASP authorization from BaFin (2025-01-27, EEA30 passport) plus Austrian FMA authorization (2025-04); the FMA €70,000 fine of 2026-08-14 concerned whitepaper/marketing timing formalities and did not restrict the licence. UK service runs through Bitpanda Broker UK Ltd (FCA-registered cryptoasset business)."
+      ],
+      "spot": [
+        { "tier": "Broker premium 1.49% per side (most assets; BTC/stablecoins 0.99%, small caps up to 2.49%)", "min_volume_usd": 0, "fee": 1.49 }
+      ],
+      "futures": []
+    },
+    "bison": {
+      "pricing_model": "spread",
+      "execution_quality": {
+        "advertised_roundtrip_pct": 2.5,
+        "measured_roundtrip_pct": 2.58,
+        "measured_hidden_markup_pct": 0.08,
+        "trades": "50 standardized €100 buy/sell round-trips over 12 trading days across six MiCAR-licensed platforms (BISON included in the six-platform sample)",
+        "study": "TUM School of Management — Pricing Transparency in European Crypto Trading (real-money retail execution test across six MiCAR-licensed platforms)",
+        "period": "2025-10..2025-11",
+        "url": "https://www.fa.mgt.tum.de/fileadmin/w00chf/law/Abschlussarbeiten/Pricing_Study_Research_Brief.pdf",
+        "note": "The published 1.25%-per-side BTC/ETH spread predicts a 2.5% round-trip; the realized mean was 2.58% — an undisclosed markup of only ~0.08 pp, by far the closest published-vs-measured alignment of the six platforms tested (Bitvavo -0.58% measured next best; Bitpanda 6.23%, Coinbase 7.49%)."
+      },
+      "notes": [
+        "SPREAD-MODEL BROKER (BISON app/web, powered by EUWAX AG as direct contractual counterparty — clients buy from and sell to EUWAX; there is no order book and each quoted price is valid for ~10 seconds): no separate commission, no deposit/withdrawal/custody fee — the only charge is a proportional per-side spread averaging 1.25% for Bitcoin and Ethereum and 1.75% for ALL other cryptocurrencies (the modeled headline). The spread fluctuates with market conditions and trade size; same spread on buy and sell at every order size — no volume ladder and no maker/taker distinction. Pair-specific 1.25% BTC/ETH pricing is applied automatically via pair_fees when a pair is supplied; a full round trip is ~2.5% on BTC/ETH and ~3.5% on other coins.",
+        "Stocks and ETFs (€1.99 flat per securities order, Germany only), the 27% staking reward commission (ETH/SOL) and crypto savings-plan features are not crypto-spot-trading fees and are not modeled.",
+        "SPOT ONLY for crypto: no exchange-hosted futures, perpetuals or margin trading; the futures array is intentionally empty and BISON classifies as unsupported_product for futures queries inside its service area.",
+        "Regulated 'Made in Germany' stack: Boerse Stuttgart Digital Custody GmbH (formerly blocknox) was the FIRST BaFin MiCAR licensee (custody + transfer services, authorized 2025-01-17, passported to 29 states); EUWAX AG is BaFin-authorized for exchanging crypto assets against funds/other crypto assets (2025-04-01, passport to 8 EEA states) and for execution of orders on behalf of clients (2025-11-21, Germany only). EUR balances sit in pooled trust accounts at Solaris SE and Deutsche Bank AG (€100,000 deposit insurance)."
+      ],
+      "spot": [
+        { "tier": "Broker spread 1.75% per side (all cryptocurrencies except BTC/ETH; Bitcoin and Ethereum 1.25%)", "min_volume_usd": 0, "fee": 1.75 }
+      ],
+      "futures": []
+    }
+  }
+}
