@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import "./polyfills.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { createServer, SERVER_NAME, SERVER_VERSION } from "./mcp-server.js";
 import { startHttpServer, type RunningHttpServer } from "./http.js";

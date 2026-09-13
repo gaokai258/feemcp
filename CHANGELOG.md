@@ -5,6 +5,17 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/); the proj
 
 > Note: this project predates this changelog. Entries for 0.20.0–0.46.0 are reconstructed from release notes embedded in `README.md` / `server.json`; their original release dates and git tags were not recorded (no pre-existing git history in the working tree). Only 0.47.0 carries an actual completion date. Patch releases, if any, were folded into the minor entries.
 
+## [0.47.2] — 2026-09-14
+
+### Fixed
+- **Node 18 compatibility**: the MCP SDK relies on global `crypto` (JSON-RPC id generation), but Node 18 does not expose the Web Crypto API globally without `--experimental-global-webcrypto`. Every Streamable HTTP POST failed with `ReferenceError: crypto is not defined` → JSON-RPC -32700 / HTTP 400 (all 22 HTTP integration tests under Node 18). Added a `node:crypto` webcrypto polyfill installed at entry points (`src/polyfills.ts`, imported first in `index.ts` and `mcp-server.ts`); no-op on Node 20+. Regression tests added; full 455-test suite green on Node 18.20 / 20 / 22 / 24.
+
+## [0.47.1] — 2026-09-13
+
+### Project
+- `package.json` `mcpName: io.github.gaokai258/fee-optimizer-mcp` and Registry-schema `server.json` for publishing to the official MCP Registry (validated with `mcp-publisher validate`).
+- GitHub Actions OIDC publish workflow (`.github/workflows/publish-mcp.yml`): publishes to registry.modelcontextprotocol.io on `v*` tags without any secret.
+
 ## [0.47.0] — 2026-09-13
 
 ### Fixed
