@@ -76,7 +76,11 @@
     "consumer-app",
     "instant-buy"
   ],
-  "author": "Fee Optimizer",
+  "author": {
+    "name": "gaoke (高克)",
+    "email": "269587770@qq.com",
+    "url": "https://dificalc.com"
+  },
   "license": "MIT",
   "engines": {
     "node": ">=18"
