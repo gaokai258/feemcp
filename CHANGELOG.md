@@ -5,6 +5,11 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/); the proj
 
 > Note: this project predates this changelog. Entries for 0.20.0–0.46.0 are reconstructed from release notes embedded in `README.md` / `server.json`; their original release dates and git tags were not recorded (no pre-existing git history in the working tree). Only 0.47.0 carries an actual completion date. Patch releases, if any, were folded into the minor entries.
 
+## [0.47.3] — 2026-09-14
+
+### Fixed
+- **Reported version drift**: `SERVER_VERSION` was hardcoded at `0.47.0` in `mcp-server.ts`, so 0.47.x packages self-reported `fee-optimizer-mcp v0.47.0` via `--version` and MCP `initialize` serverInfo. Version is now read from `package.json` at runtime; a new version-consistency test fails the suite if the two ever diverge again.
+
 ## [0.47.2] — 2026-09-14
 
 ### Fixed

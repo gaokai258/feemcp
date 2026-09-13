@@ -1,4 +1,5 @@
 import "./polyfills.js";
+import { createRequire } from "node:module";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import {
@@ -36,7 +37,10 @@ import { makeError, isToolError } from "./errors.js";
 import type { FundingOverrides, SpreadOverrides } from "./types.js";
 
 export const SERVER_NAME = "fee-optimizer-mcp";
-export const SERVER_VERSION = "0.47.0";
+// Read at runtime from package.json so the MCP serverInfo / --version output
+// can never drift from the published package version again.
+const require = createRequire(import.meta.url);
+export const SERVER_VERSION = (require("../package.json") as { version: string }).version;
 
 // v0.29: server construction is a factory so both the stdio CLI entry (index.ts)
 // and the Streamable HTTP listener (http.ts) — plus tests — get an isolated,

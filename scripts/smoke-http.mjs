@@ -14,6 +14,12 @@
 
 import { spawn } from "node:child_process";
 import process from "node:process";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+
+const PKG_VERSION = JSON.parse(
+  readFileSync(fileURLToPath(new URL("../package.json", import.meta.url)), "utf8"),
+).version;
 
 const PORT = Number(process.env.SMOKE_HTTP_PORT ?? 3399);
 const HOST = "127.0.0.1";
@@ -73,7 +79,7 @@ try {
   {
     const res = await fetch(`${BASE}/health`);
     const body = await res.json();
-    check("GET /health -> 200 ok + v0.47.0", res.status === 200 && body.status === "ok" && body.version === "0.47.0", JSON.stringify(body));
+    check(`GET /health -> 200 ok + v${PKG_VERSION}`, res.status === 200 && body.status === "ok" && body.version === PKG_VERSION, JSON.stringify(body));
   }
 
   // 2. initialize (stateless: no session id)

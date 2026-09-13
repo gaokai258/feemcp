@@ -386,7 +386,7 @@ Server → {
 ## Development
 
 ```bash
-npm test          # vitest unit tests (455 tests: 361 tools + 50 live + 28 http + 13 account + 3 polyfill)
+npm test          # vitest unit tests (457 tests: 361 tools + 50 live + 28 http + 13 account + 3 polyfill + 2 version)
 npm run build     # tsc → dist/
 npm run audit:data            # offline data-consistency gate (dates, sources, ladder monotonicity, coverage)
 node scripts/smoke-test.mjs   # end-to-end MCP stdio smoke test (68 requests)
