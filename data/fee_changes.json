@@ -1,0 +1,125 @@
+{
+  "last_verified": "2026-09",
+  "sources": [
+    {
+      "name": "OKX trading fees (unified schedule effective 2026-08-14)",
+      "url": "https://www.okx.com/fees"
+    },
+    {
+      "name": "Bitstamp PRO fee schedule (unified schedule effective 2026-09-01)",
+      "url": "https://www.bitstamp.net/fee-schedule/"
+    },
+    {
+      "name": "Kraken Pro fee schedule (unified 17-tier schedule effective 2026-07-09)",
+      "url": "https://www.kraken.com/features/fee-schedule"
+    },
+    {
+      "name": "BingX Elite tier announcement (effective 2026-06-26)",
+      "url": "https://bingx.io/en/support/articles/16455102764943"
+    },
+    {
+      "name": "KuCoin VIP Fee Structure (official support article, updated 2026-05-07)",
+      "url": "https://www.kucoin.com/support/48142946141635"
+    },
+    {
+      "name": "Bitget VIP system upgrade announcement (effective 2025-07-01)",
+      "url": "https://www.bitget.com/fee"
+    },
+    {
+      "name": "Note",
+      "note": "This feed starts at the 2026-09 ladder-snapshot baseline; complete pre-2026-09 history is not reconstructable from primary sources, so only changes evidenced by official venue pages already cited in fee_rates.json are seeded. Numeric before/after values are recorded only when stated in the official source. Records produced by the monthly snapshot diff carry confidence='detected' and are not curated."
+    }
+  ],
+  "changes": [
+    {
+      "id": "2026-09-bitstamp-unified-schedule",
+      "date": "2026-09-01",
+      "exchange": "bitstamp",
+      "product": "all",
+      "kind": "ladder_structure",
+      "summary_en": "Bitstamp moved to a unified PRO fee schedule (11 spot rungs, 0.30%/0.40% to 0.00%/0.03% at $1B 30-day volume); perpetuals remain a separate flat maker -0.005% rebate / 0.015% taker schedule for EEA-eligible users.",
+      "summary_zh": "Bitstamp 启用统一 PRO 费率表（现货 11 档，0.30%/0.40% 至 10 亿美元 30 日成交量的 0.00%/0.03%）；永续仍为独立的 maker -0.005% 返佣 / taker 0.015% 固定费率，仅限 EEA 合格用户。",
+      "effective_date": "2026-09-01",
+      "url": "https://www.bitstamp.net/fee-schedule/",
+      "confidence": "high"
+    },
+    {
+      "id": "2026-08-okx-unified-schedule",
+      "date": "2026-08-14",
+      "exchange": "okx",
+      "product": "all",
+      "kind": "ladder_structure",
+      "summary_en": "OKX unified its spot and futures fee schedule (Regular spot 0.08%/0.10%, Regular futures 0.02%/0.05%), with the same nine-rung volume/assets OR-qualification structure on both product lines.",
+      "summary_zh": "OKX 启用统一的现货与合约费率表（普通用户现货 0.08%/0.10%、合约 0.02%/0.05%），两条产品线采用相同的九级“成交量或资产”OR 资格结构。",
+      "effective_date": "2026-08-14",
+      "url": "https://www.okx.com/fees",
+      "confidence": "high"
+    },
+    {
+      "id": "2026-07-kraken-unified-17tier",
+      "date": "2026-07-09",
+      "exchange": "kraken",
+      "product": "all",
+      "kind": "ladder_structure",
+      "summary_en": "Kraken Pro moved to a unified 17-tier fee schedule spanning spot and futures, with triple-track qualification (30d spot volume / 30d futures volume / assets on platform); negative futures maker rates from Tier 11 are rebates.",
+      "summary_zh": "Kraken Pro 启用横跨现货与合约的统一 17 级费率表，采用三轨资格制（30 日现货成交量 / 30 日合约成交量 / 平台资产）；第 11 级起的负合约 maker 费率为返佣。",
+      "effective_date": "2026-07-09",
+      "url": "https://www.kraken.com/features/fee-schedule",
+      "confidence": "high"
+    },
+    {
+      "id": "2026-06-bingx-elite-futures",
+      "date": "2026-06-26",
+      "exchange": "bingx",
+      "product": "futures",
+      "kind": "ladder_structure",
+      "summary_en": "BingX inserted an Elite rung between Regular and VIP1 on futures: 0.018% maker / 0.045% taker from $5M 30-day volume.",
+      "summary_zh": "BingX 在合约普通档与 VIP1 之间插入 Elite 档：30 日成交量 500 万美元起，maker 0.018% / taker 0.045%。",
+      "effective_date": "2026-06-26",
+      "tier": "Elite",
+      "field": "futures.Elite",
+      "after": { "min_volume_usd": 5000000, "maker": 0.018, "taker": 0.045 },
+      "url": "https://bingx.io/en/support/articles/16455102764943",
+      "confidence": "high"
+    },
+    {
+      "id": "2026-06-bingx-elite-spot",
+      "date": "2026-06-26",
+      "exchange": "bingx",
+      "product": "spot",
+      "kind": "ladder_structure",
+      "summary_en": "BingX inserted an Elite rung between Regular and VIP1 on spot: 0.05% maker / 0.08% taker from $0.5M 30-day volume.",
+      "summary_zh": "BingX 在现货普通档与 VIP1 之间插入 Elite 档：30 日成交量 50 万美元起，maker 0.05% / taker 0.08%。",
+      "effective_date": "2026-06-26",
+      "tier": "Elite",
+      "field": "spot.Elite",
+      "after": { "min_volume_usd": 500000, "maker": 0.05, "taker": 0.08 },
+      "url": "https://bingx.io/en/support/articles/16455102764943",
+      "confidence": "high"
+    },
+    {
+      "id": "2026-05-kucoin-vip-structure-update",
+      "date": "2026-05-07",
+      "exchange": "kucoin",
+      "product": "all",
+      "kind": "ladder_structure",
+      "summary_en": "KuCoin's official VIP Fee Structure article was updated (Class A spot ladder quoted; Class B = 2x and Class C = 3x; thresholds use per-product 30d volume OR KCS holdings). The update date is the article's; exact numeric deltas were not separately announced.",
+      "summary_zh": "KuCoin 官方 VIP 费率结构文章更新（现货按 A 类交易对报价，B 类 2 倍、C 类 3 倍；门槛采用分产品 30 日成交量或 KCS 持仓）。具体数值变动未另行公告。",
+      "url": "https://www.kucoin.com/support/48142946141635",
+      "confidence": "high",
+      "note": "Date is the official support article's last-updated date, not a separately announced effective date."
+    },
+    {
+      "id": "2025-07-bitget-vip-upgrade",
+      "date": "2025-07-01",
+      "exchange": "bitget",
+      "product": "all",
+      "kind": "ladder_structure",
+      "summary_en": "Bitget VIP system upgrade took effect, restructuring the spot and futures ladders (Regular spot 0.10%/0.10%, futures 0.02%/0.06%; volume/assets OR qualification).",
+      "summary_zh": "Bitget VIP 体系升级生效，重构现货与合约阶梯（普通档现货 0.10%/0.10%、合约 0.02%/0.06%；成交量或资产 OR 资格）。",
+      "effective_date": "2025-07-01",
+      "url": "https://www.bitget.com/fee",
+      "confidence": "high"
+    }
+  ]
+}

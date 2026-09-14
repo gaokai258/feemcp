@@ -5,6 +5,24 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/); the proj
 
 > Note: this project predates this changelog. Entries for 0.20.0–0.46.0 are reconstructed from release notes embedded in `README.md` / `server.json`; their original release dates and git tags were not recorded (no pre-existing git history in the working tree). Only 0.47.0 carries an actual completion date. Patch releases, if any, were folded into the minor entries.
 
+## [0.48.0] — 2026-09-14
+
+### Added
+- **`get_fee_changes` (20th tool)** — the auditable fee-schedule change feed (the project's data-moat layer). Returns curated, official-announcement-verified changes (`confidence: high|medium`, with effective date, source URL, bilingual summary and structured before/after where the source states numbers) merged with `detected` rows auto-derived by diffing consecutive monthly fee-ladder snapshots — clearly labeled unverified, since a snapshot delta can be a data correction rather than a venue-side change. Covers `rate | threshold | ladder_structure | promo | token_discount | pricing_model` kinds; filters `exchange` / `product` (`spot|futures|all`) / `since_month` / `limit`; sorted date-descending then confidence rank; bilingual advice.
+- New pure/offline engine `src/fee-history.ts`: deterministic ladder normalization, snapshot diffing (rungs matched by tier name; rate fields use round4 percent precision; non-numeric edits intentionally ignored), adjacent-snapshot change detection, current-data drift detection and report assembly — shared by the tool and the CLI so the logic has one implementation.
+- New data bundle [`data/fee_changes.json`](data/fee_changes.json) (15th audited data file) with seven high-confidence seeds (Bitstamp 2026-09-01, OKX 2026-08-14, Kraken 2026-07-09, BingX Elite rung ×2 on 2026-06-26, KuCoin 2026-05-07, Bitget 2025-07-01). Complete pre-2026-09 history is not reconstructable from primary sources, so only changes evidenced by official pages already cited in `fee_rates.json` are seeded; the file states this explicitly.
+- Monthly deterministic snapshots in **repo-only** `snapshots/fee_ladders/YYYY-MM.json` (2026-09 baseline, 18 venues) plus the `scripts/fee-snapshot.mjs` CLI (`npm run snapshot:fees -- snapshot|diff|latest`; exit codes 0/2 for no-change/change, 3 when no snapshot exists). Snapshots are excluded from the npm tarball via the existing `files` allowlist; npm consumers degrade to the curated feed with `snapshot_coverage.available: false`, and a missing/corrupt snapshot directory never throws.
+- New GitHub Actions workflow `.github/workflows/data-snapshot.yml`: on the 1st of each month (03:17 UTC, also manually dispatchable) it rebuilds and captures the snapshot, diffs against the previous month, and opens a **review-only PR** with the detected changes. Detected rows never enter `fee_changes.json` automatically — a human verifies against the official fee page and curates the entry separately. No exchange API calls are made, so runner geo-restrictions are irrelevant.
+- CI `pack` job now asserts `data/fee_changes.json` ships in the tarball and negatively asserts that `snapshots/` does not.
+
+### Fixed
+- **Rate-diff precision bug** (caught by the new engine tests): rate fields were compared at raw precision, so a sub-round4 delta (e.g. 0.1 vs 0.10004) emitted a `detected` rate change whose before/after bags were identical. Rate fields are now compared after round4.
+- `package.json` description advertised a `list_personas` tool that is used internally but never registered as an MCP tool; the tool list now ends with the actual 20-tool set including `get_fee_changes`.
+- `resetCachesForTest()` now also clears the fee-changes/snapshot loaders' caches for test isolation.
+
+### Changed
+- Tool count 19 → 20 and audited data files 14 → 15 across `package.json` / `server.json` / `manifest.json` / README / HTTP smoke and test assertions; 22 new offline engine tests (481 total).
+
 ## [0.47.3] — 2026-09-14
 
 ### Fixed

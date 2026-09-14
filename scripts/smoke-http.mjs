@@ -4,7 +4,8 @@
 // waits for the listening banner, then exercises JSON-RPC over real TCP:
 //   GET  /health             -> service/version
 //   POST initialize          -> serverInfo, no Mcp-Session-Id (stateless)
-//   POST tools/list          -> 19 tools
+//   POST tools/list          -> 20 tools
+//   POST tools/call (feed)   -> get_fee_changes works end-to-end
 //   POST tools/call (matrix) -> compare_personas JP works end-to-end
 //   POST tools/call (sweep)  -> volume_what_if US spot works end-to-end
 //   POST tools/call (country)-> compare_countries works end-to-end
@@ -100,15 +101,33 @@ try {
     );
   }
 
-  // 3. tools/list = 19
+  // 3. tools/list = 20
   {
     const res = await post(rpc("tools/list", {}));
     const body = await res.json();
     const names = body.result?.tools?.map((t) => t.name) ?? [];
     check(
-      "tools/list -> 19 tools incl. compare_interface_costs",
-      res.status === 200 && names.length === 19 && names.includes("compare_interface_costs"),
+      "tools/list -> 20 tools incl. get_fee_changes",
+      res.status === 200 && names.length === 20 && names.includes("get_fee_changes"),
       `got ${names.length}`
+    );
+  }
+
+  // 3b. v0.48 fee change feed: curated records come through the HTTP stack
+  {
+    const res = await post(rpc("tools/call", {
+      name: "get_fee_changes",
+      arguments: { exchange: "bingx", language: "zh" },
+    }));
+    const body = await res.json();
+    const text = body.result?.content?.[0]?.text ?? "";
+    check(
+      "tools/call get_fee_changes bingx -> curated changes, no error",
+      res.status === 200 &&
+        body.result?.isError !== true &&
+        /"exchange": "bingx"/.test(text) &&
+        /"confidence": "high"/.test(text),
+      text.slice(0, 200)
     );
   }
 

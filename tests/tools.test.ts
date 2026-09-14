@@ -437,13 +437,14 @@ describe("v0.5: recommend_exchange", () => {
 describe("v0.6: data provenance", () => {
   beforeEach(() => resetCachesForTest());
 
-  it("listDataSources returns all 14 files with last_verified and sources", () => {
+  it("listDataSources returns all 15 files with last_verified and sources", () => {
     const r = listDataSources();
-    expect(r.files.length).toBe(14);
+    expect(r.files.length).toBe(15);
     expect(r.files.some((f) => f.file === "fiat_routes.json")).toBe(true);
     expect(r.files.some((f) => f.file === "personas.json")).toBe(true);
     expect(r.files.some((f) => f.file === "token_prices.json")).toBe(true);
     expect(r.files.some((f) => f.file === "interface_costs.json")).toBe(true);
+    expect(r.files.some((f) => f.file === "fee_changes.json")).toBe(true);
     expect(r.data_as_of).toMatch(/^\d{4}-\d{2}$/);
     for (const f of r.files) {
       expect(f.last_verified).toMatch(/^\d{4}-\d{2}$/);
@@ -675,7 +676,7 @@ describe("v0.33: monthsBehindAsOf helper + per-file provenance freshness", () =>
 
   it("listDataProvenance annotates every file and reports an empty stale list while current", () => {
     const r = listDataProvenance(new Date("2026-09-13T00:00:00Z"));
-    expect(r.files).toHaveLength(14);
+    expect(r.files).toHaveLength(15);
     expect(r.stale_after_months).toBe(3);
     expect(r.stale_files).toEqual([]);
     for (const f of r.files) {
@@ -688,7 +689,7 @@ describe("v0.33: monthsBehindAsOf helper + per-file provenance freshness", () =>
   it("listDataProvenance flags files once they cross the 3-month threshold and names them", () => {
     const r = listDataProvenance(new Date("2027-02-01T00:00:00Z"));
     expect(r.stale_files).toContain("fee_rates.json");
-    expect(r.stale_files.length).toBe(14);
+    expect(r.stale_files.length).toBe(15);
     const fee = r.files.find((f) => f.file === "fee_rates.json")!;
     expect(fee.months_behind).toBe(5);
     expect(fee.is_stale).toBe(true);

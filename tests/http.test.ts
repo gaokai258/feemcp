@@ -92,7 +92,7 @@ describe("v0.29 Streamable HTTP transport", () => {
     expect(Array.isArray(body)).toBe(true);
     expect(body).toHaveLength(2);
     const names = body[0].result.tools.map((t: { name: string }) => t.name);
-    expect(names).toHaveLength(19);
+    expect(names).toHaveLength(20);
     expect(names).toContain("compare_personas");
     expect(names).toContain("volume_what_if");
     expect(names).toContain("compare_countries");
@@ -104,7 +104,7 @@ describe("v0.29 Streamable HTTP transport", () => {
     expect(res.status).toBe(200);
     const body = await res.json();
     const names = body.result.tools.map((t: { name: string }) => t.name);
-    expect(names).toHaveLength(19);
+    expect(names).toHaveLength(20);
     expect(names).toContain("analyze_persona");
     expect(names).toContain("compare_exchange_fees");
   });
@@ -232,6 +232,28 @@ describe("v0.29 Streamable HTTP transport", () => {
     expect(names).toContain("compare_interface_costs");
     const tool = body.result.tools.find((t: { name: string }) => t.name === "compare_interface_costs");
     expect(tool.annotations?.readOnlyHint).toBe(true);
+  });
+
+  // v0.48: auditable fee-schedule change feed.
+  it("get_fee_changes is registered as the 20th tool", async () => {
+    const res = await postMcp(rpc("tools/list", {}));
+    const body = await res.json();
+    const names = body.result.tools.map((t: { name: string }) => t.name);
+    expect(names).toHaveLength(20);
+    expect(names).toContain("get_fee_changes");
+    const tool = body.result.tools.find((t: { name: string }) => t.name === "get_fee_changes");
+    expect(tool.annotations?.readOnlyHint).toBe(true);
+  });
+
+  it("get_fee_changes serves the curated feed with bilingual summaries and filters", async () => {
+    const body = await callTool("get_fee_changes", { exchange: "bingx", language: "zh" });
+    expect(body.result?.isError).toBeFalsy();
+    const payload = JSON.parse(body.result!.content![0].text);
+    expect(payload.changes.length).toBeGreaterThanOrEqual(2);
+    expect(payload.changes.every((c: { exchange: string }) => c.exchange === "bingx")).toBe(true);
+    expect(payload.changes[0].summary_zh).toEqual(expect.any(String));
+    expect(payload.advice).toContain("detected");
+    expect(payload.snapshot_coverage.months).toBe(1);
   });
 
   it("compare_interface_costs: six venues, TUM study, kraken/coinbase annualized excess at $1k/mo", async () => {

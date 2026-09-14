@@ -24,6 +24,7 @@ import {
   exDisplayName,
   getStablecoinAccessReport,
   compareInterfaceCosts,
+  getFeeChangesReport,
 } from "./tools.js";
 import { fetchFundingRatesLive, fetchExecutionCostLive } from "./live.js";
 import {
@@ -1406,6 +1407,50 @@ server.registerTool(
       ...(args.exchange ? { exchange: args.exchange } : {}),
       ...(args.country ? { country: args.country.toUpperCase() } : {}),
       ...(args.monthly_volume_usd !== undefined ? { monthlyVolumeUsd: args.monthly_volume_usd } : {}),
+      language: args.language,
+    });
+    return wrapResult(result);
+  },
+);
+
+// Tool 20: get_fee_changes
+server.registerTool(
+  "get_fee_changes",
+  {
+    description:
+      "当用户问\"交易所什么时候偷偷涨了手续费？哪家所最近调过 VIP 费率/门槛？费率变更历史 / fee change history / did binance change its fees / 怎么监控费率调整\"时使用。Returns the auditable fee-schedule CHANGE FEED across all modeled venues: curated records verified against official venue announcements (confidence high/medium, with source URL, effective date, before/after numbers when officially stated) PLUS records auto-detected by diffing consecutive monthly fee-ladder snapshots (confidence=detected — unverified, may be a data correction; always confirm against the official fee page). Covers rate changes, VIP qualification threshold changes, rung inserts/removes (e.g. BingX Elite 2026-06-26), promos, token-discount and pricing-model changes. Optional filters: exchange, product (spot/futures/all), since_month (YYYY-MM), limit; bilingual advice. The curated feed ships in the npm package; monthly snapshot diffs are repo-only data, so npm consumers see snapshot_coverage.available=false and get the curated feed only.",
+    inputSchema: {
+      exchange: z
+        .string()
+        .min(2)
+        .optional()
+        .describe("可选：只看单个交易所，如 binance/okx/kraken/bitstamp"),
+      product: z
+        .enum(["spot", "futures", "all"])
+        .optional()
+        .describe("可选：产品线过滤，默认全部；all 记录同时匹配现货和合约查询"),
+      since_month: z
+        .string()
+        .regex(/^\d{4}-\d{2}$/)
+        .optional()
+        .describe("可选：只返回该月（含）之后的变更，格式 YYYY-MM，如 2026-06"),
+      limit: z
+        .number()
+        .int()
+        .positive()
+        .optional()
+        .describe("可选：最多返回条数（按日期倒序）"),
+      language: languageParam,
+    },
+    annotations: readOnlyAnnotations,
+  },
+  async (args) => {
+    logCall("get_fee_changes", args);
+    const result = getFeeChangesReport({
+      ...(args.exchange ? { exchange: args.exchange } : {}),
+      ...(args.product ? { product: args.product } : {}),
+      ...(args.since_month ? { sinceMonth: args.since_month } : {}),
+      ...(args.limit !== undefined ? { limit: args.limit } : {}),
       language: args.language,
     });
     return wrapResult(result);

@@ -33,7 +33,10 @@ import {
   getStablecoinVenueRule,
   getInterfaceCosts,
   getInterfaceVenue,
+  getFeeChanges,
+  getFeeLadderSnapshots,
 } from "./data.js";
+import { buildFeeChangeReport } from "./fee-history.js";
 import { makeError, isToolError } from "./errors.js";
 import { t, pickLang, PERSONA_COST_LABELS, type Lang } from "./i18n.js";
 import {
@@ -111,6 +114,8 @@ import type {
   InterfaceVenueHint,
   InterfaceCostsResult,
   InterfaceCostRow,
+  FeeChangeProduct,
+  FeeChangeReport,
 } from "./types.js";
 import { renderTable } from "./render.js";
 
@@ -1128,6 +1133,33 @@ function resolveExecutionForCalc(
 
 export function listDataSources(): DataProvenanceReport {
   return listDataProvenance();
+}
+
+// v0.48: auditable fee-schedule change feed (curated official records +
+// monthly snapshot diffs labeled "detected").
+export function getFeeChangesReport(opts: {
+  exchange?: string;
+  product?: FeeChangeProduct;
+  sinceMonth?: string;
+  limit?: number;
+  language?: Lang;
+} = {}): FeeChangeReport | ToolError {
+  try {
+    return buildFeeChangeReport({
+      curated: getFeeChanges().changes,
+      snapshots: getFeeLadderSnapshots(),
+      ...(opts.exchange ? { exchange: opts.exchange } : {}),
+      ...(opts.product ? { product: opts.product } : {}),
+      ...(opts.sinceMonth ? { sinceMonth: opts.sinceMonth } : {}),
+      ...(opts.limit !== undefined ? { limit: opts.limit } : {}),
+      language: pickLang(opts.language),
+    });
+  } catch (err) {
+    return makeError(
+      `Failed to build fee change feed: ${err instanceof Error ? err.message : String(err)}`,
+      { code: "FEE_CHANGES_UNAVAILABLE" },
+    );
+  }
 }
 
 export function compareExchangeFees(

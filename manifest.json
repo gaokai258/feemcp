@@ -2,7 +2,7 @@
   "manifest_version": "0.4",
   "name": "fee-optimizer-mcp",
   "display_name": "Fee Optimizer MCP",
-  "version": "0.47.3",
+  "version": "0.48.0",
   "description": "Compare crypto exchange fees across 18 venues with VIP tiers, funding rates, spread, slippage, fiat rails, and withdrawal costs. Recommends the cheapest venue.",
   "author": {
     "name": "gaoke",
@@ -94,6 +94,10 @@
     {
       "name": "compare_interface_costs",
       "description": "Compare consumer app vs PRO interface costs with measured hidden-spread evidence (TUM 2025 real-money study data)."
+    },
+    {
+      "name": "get_fee_changes",
+      "description": "Auditable fee-schedule change feed: official-announcement-verified records plus auto-detected monthly ladder-snapshot diffs, with exchange/product/since-month filters."
     }
   ],
   "tools_generated": false,

@@ -21,7 +21,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: npm
       - run: npm ci
-      - name: Data provenance audit (14 bundle files)
+      - name: Data provenance audit (15 bundle files)
         run: npm run audit:data
       - name: TypeScript build
         run: npm run build
@@ -57,14 +57,22 @@ jobs:
             package/LICENSE \
             package/data/interface_costs.json \
             package/data/stablecoin_access.json \
-            package/data/fee_rates.json ; do
+            package/data/fee_rates.json \
+            package/data/fee_changes.json ; do
             if ! grep -q "^$required$" packed-files.txt; then
               echo "::error::required file missing from tarball: $required"
               cat packed-files.txt
               exit 1
             fi
           done
-          echo "All required files present."
+          # v0.48: monthly ladder snapshots are repo-only evidence; they must
+          # never leak into the published npm tarball.
+          if grep -q "^package/snapshots/" packed-files.txt; then
+            echo "::error::snapshots/ must not be published in the npm tarball"
+            grep "snapshots" packed-files.txt
+            exit 1
+          fi
+          echo "All required files present; snapshots/ correctly excluded."
       - name: Install tarball in an empty project and run the CLI --version
         run: |
           mkdir install-check && cd install-check

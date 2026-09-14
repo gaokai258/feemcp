@@ -1624,3 +1624,97 @@ export interface CompareCountriesResult {
   /** v0.36: present only when format=markdown|csv|both is requested. */
   rendered?: RenderedTable;
 }
+
+// =====================================================================
+// v0.48: fee schedule change feed (data moat — auditable change history)
+// =====================================================================
+
+/** Which product line a fee change applies to. */
+export type FeeChangeProduct = "spot" | "futures" | "all";
+
+/** Classification of what moved on a venue's fee schedule. */
+export type FeeChangeKind =
+  | "rate"
+  | "threshold"
+  | "ladder_structure"
+  | "promo"
+  | "token_discount"
+  | "pricing_model";
+
+/**
+ * Provenance confidence:
+ * - "high": curated record backed by an official venue announcement/fee page.
+ * - "medium": curated record from a credible secondary reproduction.
+ * - "detected": auto-derived from a monthly snapshot diff; NOT yet human-verified.
+ */
+export type FeeChangeConfidence = "high" | "medium" | "detected";
+
+/** Before/after payload: a single number or a small structured field bag. */
+export type FeeChangeValue = number | string | Record<string, number | string>;
+
+/** A single auditable fee-schedule change. */
+export interface FeeChange {
+  /** Stable id, conventionally "YYYY-MM-venue-topic". */
+  id: string;
+  /** Discovery/announcement date: YYYY-MM-DD when known, YYYY-MM month precision otherwise. */
+  date: string;
+  exchange: string;
+  product: FeeChangeProduct;
+  kind: FeeChangeKind;
+  summary_en: string;
+  summary_zh?: string;
+  /** When the venue says the new terms take effect (may differ from discovery date). */
+  effective_date?: string;
+  /** Tier label when the change is rung-specific. */
+  tier?: string;
+  /** Structured field path, e.g. "spot[2].taker" or "futures length". */
+  field?: string;
+  before?: FeeChangeValue;
+  after?: FeeChangeValue;
+  url?: string;
+  confidence: FeeChangeConfidence;
+  note?: string;
+  /** Snapshot ids bounding a "detected" record (YYYY-MM). */
+  detected_from_snapshot?: string;
+  detected_to_snapshot?: string;
+}
+
+export interface FeeChangesData {
+  last_verified: string;
+  sources?: DataSource[];
+  changes: FeeChange[];
+}
+
+/** Normalized tier persisted in a monthly ladder snapshot (keys sorted). */
+export type SnapshotTier = Record<string, number | string>;
+
+/** One month's deterministic fingerprint of every venue's fee ladders. */
+export interface LadderSnapshot {
+  /** "YYYY-MM". */
+  id: string;
+  /** ISO timestamp of capture. */
+  captured_at: string;
+  ladders: Record<
+    string,
+    {
+      spot?: SnapshotTier[];
+      futures?: SnapshotTier[];
+    }
+  >;
+}
+
+/** Result of the get_fee_changes tool. */
+export interface FeeChangeReport {
+  generated_at: string;
+  data_as_of: string;
+  snapshot_coverage: {
+    /** Number of monthly snapshots available locally. */
+    months: number;
+    first?: string;
+    last?: string;
+    /** False for npm consumers (snapshots ship repo-only); curated feed still works. */
+    available: boolean;
+  };
+  changes: FeeChange[];
+  advice: string;
+}

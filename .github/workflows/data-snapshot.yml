@@ -1,0 +1,79 @@
+name: data-snapshot
+
+# v0.48: monthly fee-ladder capture for the auditable change feed.
+# Runs on the 1st of every month (03:17 UTC) and is also manually dispatchable.
+# It rebuilds the deterministic YYYY-MM snapshot from bundled data (NO exchange
+# API calls — geo-blocks are irrelevant here), diffs it against the previous
+# month, and opens a REVIEW-ONLY pull request. Detected records never enter
+# data/fee_changes.json automatically: a human verifies them against the
+# official venue fee page, then curates the entry in a separate commit.
+
+on:
+  schedule:
+    - cron: "17 3 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: data-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    name: monthly fee-ladder snapshot
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Capture this month's deterministic ladder snapshot
+        run: node scripts/fee-snapshot.mjs snapshot
+
+      - name: Diff the new snapshot against the previous month
+        id: diff
+        run: |
+          set +e
+          mapfile -t months < <(ls snapshots/fee_ladders/*.json | sed 's#.*/##; s#\.json$##' | sort)
+          current="${months[-1]}"
+          echo "current=$current" >> "$GITHUB_OUTPUT"
+          {
+            echo "Monthly fee-ladder snapshot for **$current**."
+            echo
+            echo "This PR is produced by the data-snapshot workflow. It only adds the deterministic snapshot file;"
+            echo "nothing in \`data/fee_changes.json\` changes automatically."
+            echo
+            if [ "${#months[@]}" -ge 2 ]; then
+              previous="${months[-2]}"
+              echo "### Detected changes vs $previous"
+              echo
+              echo "These records have \`confidence=detected\` (auto-generated, may be data corrections)."
+              echo "Verify each against the official venue fee page, then curate confirmed entries into"
+              echo "\`data/fee_changes.json\` with \`confidence=high\` and a source URL."
+              echo
+              echo '```'
+              node scripts/fee-snapshot.mjs diff --from "$previous" --to "$current"
+              echo '```'
+            else
+              echo "First snapshot — no previous month to diff."
+            fi
+          } > "$RUNNER_TEMP/pr-body.md"
+          exit 0
+
+      - name: Open review-only pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "data: fee ladder snapshot ${{ steps.diff.outputs.current }}"
+          branch: data/fee-snapshot-${{ steps.diff.outputs.current }}
+          title: "data: fee ladder snapshot ${{ steps.diff.outputs.current }} — review detected changes"
+          body-file: ${{ runner.temp }}/pr-body.md
+          add-paths: snapshots/fee_ladders/*.json

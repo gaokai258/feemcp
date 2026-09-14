@@ -1,0 +1,1692 @@
+{
+  "id": "2026-09",
+  "captured_at": "2026-09-14T06:58:56.453Z",
+  "ladders": {
+    "binance": {
+      "spot": [
+        {
+          "maker": 0.1,
+          "min_bnb": 0,
+          "min_volume_usd": 0,
+          "taker": 0.1,
+          "tier": "Regular"
+        },
+        {
+          "maker": 0.09,
+          "min_bnb": 5,
+          "min_volume_usd": 1000000,
+          "taker": 0.1,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.08,
+          "min_bnb": 25,
+          "min_volume_usd": 5000000,
+          "taker": 0.1,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.04,
+          "min_bnb": 100,
+          "min_volume_usd": 20000000,
+          "taker": 0.06,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.04,
+          "min_bnb": 500,
+          "min_volume_usd": 75000000,
+          "taker": 0.052,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.025,
+          "min_bnb": 1000,
+          "min_volume_usd": 150000000,
+          "taker": 0.031,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0.02,
+          "min_bnb": 1750,
+          "min_volume_usd": 400000000,
+          "taker": 0.029,
+          "tier": "VIP6"
+        },
+        {
+          "maker": 0.019,
+          "min_bnb": 3000,
+          "min_volume_usd": 800000000,
+          "taker": 0.028,
+          "tier": "VIP7"
+        },
+        {
+          "maker": 0.016,
+          "min_bnb": 4500,
+          "min_volume_usd": 2000000000,
+          "taker": 0.025,
+          "tier": "VIP8"
+        },
+        {
+          "maker": 0.011,
+          "min_bnb": 5500,
+          "min_volume_usd": 4000000000,
+          "taker": 0.023,
+          "tier": "VIP9"
+        }
+      ],
+      "futures": [
+        {
+          "maker": 0.02,
+          "min_volume_usd": 0,
+          "taker": 0.05,
+          "tier": "Regular"
+        },
+        {
+          "maker": 0.016,
+          "min_volume_usd": 15000000,
+          "taker": 0.04,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.014,
+          "min_volume_usd": 50000000,
+          "taker": 0.0375,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.012,
+          "min_volume_usd": 250000000,
+          "taker": 0.0325,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.01,
+          "min_volume_usd": 1000000000,
+          "taker": 0.03,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.008,
+          "min_volume_usd": 2500000000,
+          "taker": 0.0275,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0.006,
+          "min_volume_usd": 5000000000,
+          "taker": 0.025,
+          "tier": "VIP6"
+        },
+        {
+          "maker": 0.004,
+          "min_volume_usd": 12500000000,
+          "taker": 0.0225,
+          "tier": "VIP7"
+        },
+        {
+          "maker": 0.002,
+          "min_volume_usd": 25000000000,
+          "taker": 0.02,
+          "tier": "VIP8"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 50000000000,
+          "taker": 0.017,
+          "tier": "VIP9"
+        }
+      ]
+    },
+    "bingx": {
+      "spot": [
+        {
+          "maker": 0.1,
+          "min_volume_usd": 0,
+          "taker": 0.1,
+          "tier": "Regular"
+        },
+        {
+          "maker": 0.05,
+          "min_volume_usd": 500000,
+          "taker": 0.08,
+          "tier": "Elite"
+        },
+        {
+          "maker": 0.035,
+          "min_assets_usd": 50000,
+          "min_volume_usd": 1000000,
+          "taker": 0.06,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.02,
+          "min_assets_usd": 200000,
+          "min_volume_usd": 2000000,
+          "taker": 0.05,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.015,
+          "min_assets_usd": 1000000,
+          "min_volume_usd": 4000000,
+          "taker": 0.045,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.0125,
+          "min_assets_usd": 2000000,
+          "min_volume_usd": 6000000,
+          "taker": 0.0375,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.01,
+          "min_assets_usd": 3000000,
+          "min_volume_usd": 8000000,
+          "taker": 0.0325,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0.005,
+          "min_volume_usd": 15000000,
+          "taker": 0.02,
+          "tier": "Supreme"
+        }
+      ],
+      "futures": [
+        {
+          "maker": 0.02,
+          "min_volume_usd": 0,
+          "taker": 0.05,
+          "tier": "Regular"
+        },
+        {
+          "maker": 0.018,
+          "min_volume_usd": 5000000,
+          "taker": 0.045,
+          "tier": "Elite"
+        },
+        {
+          "maker": 0.014,
+          "min_assets_usd": 50000,
+          "min_volume_usd": 10000000,
+          "taker": 0.04,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.012,
+          "min_assets_usd": 200000,
+          "min_volume_usd": 20000000,
+          "taker": 0.0375,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.01,
+          "min_assets_usd": 1000000,
+          "min_volume_usd": 50000000,
+          "taker": 0.035,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.008,
+          "min_assets_usd": 2000000,
+          "min_volume_usd": 100000000,
+          "taker": 0.0315,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.006,
+          "min_assets_usd": 3000000,
+          "min_volume_usd": 200000000,
+          "taker": 0.03,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 500000000,
+          "taker": 0.025,
+          "tier": "Supreme"
+        }
+      ]
+    },
+    "bison": {
+      "spot": [
+        {
+          "fee": 1.75,
+          "min_volume_usd": 0,
+          "tier": "Broker spread 1.75% per side (all cryptocurrencies except BTC/ETH; Bitcoin and Ethereum 1.25%)"
+        }
+      ]
+    },
+    "bitget": {
+      "spot": [
+        {
+          "maker": 0.1,
+          "min_assets_usd": 0,
+          "min_volume_usd": 0,
+          "taker": 0.1,
+          "tier": "VIP0"
+        },
+        {
+          "maker": 0.08,
+          "min_assets_usd": 30000,
+          "min_volume_usd": 500000,
+          "taker": 0.08,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.065,
+          "min_assets_usd": 50000,
+          "min_volume_usd": 2000000,
+          "taker": 0.07,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.05,
+          "min_assets_usd": 250000,
+          "min_volume_usd": 8000000,
+          "taker": 0.06,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.04,
+          "min_assets_usd": 750000,
+          "min_volume_usd": 30000000,
+          "taker": 0.05,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.03,
+          "min_assets_usd": 2000000,
+          "min_volume_usd": 50000000,
+          "taker": 0.04,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0.02,
+          "min_assets_usd": 5000000,
+          "min_volume_usd": 75000000,
+          "taker": 0.035,
+          "tier": "VIP6"
+        },
+        {
+          "maker": 0,
+          "min_assets_usd": 10000000,
+          "min_volume_usd": 100000000,
+          "taker": 0.03,
+          "tier": "VIP7"
+        }
+      ],
+      "futures": [
+        {
+          "maker": 0.02,
+          "min_assets_usd": 0,
+          "min_volume_usd": 0,
+          "taker": 0.06,
+          "tier": "VIP0"
+        },
+        {
+          "maker": 0.019,
+          "min_assets_usd": 30000,
+          "min_volume_usd": 5000000,
+          "taker": 0.06,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.016,
+          "min_assets_usd": 50000,
+          "min_volume_usd": 10000000,
+          "taker": 0.04,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.014,
+          "min_assets_usd": 250000,
+          "min_volume_usd": 20000000,
+          "taker": 0.0375,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.012,
+          "min_assets_usd": 750000,
+          "min_volume_usd": 50000000,
+          "taker": 0.035,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.01,
+          "min_assets_usd": 2000000,
+          "min_volume_usd": 100000000,
+          "taker": 0.032,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0.008,
+          "min_assets_usd": 5000000,
+          "min_volume_usd": 300000000,
+          "taker": 0.03,
+          "tier": "VIP6"
+        },
+        {
+          "maker": 0,
+          "min_assets_usd": 10000000,
+          "min_volume_usd": 1000000000,
+          "taker": 0.02,
+          "tier": "VIP7"
+        }
+      ]
+    },
+    "bitpanda": {
+      "spot": [
+        {
+          "fee": 1.49,
+          "min_volume_usd": 0,
+          "tier": "Broker premium 1.49% per side (most assets; BTC/stablecoins 0.99%, small caps up to 2.49%)"
+        }
+      ]
+    },
+    "bitstamp": {
+      "spot": [
+        {
+          "maker": 0.3,
+          "min_volume_usd": 0,
+          "taker": 0.4,
+          "tier": "Under $10k"
+        },
+        {
+          "maker": 0.2,
+          "min_volume_usd": 10000,
+          "taker": 0.3,
+          "tier": "$10k+"
+        },
+        {
+          "maker": 0.1,
+          "min_volume_usd": 100000,
+          "taker": 0.2,
+          "tier": "$100k+"
+        },
+        {
+          "maker": 0.08,
+          "min_volume_usd": 500000,
+          "taker": 0.18,
+          "tier": "$500k+"
+        },
+        {
+          "maker": 0.06,
+          "min_volume_usd": 1500000,
+          "taker": 0.16,
+          "tier": "$1.5M+"
+        },
+        {
+          "maker": 0.03,
+          "min_volume_usd": 5000000,
+          "taker": 0.12,
+          "tier": "$5M+"
+        },
+        {
+          "maker": 0.02,
+          "min_volume_usd": 20000000,
+          "taker": 0.1,
+          "tier": "$20M+"
+        },
+        {
+          "maker": 0.01,
+          "min_volume_usd": 50000000,
+          "taker": 0.08,
+          "tier": "$50M+"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 100000000,
+          "taker": 0.06,
+          "tier": "$100M+"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 250000000,
+          "taker": 0.05,
+          "tier": "$250M+"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 1000000000,
+          "taker": 0.03,
+          "tier": "$1B+"
+        }
+      ],
+      "futures": [
+        {
+          "maker": -0.005,
+          "min_volume_usd": 0,
+          "taker": 0.015,
+          "tier": "Flat (EU eligible)"
+        }
+      ]
+    },
+    "bitvavo": {
+      "spot": [
+        {
+          "maker": 0.15,
+          "min_volume_usd": 0,
+          "taker": 0.25,
+          "tier": "< €100k"
+        },
+        {
+          "maker": 0.1,
+          "min_volume_usd": 100000,
+          "taker": 0.2,
+          "tier": "€100k+"
+        },
+        {
+          "maker": 0.08,
+          "min_volume_usd": 250000,
+          "taker": 0.16,
+          "tier": "€250k+"
+        },
+        {
+          "maker": 0.06,
+          "min_volume_usd": 500000,
+          "taker": 0.12,
+          "tier": "€500k+"
+        },
+        {
+          "maker": 0.05,
+          "min_volume_usd": 1000000,
+          "taker": 0.1,
+          "tier": "€1M+"
+        },
+        {
+          "maker": 0.04,
+          "min_volume_usd": 2500000,
+          "taker": 0.08,
+          "tier": "€2.5M+"
+        },
+        {
+          "maker": 0.04,
+          "min_volume_usd": 5000000,
+          "taker": 0.06,
+          "tier": "€5M+"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 10000000,
+          "taker": 0.05,
+          "tier": "€10M+"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 25000000,
+          "taker": 0.02,
+          "tier": "€25M+ (majors)"
+        }
+      ]
+    },
+    "blofin": {
+      "spot": [
+        {
+          "maker": 0.1,
+          "min_volume_usd": 0,
+          "taker": 0.1,
+          "tier": "Regular"
+        },
+        {
+          "maker": 0.035,
+          "min_assets_usd": 50000,
+          "min_volume_usd": 1000000,
+          "taker": 0.06,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.02,
+          "min_assets_usd": 500000,
+          "min_volume_usd": 2000000,
+          "taker": 0.05,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.015,
+          "min_assets_usd": 1000000,
+          "min_volume_usd": 4000000,
+          "taker": 0.045,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.0125,
+          "min_assets_usd": 2000000,
+          "min_volume_usd": 6000000,
+          "taker": 0.0375,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.01,
+          "min_assets_usd": 3000000,
+          "min_volume_usd": 8000000,
+          "taker": 0.0325,
+          "tier": "VIP5"
+        }
+      ],
+      "futures": [
+        {
+          "maker": 0.02,
+          "min_volume_usd": 0,
+          "taker": 0.06,
+          "tier": "Regular"
+        },
+        {
+          "maker": 0.006,
+          "min_assets_usd": 50000,
+          "min_volume_usd": 10000000,
+          "taker": 0.05,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.004,
+          "min_assets_usd": 500000,
+          "min_volume_usd": 25000000,
+          "taker": 0.045,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.002,
+          "min_assets_usd": 1000000,
+          "min_volume_usd": 50000000,
+          "taker": 0.0425,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.001,
+          "min_assets_usd": 2000000,
+          "min_volume_usd": 200000000,
+          "taker": 0.04,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0,
+          "min_assets_usd": 3000000,
+          "min_volume_usd": 500000000,
+          "taker": 0.035,
+          "tier": "VIP5"
+        }
+      ]
+    },
+    "bybit": {
+      "spot": [
+        {
+          "maker": 0.1,
+          "min_assets_usd": 0,
+          "min_volume_usd": 0,
+          "taker": 0.1,
+          "tier": "VIP0"
+        },
+        {
+          "maker": 0.0675,
+          "min_assets_usd": 100000,
+          "min_volume_usd": 1000000,
+          "taker": 0.08,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.065,
+          "min_assets_usd": 250000,
+          "min_volume_usd": 5000000,
+          "taker": 0.0775,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.0625,
+          "min_assets_usd": 500000,
+          "min_volume_usd": 10000000,
+          "taker": 0.075,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.05,
+          "min_assets_usd": 1000000,
+          "min_volume_usd": 25000000,
+          "taker": 0.06,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.04,
+          "min_assets_usd": 2000000,
+          "min_volume_usd": 50000000,
+          "taker": 0.05,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0.03,
+          "min_volume_usd": 100000000,
+          "taker": 0.045,
+          "tier": "Supreme"
+        }
+      ],
+      "futures": [
+        {
+          "maker": 0.02,
+          "min_assets_usd": 0,
+          "min_volume_usd": 0,
+          "taker": 0.055,
+          "tier": "VIP0"
+        },
+        {
+          "maker": 0.018,
+          "min_assets_usd": 100000,
+          "min_volume_usd": 10000000,
+          "taker": 0.04,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.016,
+          "min_assets_usd": 250000,
+          "min_volume_usd": 25000000,
+          "taker": 0.0375,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.014,
+          "min_assets_usd": 500000,
+          "min_volume_usd": 50000000,
+          "taker": 0.035,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.012,
+          "min_assets_usd": 1000000,
+          "min_volume_usd": 100000000,
+          "taker": 0.032,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.01,
+          "min_assets_usd": 2000000,
+          "min_volume_usd": 250000000,
+          "taker": 0.032,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 500000000,
+          "taker": 0.03,
+          "tier": "Supreme"
+        }
+      ]
+    },
+    "coinbase": {
+      "spot": [
+        {
+          "maker": 0.4,
+          "min_volume_usd": 0,
+          "taker": 0.6,
+          "tier": "Tier 1"
+        },
+        {
+          "maker": 0.25,
+          "min_volume_usd": 10000,
+          "taker": 0.4,
+          "tier": "Tier 2"
+        },
+        {
+          "maker": 0.2,
+          "min_volume_usd": 50000,
+          "taker": 0.35,
+          "tier": "Tier 3"
+        },
+        {
+          "maker": 0.2,
+          "min_volume_usd": 100000,
+          "taker": 0.3,
+          "tier": "Tier 4"
+        },
+        {
+          "maker": 0.15,
+          "min_volume_usd": 1000000,
+          "taker": 0.25,
+          "tier": "Tier 5"
+        },
+        {
+          "maker": 0.1,
+          "min_volume_usd": 15000000,
+          "taker": 0.2,
+          "tier": "Tier 6"
+        },
+        {
+          "maker": 0.08,
+          "min_volume_usd": 75000000,
+          "taker": 0.15,
+          "tier": "Tier 7"
+        },
+        {
+          "maker": 0.05,
+          "min_volume_usd": 250000000,
+          "taker": 0.1,
+          "tier": "Tier 8"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 400000000,
+          "taker": 0.04,
+          "tier": "Tier 9"
+        }
+      ]
+    },
+    "finst": {
+      "spot": [
+        {
+          "maker": 0.15,
+          "min_volume_usd": 0,
+          "taker": 0.15,
+          "tier": "Flat 0.15%"
+        }
+      ]
+    },
+    "gate": {
+      "spot": [
+        {
+          "fee": 0.2,
+          "min_gt": 0,
+          "min_volume_usd": 0,
+          "tier": "VIP0"
+        },
+        {
+          "fee": 0.18,
+          "min_gt": 1000,
+          "min_volume_usd": 1000000,
+          "tier": "VIP1"
+        },
+        {
+          "fee": 0.16,
+          "min_gt": 3000,
+          "min_volume_usd": 5000000,
+          "tier": "VIP2"
+        },
+        {
+          "fee": 0.14,
+          "min_gt": 6000,
+          "min_volume_usd": 10000000,
+          "tier": "VIP3"
+        },
+        {
+          "fee": 0.12,
+          "min_gt": 12000,
+          "min_volume_usd": 25000000,
+          "tier": "VIP4"
+        },
+        {
+          "fee": 0.1,
+          "min_gt": 20000,
+          "min_volume_usd": 50000000,
+          "tier": "VIP5"
+        },
+        {
+          "fee": 0.08,
+          "min_gt": 30000,
+          "min_volume_usd": 100000000,
+          "tier": "VIP6"
+        },
+        {
+          "fee": 0.06,
+          "min_gt": 40000,
+          "min_volume_usd": 200000000,
+          "tier": "VIP7"
+        },
+        {
+          "fee": 0.04,
+          "min_gt": 60000,
+          "min_volume_usd": 500000000,
+          "tier": "VIP8"
+        },
+        {
+          "fee": 0.02,
+          "min_gt": 200000,
+          "min_volume_usd": 1000000000,
+          "tier": "VIP9"
+        }
+      ],
+      "futures": [
+        {
+          "maker": 0.02,
+          "min_gt": 0,
+          "min_volume_usd": 0,
+          "taker": 0.05,
+          "tier": "VIP0"
+        },
+        {
+          "maker": 0.018,
+          "min_gt": 1000,
+          "min_volume_usd": 1000000,
+          "taker": 0.045,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.016,
+          "min_gt": 3000,
+          "min_volume_usd": 5000000,
+          "taker": 0.04,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.014,
+          "min_gt": 6000,
+          "min_volume_usd": 10000000,
+          "taker": 0.035,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.012,
+          "min_gt": 12000,
+          "min_volume_usd": 25000000,
+          "taker": 0.03,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.01,
+          "min_gt": 20000,
+          "min_volume_usd": 50000000,
+          "taker": 0.025,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0.008,
+          "min_gt": 30000,
+          "min_volume_usd": 100000000,
+          "taker": 0.022,
+          "tier": "VIP6"
+        },
+        {
+          "maker": 0.006,
+          "min_gt": 40000,
+          "min_volume_usd": 200000000,
+          "taker": 0.02,
+          "tier": "VIP7"
+        },
+        {
+          "maker": 0.004,
+          "min_gt": 60000,
+          "min_volume_usd": 500000000,
+          "taker": 0.018,
+          "tier": "VIP8"
+        },
+        {
+          "maker": 0.002,
+          "min_gt": 200000,
+          "min_volume_usd": 1000000000,
+          "taker": 0.015,
+          "tier": "VIP9"
+        }
+      ]
+    },
+    "hyperliquid": {
+      "spot": [
+        {
+          "maker": 0.04,
+          "min_volume_usd": 0,
+          "taker": 0.07,
+          "tier": "Tier 0"
+        },
+        {
+          "maker": 0.03,
+          "min_volume_usd": 5000000,
+          "taker": 0.06,
+          "tier": "Tier 1"
+        },
+        {
+          "maker": 0.02,
+          "min_volume_usd": 25000000,
+          "taker": 0.05,
+          "tier": "Tier 2"
+        },
+        {
+          "maker": 0.01,
+          "min_volume_usd": 100000000,
+          "taker": 0.04,
+          "tier": "Tier 3"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 500000000,
+          "taker": 0.035,
+          "tier": "Tier 4"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 2000000000,
+          "taker": 0.03,
+          "tier": "Tier 5"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 7000000000,
+          "taker": 0.025,
+          "tier": "Tier 6"
+        }
+      ],
+      "futures": [
+        {
+          "maker": 0.015,
+          "min_volume_usd": 0,
+          "taker": 0.045,
+          "tier": "Tier 0"
+        },
+        {
+          "maker": 0.012,
+          "min_volume_usd": 5000000,
+          "taker": 0.04,
+          "tier": "Tier 1"
+        },
+        {
+          "maker": 0.008,
+          "min_volume_usd": 25000000,
+          "taker": 0.035,
+          "tier": "Tier 2"
+        },
+        {
+          "maker": 0.004,
+          "min_volume_usd": 100000000,
+          "taker": 0.03,
+          "tier": "Tier 3"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 500000000,
+          "taker": 0.028,
+          "tier": "Tier 4"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 2000000000,
+          "taker": 0.026,
+          "tier": "Tier 5"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 7000000000,
+          "taker": 0.024,
+          "tier": "Tier 6"
+        }
+      ]
+    },
+    "kraken": {
+      "spot": [
+        {
+          "maker": 0.4,
+          "min_volume_usd": 0,
+          "taker": 0.8,
+          "tier": "Tier 1"
+        },
+        {
+          "maker": 0.3,
+          "min_volume_usd": 2500,
+          "taker": 0.6,
+          "tier": "Tier 2"
+        },
+        {
+          "maker": 0.22,
+          "min_assets_usd": 20000,
+          "min_volume_usd": 10000,
+          "taker": 0.38,
+          "tier": "Tier 3"
+        },
+        {
+          "maker": 0.2,
+          "min_assets_usd": 50000,
+          "min_volume_usd": 25000,
+          "taker": 0.35,
+          "tier": "Tier 4"
+        },
+        {
+          "maker": 0.15,
+          "min_assets_usd": 100000,
+          "min_volume_usd": 50000,
+          "taker": 0.3,
+          "tier": "Tier 5"
+        },
+        {
+          "maker": 0.12,
+          "min_assets_usd": 200000,
+          "min_volume_usd": 100000,
+          "taker": 0.25,
+          "tier": "Tier 6"
+        },
+        {
+          "maker": 0.1,
+          "min_assets_usd": 400000,
+          "min_volume_usd": 250000,
+          "taker": 0.22,
+          "tier": "Tier 7"
+        },
+        {
+          "maker": 0.08,
+          "min_assets_usd": 600000,
+          "min_volume_usd": 500000,
+          "taker": 0.2,
+          "tier": "Tier 8"
+        },
+        {
+          "maker": 0.06,
+          "min_assets_usd": 1000000,
+          "min_volume_usd": 1000000,
+          "taker": 0.18,
+          "tier": "Tier 9"
+        },
+        {
+          "maker": 0.04,
+          "min_assets_usd": 2500000,
+          "min_volume_usd": 2500000,
+          "taker": 0.15,
+          "tier": "Tier 10"
+        },
+        {
+          "maker": 0.02,
+          "min_assets_usd": 5000000,
+          "min_volume_usd": 5000000,
+          "taker": 0.12,
+          "tier": "Tier 11"
+        },
+        {
+          "maker": 0,
+          "min_assets_usd": 10000000,
+          "min_volume_usd": 10000000,
+          "taker": 0.1,
+          "tier": "Tier 12"
+        },
+        {
+          "maker": 0,
+          "min_assets_usd": 20000000,
+          "min_volume_usd": 50000000,
+          "taker": 0.09,
+          "tier": "Pro 1"
+        },
+        {
+          "maker": 0,
+          "min_assets_usd": 25000000,
+          "min_volume_usd": 100000000,
+          "taker": 0.08,
+          "tier": "Pro 2"
+        },
+        {
+          "maker": 0,
+          "min_assets_usd": 50000000,
+          "min_volume_usd": 250000000,
+          "taker": 0.07,
+          "tier": "Pro 3"
+        },
+        {
+          "maker": 0,
+          "min_assets_usd": 80000000,
+          "min_volume_usd": 400000000,
+          "taker": 0.06,
+          "tier": "Pro 4"
+        },
+        {
+          "maker": 0,
+          "min_assets_usd": 100000000,
+          "min_volume_usd": 500000000,
+          "taker": 0.05,
+          "tier": "Pro 5"
+        }
+      ],
+      "futures": [
+        {
+          "maker": 0.02,
+          "min_volume_usd": 0,
+          "taker": 0.05,
+          "tier": "Tier 1"
+        },
+        {
+          "maker": 0.0175,
+          "min_volume_usd": 5000000,
+          "taker": 0.045,
+          "tier": "Tier 2"
+        },
+        {
+          "maker": 0.015,
+          "min_assets_usd": 20000,
+          "min_volume_usd": 10000000,
+          "taker": 0.04,
+          "tier": "Tier 3"
+        },
+        {
+          "maker": 0.0125,
+          "min_assets_usd": 50000,
+          "min_volume_usd": 15000000,
+          "taker": 0.035,
+          "tier": "Tier 4"
+        },
+        {
+          "maker": 0.01,
+          "min_assets_usd": 100000,
+          "min_volume_usd": 25000000,
+          "taker": 0.03,
+          "tier": "Tier 5"
+        },
+        {
+          "maker": 0.0075,
+          "min_assets_usd": 200000,
+          "min_volume_usd": 40000000,
+          "taker": 0.0275,
+          "tier": "Tier 6"
+        },
+        {
+          "maker": 0.005,
+          "min_assets_usd": 400000,
+          "min_volume_usd": 50000000,
+          "taker": 0.025,
+          "tier": "Tier 7"
+        },
+        {
+          "maker": 0.005,
+          "min_assets_usd": 600000,
+          "min_volume_usd": 75000000,
+          "taker": 0.0225,
+          "tier": "Tier 8"
+        },
+        {
+          "maker": 0,
+          "min_assets_usd": 1000000,
+          "min_volume_usd": 100000000,
+          "taker": 0.02,
+          "tier": "Tier 9"
+        },
+        {
+          "maker": 0,
+          "min_assets_usd": 2500000,
+          "min_volume_usd": 150000000,
+          "taker": 0.018,
+          "tier": "Tier 10"
+        },
+        {
+          "maker": -0.003,
+          "min_assets_usd": 5000000,
+          "min_volume_usd": 250000000,
+          "taker": 0.0175,
+          "tier": "Tier 11"
+        },
+        {
+          "maker": -0.003,
+          "min_assets_usd": 10000000,
+          "min_volume_usd": 300000000,
+          "taker": 0.017,
+          "tier": "Tier 12"
+        },
+        {
+          "maker": -0.003,
+          "min_assets_usd": 20000000,
+          "min_volume_usd": 400000000,
+          "taker": 0.016,
+          "tier": "Pro 1"
+        },
+        {
+          "maker": -0.005,
+          "min_assets_usd": 25000000,
+          "min_volume_usd": 500000000,
+          "taker": 0.015,
+          "tier": "Pro 2"
+        },
+        {
+          "maker": -0.006,
+          "min_assets_usd": 50000000,
+          "min_volume_usd": 1000000000,
+          "taker": 0.0135,
+          "tier": "Pro 3"
+        },
+        {
+          "maker": -0.006,
+          "min_assets_usd": 80000000,
+          "min_volume_usd": 2000000000,
+          "taker": 0.013,
+          "tier": "Pro 4"
+        },
+        {
+          "maker": -0.006,
+          "min_assets_usd": 100000000,
+          "min_volume_usd": 5000000000,
+          "taker": 0.0125,
+          "tier": "Pro 5"
+        }
+      ]
+    },
+    "kucoin": {
+      "spot": [
+        {
+          "maker": 0.1,
+          "min_kcs": 0,
+          "min_volume_usd": 0,
+          "taker": 0.1,
+          "tier": "VIP0"
+        },
+        {
+          "maker": 0.095,
+          "min_kcs": 1000,
+          "min_volume_usd": 1000000,
+          "taker": 0.1,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.09,
+          "min_kcs": 10000,
+          "min_volume_usd": 3000000,
+          "taker": 0.1,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.075,
+          "min_kcs": 20000,
+          "min_volume_usd": 6000000,
+          "taker": 0.09,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.055,
+          "min_kcs": 30000,
+          "min_volume_usd": 18000000,
+          "taker": 0.075,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.035,
+          "min_kcs": 40000,
+          "min_volume_usd": 55000000,
+          "taker": 0.055,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0.025,
+          "min_kcs": 50000,
+          "min_volume_usd": 100000000,
+          "taker": 0.045,
+          "tier": "VIP6"
+        },
+        {
+          "maker": 0.015,
+          "min_kcs": 60000,
+          "min_volume_usd": 180000000,
+          "taker": 0.042,
+          "tier": "VIP7"
+        },
+        {
+          "maker": 0,
+          "min_kcs": 70000,
+          "min_volume_usd": 250000000,
+          "taker": 0.042,
+          "tier": "VIP8"
+        },
+        {
+          "maker": 0,
+          "min_kcs": 80000,
+          "min_volume_usd": 350000000,
+          "taker": 0.04,
+          "tier": "VIP9"
+        },
+        {
+          "maker": 0,
+          "min_kcs": 90000,
+          "min_volume_usd": 550000000,
+          "taker": 0.03,
+          "tier": "VIP10"
+        },
+        {
+          "maker": 0,
+          "min_kcs": 100000,
+          "min_volume_usd": 750000000,
+          "taker": 0.028,
+          "tier": "VIP11"
+        },
+        {
+          "maker": 0,
+          "min_kcs": 150000,
+          "min_volume_usd": 950000000,
+          "taker": 0.025,
+          "tier": "VIP12"
+        }
+      ],
+      "futures": [
+        {
+          "maker": 0.02,
+          "min_kcs": 0,
+          "min_volume_usd": 0,
+          "taker": 0.06,
+          "tier": "VIP0"
+        },
+        {
+          "maker": 0.018,
+          "min_kcs": 1000,
+          "min_volume_usd": 500000,
+          "taker": 0.06,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.015,
+          "min_kcs": 10000,
+          "min_volume_usd": 800000,
+          "taker": 0.06,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.01,
+          "min_kcs": 20000,
+          "min_volume_usd": 1500000,
+          "taker": 0.06,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.008,
+          "min_kcs": 30000,
+          "min_volume_usd": 4000000,
+          "taker": 0.053,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.006,
+          "min_kcs": 40000,
+          "min_volume_usd": 60000000,
+          "taker": 0.048,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0.004,
+          "min_kcs": 50000,
+          "min_volume_usd": 120000000,
+          "taker": 0.043,
+          "tier": "VIP6"
+        },
+        {
+          "maker": 0.002,
+          "min_kcs": 60000,
+          "min_volume_usd": 220000000,
+          "taker": 0.039,
+          "tier": "VIP7"
+        },
+        {
+          "maker": 0,
+          "min_kcs": 70000,
+          "min_volume_usd": 300000000,
+          "taker": 0.036,
+          "tier": "VIP8"
+        },
+        {
+          "maker": 0,
+          "min_kcs": 80000,
+          "min_volume_usd": 400000000,
+          "taker": 0.033,
+          "tier": "VIP9"
+        },
+        {
+          "maker": 0,
+          "min_kcs": 90000,
+          "min_volume_usd": 600000000,
+          "taker": 0.03,
+          "tier": "VIP10"
+        },
+        {
+          "maker": 0,
+          "min_kcs": 100000,
+          "min_volume_usd": 800000000,
+          "taker": 0.028,
+          "tier": "VIP11"
+        },
+        {
+          "maker": 0,
+          "min_kcs": 150000,
+          "min_volume_usd": 1000000000,
+          "taker": 0.025,
+          "tier": "VIP12"
+        }
+      ]
+    },
+    "mexc": {
+      "spot": [
+        {
+          "maker": 0,
+          "min_volume_usd": 0,
+          "taker": 0.05,
+          "tier": "Standard"
+        }
+      ],
+      "futures": [
+        {
+          "maker": 0.01,
+          "min_volume_usd": 0,
+          "taker": 0.04,
+          "tier": "Standard"
+        }
+      ]
+    },
+    "okx": {
+      "spot": [
+        {
+          "maker": 0.08,
+          "min_assets_usd": 0,
+          "min_volume_usd": 0,
+          "taker": 0.1,
+          "tier": "Regular"
+        },
+        {
+          "maker": 0.0675,
+          "min_assets_usd": 100000,
+          "min_volume_usd": 1000000,
+          "taker": 0.08,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.06,
+          "min_assets_usd": 200000,
+          "min_volume_usd": 5000000,
+          "taker": 0.07,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.055,
+          "min_assets_usd": 2000000,
+          "min_volume_usd": 10000000,
+          "taker": 0.065,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.03,
+          "min_assets_usd": 5000000,
+          "min_volume_usd": 20000000,
+          "taker": 0.045,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.025,
+          "min_assets_usd": 20000000,
+          "min_volume_usd": 100000000,
+          "taker": 0.035,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0,
+          "min_assets_usd": 50000000,
+          "min_volume_usd": 200000000,
+          "taker": 0.03,
+          "tier": "VIP6"
+        },
+        {
+          "maker": -0.002,
+          "min_assets_usd": 100000000,
+          "min_volume_usd": 500000000,
+          "taker": 0.025,
+          "tier": "VIP7"
+        },
+        {
+          "maker": -0.005,
+          "min_assets_usd": 250000000,
+          "min_volume_usd": 1000000000,
+          "taker": 0.02,
+          "tier": "VIP8"
+        },
+        {
+          "maker": -0.0075,
+          "min_assets_usd": 500000000,
+          "min_volume_usd": 5000000000,
+          "taker": 0.0175,
+          "tier": "VIP9"
+        }
+      ],
+      "futures": [
+        {
+          "maker": 0.02,
+          "min_assets_usd": 0,
+          "min_volume_usd": 0,
+          "taker": 0.05,
+          "tier": "Regular"
+        },
+        {
+          "maker": 0.016,
+          "min_assets_usd": 100000,
+          "min_volume_usd": 5000000,
+          "taker": 0.045,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.015,
+          "min_assets_usd": 200000,
+          "min_volume_usd": 10000000,
+          "taker": 0.036,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.01,
+          "min_assets_usd": 2000000,
+          "min_volume_usd": 50000000,
+          "taker": 0.028,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.008,
+          "min_assets_usd": 5000000,
+          "min_volume_usd": 200000000,
+          "taker": 0.027,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.005,
+          "min_assets_usd": 20000000,
+          "min_volume_usd": 600000000,
+          "taker": 0.026,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0,
+          "min_assets_usd": 50000000,
+          "min_volume_usd": 1000000000,
+          "taker": 0.025,
+          "tier": "VIP6"
+        },
+        {
+          "maker": -0.002,
+          "min_assets_usd": 100000000,
+          "min_volume_usd": 1500000000,
+          "taker": 0.02,
+          "tier": "VIP7"
+        },
+        {
+          "maker": -0.005,
+          "min_assets_usd": 250000000,
+          "min_volume_usd": 2000000000,
+          "taker": 0.02,
+          "tier": "VIP8"
+        },
+        {
+          "maker": -0.005,
+          "min_assets_usd": 500000000,
+          "min_volume_usd": 20000000000,
+          "taker": 0.015,
+          "tier": "VIP9"
+        }
+      ]
+    },
+    "phemex": {
+      "spot": [
+        {
+          "maker": 0.1,
+          "min_volume_usd": 0,
+          "taker": 0.1,
+          "tier": "Standard"
+        },
+        {
+          "maker": 0.09,
+          "min_volume_usd": 800000,
+          "taker": 0.1,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.05,
+          "min_volume_usd": 1800000,
+          "taker": 0.07,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.045,
+          "min_volume_usd": 2500000,
+          "taker": 0.065,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.04,
+          "min_volume_usd": 4500000,
+          "taker": 0.06,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.035,
+          "min_volume_usd": 8000000,
+          "taker": 0.055,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 15000000,
+          "taker": 0.04,
+          "tier": "Star VIP"
+        }
+      ],
+      "futures": [
+        {
+          "maker": 0.01,
+          "min_volume_usd": 0,
+          "taker": 0.06,
+          "tier": "Standard"
+        },
+        {
+          "maker": 0.008,
+          "min_volume_usd": 8000000,
+          "taker": 0.055,
+          "tier": "VIP1"
+        },
+        {
+          "maker": 0.006,
+          "min_volume_usd": 18000000,
+          "taker": 0.05,
+          "tier": "VIP2"
+        },
+        {
+          "maker": 0.004,
+          "min_volume_usd": 45000000,
+          "taker": 0.045,
+          "tier": "VIP3"
+        },
+        {
+          "maker": 0.002,
+          "min_volume_usd": 85000000,
+          "taker": 0.0375,
+          "tier": "VIP4"
+        },
+        {
+          "maker": 0.001,
+          "min_volume_usd": 180000000,
+          "taker": 0.035,
+          "tier": "VIP5"
+        },
+        {
+          "maker": 0,
+          "min_volume_usd": 380000000,
+          "taker": 0.03,
+          "tier": "Star VIP"
+        }
+      ]
+    }
+  }
+}

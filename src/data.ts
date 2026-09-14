@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import type {
@@ -39,6 +39,8 @@ import type {
   StablecoinVenueRule,
   InterfaceCostsData,
   InterfaceVenueCost,
+  FeeChangesData,
+  LadderSnapshot,
 } from "./types.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -74,6 +76,8 @@ let personasCache: PersonasData | null = null;
 let tokenPricesCache: TokenPricesData | null = null;
 let stablecoinAccessCache: StablecoinAccessData | null = null;
 let interfaceCostsCache: InterfaceCostsData | null = null;
+let feeChangesCache: FeeChangesData | null = null;
+let ladderSnapshotsCache: LadderSnapshot[] | null = null;
 
 export function getReferralLinks(): ReferralLinksData {
   if (!referralLinksCache) {
@@ -443,6 +447,51 @@ export function getInterfaceCosts(): InterfaceCostsData {
   return interfaceCostsCache;
 }
 
+// v0.48: curated fee-schedule change feed (ships with the npm package).
+export function getFeeChanges(): FeeChangesData {
+  if (!feeChangesCache) {
+    feeChangesCache = loadJson<FeeChangesData>(
+      resolveDataPath("FEE_CHANGES_PATH", "fee_changes.json"),
+    );
+  }
+  return feeChangesCache;
+}
+
+/**
+ * v0.48: monthly fee-ladder snapshots used to auto-detect schedule changes.
+ * The snapshot directory is REPO-ONLY (not shipped in the npm tarball), so a
+ * missing/unreadable directory degrades to an empty list instead of throwing —
+ * npm consumers still get the curated feed, just no detected deltas.
+ * FEE_SNAPSHOTS_PATH points at the directory containing YYYY-MM.json files.
+ */
+export function getFeeLadderSnapshots(): LadderSnapshot[] {
+  if (ladderSnapshotsCache) return ladderSnapshotsCache;
+  const dir =
+    process.env.FEE_SNAPSHOTS_PATH ??
+    join(__dirname, "..", "snapshots", "fee_ladders");
+  if (!existsSync(dir)) {
+    ladderSnapshotsCache = [];
+    return ladderSnapshotsCache;
+  }
+  let files: string[] = [];
+  try {
+    files = readdirSync(dir).filter((f) => f.endsWith(".json")).sort();
+  } catch {
+    ladderSnapshotsCache = [];
+    return ladderSnapshotsCache;
+  }
+  const snapshots: LadderSnapshot[] = [];
+  for (const f of files) {
+    try {
+      snapshots.push(loadJson<LadderSnapshot>(join(dir, f)));
+    } catch {
+      // Skip an unparseable snapshot rather than failing the whole feed.
+    }
+  }
+  ladderSnapshotsCache = snapshots;
+  return ladderSnapshotsCache;
+}
+
 export function getInterfaceVenue(exchange: string): InterfaceVenueCost | null {
   return getInterfaceCosts().venues[exchange.toLowerCase()] ?? null;
 }
@@ -537,6 +586,11 @@ export function listDataProvenance(now: Date = new Date()): DataProvenanceReport
       file: "interface_costs.json",
       last_verified: getInterfaceCosts().last_verified,
       sources: getInterfaceCosts().sources,
+    },
+    {
+      file: "fee_changes.json",
+      last_verified: getFeeChanges().last_verified,
+      sources: getFeeChanges().sources,
     },
   ];
 
@@ -890,4 +944,6 @@ export function resetCachesForTest(): void {
   pairFeesCache = null;
   spreadBaselineCache = null;
   fiatRoutesCache = null;
+  feeChangesCache = null;
+  ladderSnapshotsCache = null;
 }

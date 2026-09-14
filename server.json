@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.gaokai258/fee-optimizer-mcp",
   "title": "Fee Optimizer MCP",
-  "description": "Compare crypto exchange fees across 18 venues. VIP tiers, funding, spread, fiat rails, app vs PRO.",
-  "version": "0.47.3",
+  "description": "Compare crypto exchange fees across 18 venues. VIP tiers, funding, spread, fiat rails, app vs PRO, auditable fee-change feed.",
+  "version": "0.48.0",
   "repository": {
     "url": "https://github.com/gaokai258/feemcp",
     "source": "github"
@@ -12,7 +12,7 @@
     {
       "registryType": "npm",
       "identifier": "fee-optimizer-mcp",
-      "version": "0.47.3",
+      "version": "0.48.0",
       "transport": { "type": "stdio" }
     }
   ],
