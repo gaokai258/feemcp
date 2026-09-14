@@ -8,5 +8,9 @@ dist/
 coverage/
 .vitest/
 
+# MCPB build artifacts
+.mcpb-build/
+*.mcpb
+
 # Local agent/IDE working documents
 .trae/

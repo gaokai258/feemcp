@@ -1,0 +1,112 @@
+{
+  "manifest_version": "0.4",
+  "name": "fee-optimizer-mcp",
+  "display_name": "Fee Optimizer MCP",
+  "version": "0.47.3",
+  "description": "Compare crypto exchange fees across 18 venues with VIP tiers, funding rates, spread, slippage, fiat rails, and withdrawal costs. Recommends the cheapest venue.",
+  "author": {
+    "name": "gaoke",
+    "email": "269587770@qq.com",
+    "url": "https://dificalc.com"
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "server/dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/dist/index.js"],
+      "env": {}
+    }
+  },
+  "tools": [
+    {
+      "name": "compare_exchange_fees",
+      "description": "Compare crypto exchange trading fees across venues with VIP tier resolution based on monthly volume, token discounts, and referral links."
+    },
+    {
+      "name": "get_referral_link",
+      "description": "Get referral links for exchanges to reduce trading fees."
+    },
+    {
+      "name": "calculate_savings",
+      "description": "Calculate savings by switching from one exchange to a cheaper alternative."
+    },
+    {
+      "name": "compare_total_cost",
+      "description": "Compare total trading cost including fees, funding rates, spread, and slippage for a given order size."
+    },
+    {
+      "name": "recommend_exchange",
+      "description": "Recommend the best exchange for specific trading needs based on country, volume, and pair."
+    },
+    {
+      "name": "get_data_sources",
+      "description": "Get data source information, last-verified dates, and provenance for all bundled data."
+    },
+    {
+      "name": "calculate_annual_cost",
+      "description": "Calculate annual trading cost projection based on monthly volume and trading patterns."
+    },
+    {
+      "name": "get_funding_rates",
+      "description": "Get perpetual futures funding rates — bundled long-run averages or live real-time rates via ccxt."
+    },
+    {
+      "name": "get_execution_cost",
+      "description": "Calculate execution cost from bid-ask spread crossing and order-book depth-walk slippage."
+    },
+    {
+      "name": "get_fiat_cost",
+      "description": "Get fiat on/off-ramp costs for card, SEPA, ACH, FPS, PIX, and SWIFT rails in USD/EUR/GBP/BRL."
+    },
+    {
+      "name": "get_withdrawal_fees",
+      "description": "Get crypto withdrawal fees across Tron/Ethereum/BSC/L2/Solana/Ton/native chains for 16 assets."
+    },
+    {
+      "name": "analyze_persona",
+      "description": "Analyze trading costs for a specific trader persona (spot trader, futures trader, DCA investor, etc.)."
+    },
+    {
+      "name": "analyze_token_discount",
+      "description": "Analyze native token holding discount impact on trading fees (BNB, OKB, GT, MX, BGB, KCS)."
+    },
+    {
+      "name": "compare_personas",
+      "description": "Compare trading costs across multiple trader personas side by side."
+    },
+    {
+      "name": "volume_what_if",
+      "description": "Project fee tier changes and cost impact at different monthly trading volumes."
+    },
+    {
+      "name": "compare_countries",
+      "description": "Compare exchange availability and costs across countries with compliance filtering."
+    },
+    {
+      "name": "get_account_fee_tier",
+      "description": "Fetch the account's actual maker/taker fee tier via authenticated exchange API. Credentials are never cached or logged."
+    },
+    {
+      "name": "get_stablecoin_access",
+      "description": "Check MiCA stablecoin access rules by region — USDT unavailable at EEA venues after 2026-07-01 cliff; USDC/EURC/EURI authorized alternatives."
+    },
+    {
+      "name": "compare_interface_costs",
+      "description": "Compare consumer app vs PRO interface costs with measured hidden-spread evidence (TUM 2025 real-money study data)."
+    }
+  ],
+  "tools_generated": false,
+  "compatibility": {
+    "platforms": ["win32", "darwin", "linux"]
+  },
+  "privacy_policies": [
+    "https://github.com/gaokai258/feemcp/blob/main/PRIVACY.md"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/gaokai258/feemcp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gaokai258/feemcp"
+  }
+}
