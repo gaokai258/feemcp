@@ -16,6 +16,10 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/); the proj
 - **Recommendation economics now price the six new referral layers.** MEXC's 0.04% futures taker × 0.8 = 0.032% makes it the cheapest taker-heavy futures pick in JP (previously Binance) and the most versatile venue in the JP persona matrix (4 complete wins, previously OKX with 3); the JP casual-buyer cross-country spread moves $52.55 → $53.75 (Germany-via-Bybit remains the cheapest realistic complete pick). Spot/futures effective rates for the six venues now include the 20% layer (e.g. BingX 0.05→0.04, BloFin 0.06→0.048, Bitvavo 0.15/0.25→0.12/0.20); token + referral stacking tests updated for MEXC and KuCoin.
 - `ReferralLink.my_rebate_rate` is now **optional**: the operator rebate share remains recorded for the four original affiliate programs but is not published for the six new ones. The field was never exposed by any tool.
 
+### Fixed
+- **MCP Registry publish validation (422)**: `server.json` `description` exceeded the registry's 100-character limit after the v0.48 wording change (v0.48 was never tagged, so this surfaced only now); shortened to 99 characters. Verified with `mcp-publisher validate` 1.8.1 against the live registry.
+- **HTTP smoke false-green**: `scripts/smoke-http.mjs` shut down via an `.unref()`'d 500 ms timer, so on Node 20+ the event loop drained and the process exited 0 even after failed assertions — only Node 18 reported the failure. The timer now keeps the loop alive so the exit code always reflects the assertion count. The stale `most_versatile: okx` smoke assertion (changed to `mexc` by the new referral economics in this release) is updated, so the end-to-end suite now passes on all three CI Node versions.
+
 ## [0.48.0] — 2026-09-14
 
 ### Added

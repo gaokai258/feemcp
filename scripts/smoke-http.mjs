@@ -48,7 +48,10 @@ child.stderr.on("data", (d) => {
 
 const shutdown = async (code) => {
   child.kill("SIGTERM");
-  setTimeout(() => process.exit(code), 500).unref();
+  // The timer MUST stay ref'd: with .unref(), Node 20+ reaps the killed
+  // child's pipes and drains the loop before this fires, exiting 0 even
+  // after failed assertions (a false-green that Node 18 did not share).
+  setTimeout(() => process.exit(code), 500);
 };
 
 const waitForBanner = async () => {
@@ -137,8 +140,8 @@ try {
     const body = await res.json();
     const text = body.result?.content?.[0]?.text ?? "";
     check(
-      "tools/call compare_personas JP -> okx most_versatile",
-      res.status === 200 && body.result?.isError !== true && /"most_versatile": "okx"/.test(text),
+      "tools/call compare_personas JP -> mexc most_versatile",
+      res.status === 200 && body.result?.isError !== true && /"most_versatile": "mexc"/.test(text),
       text.slice(0, 200)
     );
   }
