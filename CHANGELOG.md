@@ -5,6 +5,17 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/); the proj
 
 > Note: this project predates this changelog. Entries for 0.20.0–0.46.0 are reconstructed from release notes embedded in `README.md` / `server.json`; their original release dates and git tags were not recorded (no pre-existing git history in the working tree). Only 0.47.0 carries an actual completion date. Patch releases, if any, were folded into the minor entries.
 
+## [0.49.0] — 2026-09-20
+
+### Added
+- **Referral coverage 4 → 10 venues**: [`data/referral_links.json`](data/referral_links.json) now carries the operator's 20%-user-discount invite links for **Bybit, MEXC, KuCoin, BingX, BloFin and Bitvavo** (official venue domains / invite short links), alongside the existing Binance, OKX, Bitget and Gate.io programs. All six are `regions: ["global"]`; compliance gating in the tools is unchanged (a link only resolves where the venue itself is allowed).
+- **Plan-B reachability probe** — the first step toward the deferred continuous spread-observation pipeline. `scripts/probe-reachability.mjs` (`npm run probe:reachability`) exercises the *real* live code path per venue × purpose — ccxt `loadMarkets()` → engine symbol resolution → `fetchOrderBook()` — from the current host, classifies failures (`geo_block` 451 / `http_403` / `timeout` / `dns` / `rate_limited` / …, one retry on transient network errors), and emits a console table, a GitHub Job-Summary markdown table and a `--json` report. The new manually dispatched workflow `.github/workflows/reachability-probe.yml` records the runner's egress location via ipinfo.io and uploads the JSON report as a 90-day artifact; only `reachable+booked` rows are candidates for a scheduled GH-runner collector. Read-only, no credentials, no schedule.
+- `src/live.ts` now exports `CCXT_IDS` and `CCXT_SPOT_ID_OVERRIDES` so the probe can never drift from the venue mappings the live engine actually uses.
+
+### Changed
+- **Recommendation economics now price the six new referral layers.** MEXC's 0.04% futures taker × 0.8 = 0.032% makes it the cheapest taker-heavy futures pick in JP (previously Binance) and the most versatile venue in the JP persona matrix (4 complete wins, previously OKX with 3); the JP casual-buyer cross-country spread moves $52.55 → $53.75 (Germany-via-Bybit remains the cheapest realistic complete pick). Spot/futures effective rates for the six venues now include the 20% layer (e.g. BingX 0.05→0.04, BloFin 0.06→0.048, Bitvavo 0.15/0.25→0.12/0.20); token + referral stacking tests updated for MEXC and KuCoin.
+- `ReferralLink.my_rebate_rate` is now **optional**: the operator rebate share remains recorded for the four original affiliate programs but is not published for the six new ones. The field was never exposed by any tool.
+
 ## [0.48.0] — 2026-09-14
 
 ### Added

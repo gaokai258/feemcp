@@ -196,7 +196,7 @@ All fee/VIP/withdrawal/spread data is local JSON. By default the server makes **
 | File | Contents |
 |---|---|
 | [`data/fee_rates.json`](data/fee_rates.json) | VIP tier maker/taker rates, spot + futures; v0.44 adds per-venue `pricing_model` (`order_book\|flat\|spread`) and `execution_quality` evidence (advertised vs independently measured round-trip cost) for spread-broker venues (v0.44 Bitpanda, v0.45 Bison — the second spread venue) |
-| [`data/referral_links.json`](data/referral_links.json) | Referral URLs, user discount %, operator rebate (internal) |
+| [`data/referral_links.json`](data/referral_links.json) | Referral URLs, user discount %, operator rebate when disclosed (internal) |
 | [`data/token_discounts.json`](data/token_discounts.json) | BNB / OKB / GT / MX / BGB / KCS / PT discount rules + Hyperliquid staked-HYPE ladder (multiplicative, staking required) |
 | [`data/pair_fees.json`](data/pair_fees.json) | Pair-level fee promos (MEXC 0-fee, Binance FDUSD/USDC, Bitget USDC/USDT), v0.44 Bitpanda spread-band pricing (0.99% BTC/stablecoin pairs vs the 1.49% headline, non-promo) and v0.45 Bison bands (1.25% BTC/EUR + ETH/EUR vs the 1.75% headline, non-promo) |
 | [`data/funding_rates.json`](data/funding_rates.json) | Bundled average funding rate + settlement interval (live-mode fallback) |

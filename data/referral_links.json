@@ -31,6 +31,42 @@
       "my_rebate_rate": "40%",
       "regions": ["global"],
       "notes": "User gets 20% fee discount via referral, operator earns 40% rebate from the Gate.io Partner program."
+    },
+    "bybit": {
+      "url": "https://www.bybit.com/invite?ref=WN4KGO&medium=referral&utm_campaign=evergreen&share_to=link",
+      "discount": "20%",
+      "regions": ["global"],
+      "notes": "Bybit official invite link; user gets 20% fee discount at registration."
+    },
+    "mexc": {
+      "url": "https://s.mexc.com/referral/81zbA2L40K",
+      "discount": "20%",
+      "regions": ["global"],
+      "notes": "MEXC referral short link; user gets 20% fee discount at registration."
+    },
+    "kucoin": {
+      "url": "https://www.kucoin.com/r/rf/CXEE1LYW",
+      "discount": "20%",
+      "regions": ["global"],
+      "notes": "KuCoin referral link; user gets 20% fee discount at registration."
+    },
+    "bingx": {
+      "url": "https://bingxdao.com/invite/DDXU0P/",
+      "discount": "20%",
+      "regions": ["global"],
+      "notes": "BingX invite link on the official bingxdao.com invite domain; user gets 20% fee discount at registration."
+    },
+    "blofin": {
+      "url": "https://blofin.com/referral/activity-invite-earn?source=more&referral_code=CVDgdE&invite_type=4&invite_id=17",
+      "discount": "20%",
+      "regions": ["global"],
+      "notes": "BloFin referral link; user gets 20% fee discount at registration."
+    },
+    "bitvavo": {
+      "url": "https://bitvavo.com/invite?a=558EB5842E",
+      "discount": "20%",
+      "regions": ["global"],
+      "notes": "Bitvavo invite link; user gets 20% fee discount at registration."
     }
   }
 }

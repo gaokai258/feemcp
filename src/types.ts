@@ -37,7 +37,8 @@ export interface DataProvenanceReport {
 export interface ReferralLink {
   url: string;
   discount: string;
-  my_rebate_rate: string;
+  /** Operator-side rebate share. Omitted when the operator does not publish it. */
+  my_rebate_rate?: string;
   regions: string[];
   notes?: string;
 }

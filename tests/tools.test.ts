@@ -111,12 +111,12 @@ describe("compareExchangeFees", () => {
     const r = compareExchangeFees("spot", "JP");
     expect(Array.isArray(r)).toBe(true);
     expect((r as any[]).length).toBe(13);
-    // v0.11: bybit/mexc/bitget have fee data but no referral links yet — still listed.
+    // mexc now carries a 20% referral link — fee data and the link both present.
     const mexc = (r as any[]).find((x) => x.exchange === "mexc");
     expect(mexc).toBeDefined();
-    expect(mexc.referral_url).toBeUndefined();
-    expect(mexc.referral_discount).toBeUndefined();
-    expect(mexc.effective_taker).toBe(0.05);
+    expect(mexc.referral_url).toContain("81zbA2L40K");
+    expect(mexc.referral_discount).toBe("20%");
+    expect(mexc.effective_taker).toBe(0.04);
   });
 
   it("CN blocks binance, kucoin and kraken, leaves the other seven (incl. phemex)", () => {
@@ -296,8 +296,9 @@ describe("v0.5: maker/taker weighted fees", () => {
 
   it("makerShare=1 ranks mexc first (zero spot maker), hyperliquid second, okx third", () => {
     const r = compareExchangeFees("spot", "JP", { makerShare: 1 }) as any[];
-    // eff maker @VIP0: mexc 0 (no referral), hyperliquid 0.04 (14d-window Tier 0),
-    // okx 0.08*0.8=0.064, binance 0.1*0.8=0.08, bybit 0.1 (no referral), bitget 0.1, gate 0.2*0.8=0.16
+    // eff maker @VIP0: mexc 0 (maker-free, referral leaves zero at zero),
+    // hyperliquid 0.04 (14d-window Tier 0), okx 0.08*0.8=0.064,
+    // binance 0.1*0.8=0.08, bybit 0.1*0.8=0.08, bitget 0.1, gate 0.2*0.8=0.16
     expect(r[0].exchange).toBe("mexc");
     expect(r[0].weighted_rate).toBe(0);
     expect(r[1].exchange).toBe("hyperliquid");
@@ -420,8 +421,8 @@ describe("v0.5: recommend_exchange", () => {
   it("converts estimated fee to requested currency", () => {
     const r = recommendExchange("spot", "JP", 100_000, { currency: "JPY" }) as any;
     expect(r.currency).toBe("JPY");
-    // best = mexc: USD fee = 100000 * 0.0005 = 50 -> 50 * 150
-    expect(r.best.estimated_fee).toBe(7_500);
+    // best = mexc: USD fee = 100000 * 0.0005 * 0.8 referral = 40 -> 40 * 150
+    expect(r.best.estimated_fee).toBe(6_000);
   });
 
   it("rejects non-positive volume", () => {
@@ -1035,25 +1036,27 @@ describe("v0.11: Bybit / MEXC / Bitget coverage", () => {
 
   it("mexc MX toggle: 20% off by default, 500+ MX lifts it to 50%", () => {
     const base = calculateSavings("mexc", 100_000, "spot", "JP", { useToken: true }) as any;
-    // taker 0.05% - 20% = 0.04% -> 40; no referral layer
+    // taker 0.05% - 20% MX toggle = 0.04%, then -20% referral = 0.032% -> 32
     expect(base.token_applied).toBe(true);
-    expect(base.final_fee).toBe(40);
-    expect(base.referral_url).toBeUndefined();
+    expect(base.final_fee).toBe(32);
+    expect(base.referral_discount).toBe("20%");
+    expect(base.referral_url).toContain("81zbA2L40K");
 
     const rich = calculateSavings("mexc", 100_000, "spot", "JP", {
       useToken: true,
       tokenBalance: 500,
     }) as any;
-    // 50% MX holding tier beats the 20% toggle
-    expect(rich.final_fee).toBe(25);
+    // 50% MX holding tier beats the 20% toggle, then the 20% referral stacks
+    // 0.05% * 0.5 * 0.8 = 0.02% -> 20
+    expect(rich.final_fee).toBe(20);
 
     const futMaker = calculateSavings("mexc", 100_000, "futures", "JP", {
       useToken: true,
       tokenBalance: 500,
       makerShare: 1,
     }) as any;
-    // futures maker 0.01% - 50% = 0.005% -> 5
-    expect(futMaker.final_fee).toBe(5);
+    // futures maker 0.01% - 50% MX = 0.005%, then -20% referral = 0.004% -> 4
+    expect(futMaker.final_fee).toBe(4);
   });
 
   // ---- Bitget: VIP ladder + BGB 20% deduction ----
@@ -1079,26 +1082,28 @@ describe("v0.11: Bybit / MEXC / Bitget coverage", () => {
 
   // ---- Referral-optional behaviour ----
   it("getReferralLink returns NO_REFERRAL_LINK for exchanges without links", () => {
-    for (const ex of ["bybit", "mexc"]) {
-      const r = getReferralLink(ex, "JP") as any;
+    // kraken (served in the US) and hyperliquid (served in JP) have fee data
+    // but no affiliate link configured.
+    for (const [ex, cc] of [["kraken", "US"], ["hyperliquid", "JP"]] as const) {
+      const r = getReferralLink(ex, cc) as any;
       expect(r.code).toBe("NO_REFERRAL_LINK");
     }
   });
 
-  it("calculateSavings for mexc works without a referral layer", () => {
+  it("calculateSavings for mexc stacks the 20% referral layer", () => {
     const r = calculateSavings("mexc", 100_000, "spot", "JP") as any;
     expect(r.original_fee).toBe(50);
-    expect(r.fee_after_referral).toBe(50);
-    expect(r.final_fee).toBe(50);
-    expect(r.total_savings).toBe(0);
-    expect(r.referral_url).toBeUndefined();
+    expect(r.fee_after_referral).toBe(40);
+    expect(r.final_fee).toBe(40);
+    expect(r.total_savings).toBe(10);
+    expect(r.referral_url).toContain("81zbA2L40K");
   });
 
   it("compareTotalCost includes mexc with zero withdrawal-fee data gracefully", () => {
     const r = compareTotalCost("spot", "JP", 10_000) as any[];
     const mexc = r.find((x) => x.exchange === "mexc");
     expect(mexc).toBeDefined();
-    expect(mexc.trading_fee).toBe(5); // 10000 * 0.0005
+    expect(mexc.trading_fee).toBe(4); // 10000 * 0.0005 * 0.8 referral
   });
 
   // ---- Compliance ----
@@ -1310,18 +1315,19 @@ describe("v0.13: KuCoin integration (VIP0-12, KCS OR-ladder, Class A/B/C)", () =
   });
 
   // ---- KCS 20% fee deduction ----
-  it("KCS deduction takes 20% off spot fees with no referral layer", () => {
+  it("KCS deduction takes 20% off spot fees and stacks with the 20% referral", () => {
     const r = calculateSavings("kucoin", 100_000, "spot", "JP", { useToken: true }) as any;
-    // taker 0.1% - 20% = 0.08% -> 80
+    // taker 0.1% - 20% KCS = 0.08%, then -20% referral = 0.064% -> 64
     expect(r.token_applied).toBe(true);
-    expect(r.final_fee).toBe(80);
-    expect(r.referral_url).toBeUndefined();
+    expect(r.final_fee).toBe(64);
+    expect(r.referral_url).toContain("CXEE1LYW");
   });
 
   it("at VIP8+ zero maker stays zero; KCS discount lands on taker only", () => {
     const taker = calculateSavings("kucoin", 250_000_000, "spot", "JP", { useToken: true }) as any;
-    // taker 0.042% - 20% = 0.0336% -> 250M * 0.000336 = 84,000
-    expect(taker.final_fee).toBe(84_000);
+    // taker 0.042% - 20% KCS = 0.0336%, then -20% referral = 0.02688%
+    // -> 250M * 0.0002688 = 67,200
+    expect(taker.final_fee).toBe(67_200);
     const maker = calculateSavings("kucoin", 250_000_000, "spot", "JP", {
       useToken: true,
       makerShare: 1,
@@ -1369,7 +1375,7 @@ describe("v0.13: KuCoin integration (VIP0-12, KCS OR-ladder, Class A/B/C)", () =
   });
 
   // ---- Compliance ----
-  it("blocks kucoin in US/CN/HK/SG/TH and serves it in JP; no referral link yet", () => {
+  it("blocks kucoin in US/CN/HK/SG/TH and serves it in JP with the referral link", () => {
     for (const cc of ["US", "CN", "HK", "SG", "TH"]) {
       const r = calculateSavings("kucoin", 1_000, "spot", cc);
       expect((r as any).code).toBe("COUNTRY_BLOCKED");
@@ -1377,20 +1383,21 @@ describe("v0.13: KuCoin integration (VIP0-12, KCS OR-ladder, Class A/B/C)", () =
     const jp = calculateSavings("kucoin", 1_000, "spot", "JP") as any;
     expect(jp.error).toBeUndefined();
     const link = getReferralLink("kucoin", "JP") as any;
-    expect(link.code).toBe("NO_REFERRAL_LINK");
+    expect(link.url).toContain("CXEE1LYW");
+    expect(link.discount).toBe("20%");
   });
 
   // ---- Annual cost KCS upgrade path ----
   it("annual quote offers the next tier via volume OR KCS holdings", () => {
     const r = calculateAnnualCost("kucoin", "spot", "JP", 500_000, { makerShare: 1 }) as any;
     expect(r.tier).toBe("VIP0");
-    // maker 0.1% -> 500/mo -> 6000/yr (no referral)
-    expect(r.annual_trading_fee).toBe(6000);
+    // maker 0.1% with 20% referral = 0.08% -> 400/mo -> 4800/yr
+    expect(r.annual_trading_fee).toBe(4800);
     expect(r.upgrade.next_tier).toBe("VIP1");
     expect(r.upgrade.requires_volume_usd).toBe(1_000_000);
     expect(r.upgrade.requires_kcs).toBe(1_000);
-    // VIP1 maker 0.095% -> 475/mo -> 5700/yr -> save 300
-    expect(r.upgrade.annual_savings).toBe(300);
+    // VIP1 maker 0.095% * 0.8 = 0.076% -> 380/mo -> 4560/yr -> save 240
+    expect(r.upgrade.annual_savings).toBe(240);
     expect(r.upgrade.hint).toContain("1,000 KCS holdings");
   });
 });
@@ -2204,10 +2211,11 @@ describe("v0.20: Hyperliquid integration (DEX, 14d volume tiers, staked-HYPE lad
     expect(getFundingRate("hyperliquid")).toMatchObject({ interval_hours: 1, avg_rate_pct: 0.00125 });
     const savings = calculateSavings("hyperliquid", 100_000, "futures", "JP", { holdingHours: 16 }) as any;
     expect(savings.funding_cost).toBe(20);
-    // Taker-heavy futures at JP: Binance still wins on its 20% referral discount
-    // (0.05% x 0.8 = 0.04% effective) vs Hyperliquid's no-link 0.045%.
+    // Taker-heavy futures at JP: MEXC wins — its 0.04% base taker with the
+    // 20% referral discount lands at 0.032%, under Binance's 0.05% x 0.8 =
+    // 0.04% and Hyperliquid's no-link 0.045%.
     const rec = recommendExchange("futures", "JP", 100_000) as any;
-    expect(rec.best.exchange).toBe("binance");
+    expect(rec.best.exchange).toBe("mexc");
     // Hyperliquid is ranked among the alternatives with the same effective $20/16h funding.
     const hl = rec.alternatives.find((x: any) => x.exchange === "hyperliquid");
     expect(hl).toBeDefined();
@@ -2333,11 +2341,12 @@ describe("v0.21: BingX integration (VIP Club ladders, volume-only Elite/Supreme,
 
   it("no native token discount; standard 8h funding; 4 bps typical BTC spread", () => {
     expect(getTokenDiscount("bingx")).toBeNull();
-    // useToken must not change BingX rates.
+    // useToken must not change BingX rates, but the 20% referral still applies.
     const rows = compareExchangeFees("futures", "JP", { useToken: true, tokenBalance: 999_999 }) as any[];
     const bx = rows.find((x) => x.exchange === "bingx");
-    expect(bx.effective_taker).toBe(0.05);
+    expect(bx.effective_taker).toBe(0.04);
     expect(bx.token_applied).toBe(false);
+    expect(bx.referral_discount).toBe("20%");
 
     expect(getFundingRate("bingx")).toMatchObject({ interval_hours: 8, avg_rate_pct: 0.01 });
     // 16h holding = 2 intervals * 0.01% * 100k = $20.
@@ -2351,7 +2360,7 @@ describe("v0.21: BingX integration (VIP Club ladders, volume-only Elite/Supreme,
     });
   });
 
-  it("compliance: blocked in US/CA/GB/CN/HK/SG and EEA-wide post-MiCA (v0.41), served in JP/TH/AU; no referral link; notes attached", () => {
+  it("compliance: blocked in US/CA/GB/CN/HK/SG and EEA-wide post-MiCA (v0.41), served in JP/TH/AU; referral link in served countries; notes attached", () => {
     for (const cc of ["US", "CA", "GB", "CN", "HK", "SG", "DE", "FR", "NL", "IS"]) {
       expect((calculateSavings("bingx", 1_000, "spot", cc) as any).code).toBe("COUNTRY_BLOCKED");
     }
@@ -2366,7 +2375,8 @@ describe("v0.21: BingX integration (VIP Club ladders, volume-only Elite/Supreme,
     expect(jp.find((x) => x.exchange === "bingx")).toBeDefined();
 
     const link = getReferralLink("bingx", "JP") as any;
-    expect(link.code).toBe("NO_REFERRAL_LINK");
+    expect(link.url).toContain("DDXU0P");
+    expect(link.discount).toBe("20%");
 
     const row = jp.find((x) => x.exchange === "bingx");
     expect(Array.isArray(row.exchange_notes)).toBe(true);
@@ -2946,10 +2956,11 @@ describe("v0.28: compare_personas multi-persona decision matrix", () => {
           cur.headline_persona_ids.length - prev.headline_persona_ids.length,
       ).toBeLessThanOrEqual(0);
     }
-    // OKX is the most versatile REALISTIC pick in JP (3 complete wins).
-    expect(r.most_versatile).toBe("okx");
-    const okxWins = r.venue_wins.find((w: any) => w.exchange === "okx");
-    expect(okxWins.complete_persona_ids).toHaveLength(3);
+    // MEXC is the most versatile REALISTIC pick in JP (4 complete wins once
+    // its 20% referral discount is priced in).
+    expect(r.most_versatile).toBe("mexc");
+    const mexcWins = r.venue_wins.find((w: any) => w.exchange === "mexc");
+    expect(mexcWins.complete_persona_ids).toHaveLength(4);
     expect(r.data_as_of).toBeTruthy();
   });
 
@@ -3261,7 +3272,7 @@ describe("v0.35: compareCountries matrix", () => {
     expect(r.cheapest_country.country).toBe("DE");
     expect(r.cheapest_country.basis).toBe("best_complete");
     expect(r.costliest_country.country).toBe("US");
-    expect(r.spread_usd).toBeCloseTo(52.55, 1);
+    expect(r.spread_usd).toBeCloseTo(53.75, 1);
     // one-decimal percentage
     for (const row of r.rows) {
       const pct = row.extra_vs_cheapest_country_pct!;
@@ -3489,8 +3500,10 @@ describe("v0.37: BloFin integration", () => {
     expect(getTokenDiscount("blofin")).toBeNull();
     const rows = compareExchangeFees("futures", "JP", { useToken: true, tokenBalance: 999_999 }) as any[];
     const bf = rows.find((x) => x.exchange === "blofin");
-    expect(bf.effective_taker).toBe(0.06);
+    // base taker 0.06% with the 20% referral -> 0.048%; no token layer exists.
+    expect(bf.effective_taker).toBe(0.048);
     expect(bf.token_applied).toBe(false);
+    expect(bf.referral_discount).toBe("20%");
 
     expect(getFundingRate("blofin")).toMatchObject({ interval_hours: 8, avg_rate_pct: 0.01 });
     // 16h holding = 2 intervals * 0.01% * 100k = $20.
@@ -3504,7 +3517,7 @@ describe("v0.37: BloFin integration", () => {
     });
   });
 
-  it("compliance: blocked in US/CA/CN/SG/DE (MiCA), served in JP/TH/HK/GB/BR; no referral link; notes attached", () => {
+  it("compliance: blocked in US/CA/CN/SG/DE (MiCA), served in JP/TH/HK/GB/BR; referral link in served countries; notes attached", () => {
     for (const cc of ["US", "CA", "CN", "SG", "DE"]) {
       expect((calculateSavings("blofin", 1_000, "spot", cc) as any).code).toBe("COUNTRY_BLOCKED");
     }
@@ -3519,7 +3532,8 @@ describe("v0.37: BloFin integration", () => {
     expect(jp.find((x) => x.exchange === "blofin")).toBeDefined();
 
     const link = getReferralLink("blofin", "JP") as any;
-    expect(link.code).toBe("NO_REFERRAL_LINK");
+    expect(link.url).toContain("CVDgdE");
+    expect(link.discount).toBe("20%");
 
     const row = jp.find((x) => x.exchange === "blofin");
     expect(Array.isArray(row.exchange_notes)).toBe(true);
@@ -4081,7 +4095,7 @@ describe("v0.42: Bitvavo static economics (spot ladder, spread, rails, withdrawa
     const rows = compareExchangeFees("spot", "DE") as any[];
     const bitvavo = rows.find((x) => x.exchange === "bitvavo")!;
     expect(bitvavo).toBeDefined();
-    expect(bitvavo).toMatchObject({ base_maker: 0.15, base_taker: 0.25, effective_maker: 0.15, effective_taker: 0.25 });
+    expect(bitvavo).toMatchObject({ base_maker: 0.15, base_taker: 0.25, effective_maker: 0.12, effective_taker: 0.2 });
   });
 
   it("offers free SEPA deposits and withdrawals in the EEA, a ~1% EU card deposit, and no card cash-out", () => {

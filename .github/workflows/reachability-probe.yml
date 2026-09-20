@@ -1,0 +1,71 @@
+name: reachability-probe
+
+# Plan-B probe: can the live spread/funding pipeline (ccxt loadMarkets ->
+# fetchOrderBook) actually reach each venue's public API from a GitHub-hosted
+# runner? Runners egress from US IPs and several venues geo-block them
+# (451/403), which is why the continuous spread-observation pipeline was
+# deferred in the v0.48 plan. This MANUALLY-dispatched probe measures real
+# coverage first: only venues/purposes with `reachable+booked` rows in the job
+# summary are candidates for a scheduled GH-runner collector. No credentials,
+# no writes — read-only public endpoints, report uploaded as an artifact.
+
+on:
+  workflow_dispatch:
+    inputs:
+      pair:
+        description: "Pair to resolve per venue (native-currency fallbacks apply)"
+        required: false
+        default: "BTC/USDT"
+      timeout_ms:
+        description: "Per-request ccxt timeout in ms"
+        required: false
+        default: "15000"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reachability-probe
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    name: probe venue reachability
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Record runner egress location
+        continue-on-error: true
+        run: |
+          {
+            echo "### Runner egress"
+            echo
+            '```'
+            curl -s --max-time 10 https://ipinfo.io/json || echo "ipinfo.io unavailable"
+            echo
+            '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Probe exchange reachability
+        run: |
+          node scripts/probe-reachability.mjs \
+            --pair "${{ inputs.pair }}" \
+            --timeout-ms "${{ inputs.timeout_ms }}" \
+            --json "$RUNNER_TEMP/reachability.json"
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reachability-report
+          path: ${{ runner.temp }}/reachability.json
+          retention-days: 90

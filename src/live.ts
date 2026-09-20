@@ -26,7 +26,7 @@ import type {
 // Our internal exchange id -> ccxt exchange id.
 // ccxt 4.5 renamed Gate.io to "gate"; KuCoin/Kraken futures live in dedicated
 // classes (the spot classes cannot fetch funding rates).
-const CCXT_IDS: Record<string, string> = {
+export const CCXT_IDS: Record<string, string> = {
   binance: "binance",
   okx: "okx",
   gate: "gate",
@@ -303,7 +303,7 @@ export async function fetchFundingRatesLive(
 // =====================================================================
 
 // Spot execution must use the spot class for the two split venues.
-const CCXT_SPOT_ID_OVERRIDES: Record<string, string> = {
+export const CCXT_SPOT_ID_OVERRIDES: Record<string, string> = {
   kucoin: "kucoin",
   kraken: "kraken",
   coinbase: "coinbaseexchange",

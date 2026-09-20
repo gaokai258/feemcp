@@ -3,7 +3,7 @@
   "name": "io.github.gaokai258/fee-optimizer-mcp",
   "title": "Fee Optimizer MCP",
   "description": "Compare crypto exchange fees across 18 venues. VIP tiers, funding, spread, fiat rails, app vs PRO, auditable fee-change feed.",
-  "version": "0.48.0",
+  "version": "0.49.0",
   "repository": {
     "url": "https://github.com/gaokai258/feemcp",
     "source": "github"
@@ -12,7 +12,7 @@
     {
       "registryType": "npm",
       "identifier": "fee-optimizer-mcp",
-      "version": "0.48.0",
+      "version": "0.49.0",
       "transport": { "type": "stdio" }
     }
   ],
