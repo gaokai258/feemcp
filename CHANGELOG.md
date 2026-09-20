@@ -5,7 +5,9 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/); the proj
 
 > Note: this project predates this changelog. Entries for 0.20.0–0.46.0 are reconstructed from release notes embedded in `README.md` / `server.json`; their original release dates and git tags were not recorded (no pre-existing git history in the working tree). Only 0.47.0 carries an actual completion date. Patch releases, if any, were folded into the minor entries.
 
-## [0.49.0] — 2026-09-20
+## [0.49.1] — 2026-09-21
+
+First published 0.49.x release. The `v0.49.0` tag was pushed but its release aborted before anything reached npm or the MCP Registry (the validate-422 and Node 18 smoke failures listed under Fixed), so 0.49.0 never existed on npm; all 0.49 content ships here.
 
 ### Added
 - **Referral coverage 4 → 10 venues**: [`data/referral_links.json`](data/referral_links.json) now carries the operator's 20%-user-discount invite links for **Bybit, MEXC, KuCoin, BingX, BloFin and Bitvavo** (official venue domains / invite short links), alongside the existing Binance, OKX, Bitget and Gate.io programs. All six are `regions: ["global"]`; compliance gating in the tools is unchanged (a link only resolves where the venue itself is allowed).
@@ -19,6 +21,10 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/); the proj
 ### Fixed
 - **MCP Registry publish validation (422)**: `server.json` `description` exceeded the registry's 100-character limit after the v0.48 wording change (v0.48 was never tagged, so this surfaced only now); shortened to 99 characters. Verified with `mcp-publisher validate` 1.8.1 against the live registry.
 - **HTTP smoke false-green**: `scripts/smoke-http.mjs` shut down via an `.unref()`'d 500 ms timer, so on Node 20+ the event loop drained and the process exited 0 even after failed assertions — only Node 18 reported the failure. The timer now keeps the loop alive so the exit code always reflects the assertion count. The stale `most_versatile: okx` smoke assertion (changed to `mexc` by the new referral economics in this release) is updated, so the end-to-end suite now passes on all three CI Node versions.
+
+## [0.49.0] — 2026-09-20 — tag only, release aborted
+
+Tag `v0.49.0` exists in git but was **never published** to npm or the MCP Registry: the tag-triggered publish workflow failed at `mcp-publisher validate` (the description-length 422 above) and the matching CI run failed the Node 18 HTTP smoke (the false-green above). Both fixes landed before any artifact shipped. Superseded by 0.49.1; do not reuse.
 
 ## [0.48.0] — 2026-09-14
 
