@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: fee-optimizer-mcp
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: FEE_MCP_ACCESS_LOG
+        value: "1"
+      - key: FEE_MCP_RATE_LIMIT_PER_MIN
+        value: "120"

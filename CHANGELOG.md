@@ -5,6 +5,12 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/); the proj
 
 > Note: this project predates this changelog. Entries for 0.20.0–0.46.0 are reconstructed from release notes embedded in `README.md` / `server.json`; their original release dates and git tags were not recorded (no pre-existing git history in the working tree). Only 0.47.0 carries an actual completion date. Patch releases, if any, were folded into the minor entries.
 
+## [Unreleased]
+
+### Added
+- **GHCR 镜像发布渠道** — 新增 [.github/workflows/docker-publish.yml](.github/workflows/docker-publish.yml)：`v*` tag 触发（与 `publish-mcp.yml` 并行），用 Docker Buildx 构建 `linux/amd64` + `linux/arm64` 双架构镜像推送到 GitHub Container Registry (`ghcr.io/gaokai258/feemcp`)。镜像 tag 去掉 `v` 前缀（如 `0.49.1`），同时打 `latest`。使用内置 `GITHUB_TOKEN`（`packages: write`），无需额外凭据。复用现有 `Dockerfile`（node:22-alpine、非 root 用户、HEALTHCHECK、3333 端口）。
+- **Render 部署配置（Smithery URL 发布前置）** — 新增仓库根 [render.yaml](render.yaml)：定义 `runtime: docker` 的 web service（free plan、`/health` 健康检查、访问日志 + 速率限制环境变量），用于在 Render 上一键部署后获得公开 HTTPS endpoint，进而提交给 Smithery 做目录发布。`render.yaml` 不在 npm tarball 的 `files` 允许列表中，npm 消费者不受影响。
+
 ## [0.49.1] — 2026-09-21
 
 First published 0.49.x release. The `v0.49.0` tag was pushed but its release aborted before anything reached npm or the MCP Registry (the validate-422 and Node 18 smoke failures listed under Fixed), so 0.49.0 never existed on npm; all 0.49 content ships here.
